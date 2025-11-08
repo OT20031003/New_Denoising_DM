@@ -1,4 +1,3 @@
-"""SAMPLING ONLY."""
 
 import torch
 import numpy as np
@@ -77,8 +76,7 @@ class DDIMSampler(object):
         
         # 指定されたtimestepの alpha_bar を取得 (これはスカラー)
         # self.alphas_cumprod は make_schedule によってモデルと同じデバイスに配置済み
-        print(f"self.alphas_cumprod = {self.alphas_cumprod}, ----shape--- = {self.alphas_cumprod.shape}")
-
+      
         alpha_t_bar = self.alphas_cumprod[timestep] 
 
         # --- 修正点 ---
@@ -93,6 +91,7 @@ class DDIMSampler(object):
         if timestep == 0:
             #print(f"ddim.py ===========   sqrt_alpha_t_bar = {sqrt_alpha_t_bar}")
             sqrt_alpha_t_bar = torch.full_like(sqrt_alpha_t_bar, 1.0)
+            return x
         sqrt_one_minus_alpha_t_bar = torch.sqrt(1.0 - alpha_t_bar).view(1, 1, 1, 1)
 
         # 3. ノイズを加える (x_t = sqrt(alpha_bar_t) * x_0 + sqrt(1 - alpha_bar_t) * epsilon)
@@ -358,6 +357,7 @@ class DDIMSampler(object):
                # this has to come in the same format as the conditioning, # e.g. as encoded tokens, ...
                snr = None,
                added_timestep = 0, 
+               h = torch.tensor(1 + 0j, dtype=torch.complex64),
                **kwargs
                ):
         if conditioning is not None:
@@ -378,8 +378,10 @@ class DDIMSampler(object):
             alpha_bar_t = torch.full_like(alpha_bar_t, 1.0)
             print(f"ddim.py alpha_bar_t = {alpha_bar_t}")
         device = self.model.betas.device
-        alpha_bar_u = 1/(((torch.sqrt(1 - alpha_bar_t) + torch.sqrt(noise_sigma_predict))/torch.sqrt(alpha_bar_t))**2 + 1)
-        print(f"ddim.py, alpha_bar_u = {alpha_bar_u}")
+        term1 = (torch.sqrt(1 - alpha_bar_t) + torch.sqrt(noise_sigma_predict) / h) / torch.sqrt(alpha_bar_t)
+        term1 = term1.abs()
+        alpha_bar_u = 1/(term1 * term1 + 1)
+
         alpha_minus = -self.alphas_cumprod
         start_timesteps = torch.searchsorted(alpha_minus, -alpha_bar_u)
         start_timesteps *= 1 # ここでタイムステップをいじくる

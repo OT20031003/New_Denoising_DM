@@ -137,7 +137,7 @@ def caluc_lpips(x,y):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    t = 50 # 意図的に与えるタイムステップ
+    t = 150 # 意図的に与えるタイムステップ
     parser.add_argument(
         "--prompt",
         type=str,
@@ -151,7 +151,7 @@ if __name__ == "__main__":
         type=str,
         nargs="?",
         help="dir to write results to",
-        default=f"outputs/jointdiffusion/no_ht={t}"
+        default=f"outputs/jointdiffusion/t={t}"
     )
     parser.add_argument(
         "--nosample_outdir",
@@ -272,7 +272,7 @@ if __name__ == "__main__":
     all_samples=list()
     # 画像をロード
     remove_png(opt.outdir)
-    
+    eps = 0.0000001
     img = load_images_as_tensors(opt.input_path)
     print(f"img shape = {img.shape}")
     save_img_individually(img, opt.sentimgdir + "/sentimg.png")
@@ -282,13 +282,16 @@ if __name__ == "__main__":
     print(f"encode start = ")
     z = model.get_first_stage_encoding(z).detach()
     # forward process のための正規化
-    # z_encode_mean = z.mean(dim=(1, 2, 3), keepdim=True)
-    # z_variances_original = torch.var(z, dim=(1, 2, 3))
-    # z = (z - z_encode_mean) / torch.sqrt(z_variances_original)
-    # print(f"z = {z.shape}, z_max = {z.max()}, z_min = {z.min()}")
+    z_encode_mean = z.mean(dim=(1, 2, 3), keepdim=True)
+    z_variances_original = torch.var(z, dim=(1, 2, 3)).view(-1, 1, 1, 1)
+    za = z
+    z = (z - z_encode_mean) / (torch.sqrt(z_variances_original) + eps)
+    print(f"z = {z.shape}, z_max = {z.max()}, z_min = {z.min()}")
     
-    #print(f"z_variance_original = {z_variances_original}")
+    print(f"z_variance_original = {z_variances_original}")
     z = sampler.forward_diffusion(S=opt.ddim_steps, batch_size=z.shape[0], timestep=t, x = z)
+    # forwardの後の非正規化
+    z = z *(torch.sqrt(z_variances_original)+eps) + z_encode_mean
     
     # チャネル符号化 (複素数)
     assert(z.shape[1] % 2 == 0)
@@ -298,13 +301,18 @@ if __name__ == "__main__":
     # 正規化
     z_mean = complex_z.mean(dim=(1, 2, 3), keepdim=True)
     z_variances_with_noise = torch.var(complex_z, dim=(1, 2, 3)) 
-    eps = 0.0000001
+    
     complex_z = complex_z - z_mean
     normalized_z = complex_z / torch.sqrt((z_variances_with_noise + eps)).view(-1, 1, 1, 1)
-    print(f"complex_z = {torch.var(normalized_z, dim=(1, 2, 3))}")
+    print(f"complex_z_variance = {torch.var(normalized_z, dim=(1, 2, 3))}")
+    
     z_copy = normalized_z
-    h = torch.randn(size=()) + torch.randn(size=())*1j
+    std_dev = torch.sqrt(torch.tensor(0.5))
+    
+    h = (torch.randn(size=()) * std_dev) + (torch.randn(size=()) * std_dev) * 1j
+    #h = torch.tensor(1 + 0j , dtype=torch.complex64)
     h = h.to(device)
+    print(f"|h| = {h.abs()}, h = {h}")
     for snr in range(-5, 10, 1):
         # SNR 15dBのときのノイズを乗せる snr = signal/noise
         print(f"--------SNR = {snr}-----------")
@@ -321,15 +329,18 @@ if __name__ == "__main__":
         noise_real = torch.randn_like(z.real) * noise_std
         noise_imag = torch.randn_like(z.real) * noise_std
         noise = torch.complex(noise_real, noise_imag)
-        
+        print(f"|h| = {h.abs()}, h = {h}")
         print(f"noise_variace = {noise_variances}, z_variance = {z_variances}")
-        z = z + noise
+        z = z + noise/h
         #save_img(z, f"outputs/z_{snr}.png")
         # 非正規化
         z = torch.sqrt(z_variances_with_noise.view(-1, 1, 1, 1)) * z + z_mean
         # channel decoding
         z = torch.cat([z.real, z.imag], dim=1)
         
+        # autoencoderの出力形式に戻す非正規化
+        #z = z*z_variances_original + z_encode_mean
+
         recoverd_img_no_samp = model.decode_first_stage(z)
         #save_img(recoverd_img_no_samp, f"outputs/nosample_{snr}.png")  
         cond = model.get_learned_conditioning(z.shape[0] * [""])
@@ -340,7 +351,7 @@ if __name__ == "__main__":
 
         samples = sampler.jointdiffusion_ddim_sampling(S=opt.ddim_steps, batch_size=z.shape[0], 
                         shape= z.shape[1:4],x_T=z,noise_sigma_predict = noise_variances,added_timestep= t,
-                        conditioning=cond,intermediate_path=opt.intermediate_path, intermediate_skip=opt.intermediate_skip, snr = snr)
+                        conditioning=cond,intermediate_path=opt.intermediate_path, intermediate_skip=opt.intermediate_skip, snr = snr, h = h)
 
     
         
