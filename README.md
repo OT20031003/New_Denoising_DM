@@ -25,9 +25,7 @@ The image you want to send should be put on "input_img" directory.
 ```
 rm -r sentimg
 ```
-```
-rm -r outputs/txt2img-samples
-```
+
 ```
 python -m scripts.img2img
 ```

@@ -137,7 +137,7 @@ def caluc_lpips(x,y):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    t = 150 # 意図的に与えるタイムステップ
+    t = 0 # 意図的に与えるタイムステップ
     parser.add_argument(
         "--prompt",
         type=str,
@@ -284,7 +284,7 @@ if __name__ == "__main__":
     # forward process のための正規化
     z_encode_mean = z.mean(dim=(1, 2, 3), keepdim=True)
     z_variances_original = torch.var(z, dim=(1, 2, 3)).view(-1, 1, 1, 1)
-    za = z
+  
     z = (z - z_encode_mean) / (torch.sqrt(z_variances_original) + eps)
     print(f"z = {z.shape}, z_max = {z.max()}, z_min = {z.min()}")
     
@@ -312,6 +312,8 @@ if __name__ == "__main__":
     h = (torch.randn(size=()) * std_dev) + (torch.randn(size=()) * std_dev) * 1j
     #h = torch.tensor(1 + 0j , dtype=torch.complex64)
     h = h.to(device)
+    print(f"|h| = {h.abs()}, h = {h}")
+    h /= (h.abs() + eps)
     print(f"|h| = {h.abs()}, h = {h}")
     for snr in range(-5, 10, 1):
         # SNR 15dBのときのノイズを乗せる snr = signal/noise
