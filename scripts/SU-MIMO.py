@@ -154,8 +154,8 @@ if __name__ == "__main__":
     N = t
     r = 2
     P_power = 1.0
-    Perfect_Estimate = False
-    # python -m scripts.SU-MIMO > log_SU-MIMO_2_2.txt
+    Perfect_Estimate = True
+    # python -m scripts.SU-MIMO > log_SU-MIMO_2_2_perfect.txt
     parser.add_argument(
         "--prompt",
         type=str,
