@@ -150,10 +150,10 @@ def make_pilot(tau_p, K, device, dtype):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     t = None # 固定タイムステップ
-    K = 
+    K = 32
     M = 64
     tau_p = K # taup >= Kは必須。M >= にすると推定制度アップ
-    # python -m scripts.MIMOdiffusion > log_MIMO_dynamic_tau=1_M=64_K=32.txt
+    # python -m scripts.MIMOdiffusion > log_MIMO_dynamic_tau=1_M=64_K=.txt
     parser.add_argument(
         "--prompt",
         type=str,

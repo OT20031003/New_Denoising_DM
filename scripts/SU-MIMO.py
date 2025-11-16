@@ -154,6 +154,7 @@ if __name__ == "__main__":
     N = t
     r = 2
     P_power = 1.0
+    Perfect_Estimate = False
     # python -m scripts.SU-MIMO > log_SU-MIMO_2_2.txt
     parser.add_argument(
         "--prompt",
@@ -176,7 +177,7 @@ if __name__ == "__main__":
         type=str,
         nargs="?",
         help="dir to write results to",
-        default=f"outputs/SU-MIMO/t={t}_r={r}_t={t}/nonoisenosample"
+        default=f"outputs/SU-MIMO/t={t}_r={r}_t={t}/nosample"
     )
 
     parser.add_argument(
@@ -262,8 +263,16 @@ if __name__ == "__main__":
     if opt.intermediate_path != None:
         os.makedirs(opt.intermediate_path, exist_ok=True)
         print(f"{opt.intermediate_path} is created new")
+    if Perfect_Estimate == True:
+        opt.outdir  = f"outputs/SU-MIMO/t={t}_r={r}_t={t}/T={T}/perfect_estimate"
+        opt.nosample_outdir = f"outputs/SU-MIMO/t={t}_r={r}_t={t}/nonoisenosample_perfect_estimate"
     if T == None or T <0:
         opt.outdir = f"outputs/SU-MIMO/t={t}_r={r}_t={t}/dynamic"
+        opt.nosample_outdir = f"outputs/SU-MIMO/t={t}_r={r}_t={t}/dynamic/nosample"
+        if Perfect_Estimate == True:
+            opt.outdir = f"outputs/SU-MIMO/t={t}_r={r}_t={t}/dynamic_perfect_estimate"
+            opt.nosample_outdir = f"outputs/SU-MIMO/t={t}_r={r}_t={t}/nosample_perfect_estimate"
+    
     config = OmegaConf.load("configs/latent-diffusion/txt2img-1p4B-eval.yaml")  # TODO: Optionally download from same location as ckpt and chnage this logic
     # ldm.modules.diffusion.ddpmをロード
     model = load_model_from_config(config, "models/ldm/text2img-large/model.ckpt")  # TODO: check path
@@ -364,8 +373,9 @@ if __name__ == "__main__":
         A = torch.inverse(H_hat.mH@H_hat) @ H_hat.mH
         SINR = torch.var(X, dim=(1, 2)) / torch.var(A@(W-H_tilde@X), dim=(1, 2))
         # 完全な推定ができた場合
-        # A = torch.inverse(H.mH@H) @ H.mH
-        # SINR = torch.var(X, dim=(1, 2)) / torch.var(A@(W), dim=(1, 2))
+        if Perfect_Estimate == True:
+            A = torch.inverse(H.mH@H) @ H.mH
+            SINR = torch.var(X, dim=(1, 2)) / torch.var(A@(W), dim=(1, 2))
         AY = A @ Y #(B, t, l)
         E = X - AY
         print(f"torch.linalg.det(H_hat.mH@H_hat) = {torch.linalg.det(H_hat.mH@H_hat)}")
