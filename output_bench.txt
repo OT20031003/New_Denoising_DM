@@ -1,0 +1,351 @@
+Output Directory: outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate
+Loading model from models/ldm/text2img-large/model.ckpt
+autoencoder.py
+LatentDiffusion: Running in eps-prediction mode
+DiffusionWrapper has 872.30 M params.
+ldm.modules/diffusionmodules/util.py ; make_schedule = linear
+ldm/modules/diffusionmodules/model.py, Enocoder; in_channels = 3, ch_mult = [1, 2, 4, 4]
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+making attention of type 'vanilla' with 512 in_channels
+ldm/models/autoencoder.py, AutoencoderKL init, created
+Working with z of shape (1, 4, 32, 32) = 4096 dimensions.
+making attention of type 'vanilla' with 512 in_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+remove_png complete
+img shape = torch.Size([20, 3, 256, 256])
+20 images are saved in ./sentimg/
+Encoder, forward@@@@@@@@@@@@@@@
+autoencoder.py, h = torch.Size([20, 8, 32, 32])
+autoencoder.py , moments = torch.Size([20, 8, 32, 32])
+--------SNR = -5 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.0309, 0.2129, 0.0721, 0.0737, 0.0709, 0.0085, 0.0737, 0.1323, 0.0465,
+        0.1551, 0.1509, 0.0693, 0.2967, 0.0719, 0.0092, 0.1924, 0.0956, 0.0954,
+        0.0383, 0.0618], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([820, 551, 719, 716, 721, 948, 716, 632, 774, 606, 611, 724, 486, 719,
+        940, 570, 680, 680, 796, 738], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR -5
+--------SNR = -4 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.1673, 0.0088, 0.1158, 0.3060, 0.1905, 0.2531, 0.0585, 0.0263, 0.0664,
+        0.3595, 0.0270, 0.2433, 0.1989, 0.1371, 0.1719, 0.2233, 0.1621, 0.1117,
+        0.3332, 0.0733], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([594, 945, 652, 479, 571, 518, 746, 838, 729, 442, 835, 526, 564, 626,
+        589, 542, 599, 657, 460, 716], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR -4
+--------SNR = -3 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.0424, 0.3470, 0.2416, 0.2388, 0.0190, 0.1881, 0.1076, 0.1351, 0.2055,
+        0.0938, 0.1881, 0.2957, 0.3654, 0.0073, 0.3329, 0.0250, 0.1315, 0.1782,
+        0.1062, 0.0446], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([784, 451, 527, 530, 872, 574, 663, 629, 558, 683, 574, 486, 438, 961,
+        460, 843, 633, 583, 665, 779], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR -3
+--------SNR = -2 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.2064, 0.4201, 0.1903, 0.2040, 0.1329, 0.1944, 0.3429, 0.1193, 0.0469,
+        0.2704, 0.0090, 0.0366, 0.3483, 0.0007, 0.1693, 0.2133, 0.1677, 0.0725,
+        0.1011, 0.2062], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([ 557,  403,  572,  559,  631,  568,  453,  648,  772,  505,  942,  801,
+         450, 1000,  592,  551,  593,  718,  672,  557], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR -2
+--------SNR = -1 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.3554, 0.1528, 0.0240, 0.2103, 0.1122, 0.4125, 0.4745, 0.4150, 0.1129,
+        0.4074, 0.1324, 0.1534, 0.4239, 0.1906, 0.0630, 0.0855, 0.1979, 0.1084,
+        0.2019, 0.1980], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([445, 609, 847, 554, 657, 408, 370, 406, 656, 411, 632, 608, 401, 571,
+        736, 696, 565, 662, 561, 565], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR -1
+--------SNR = 0 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.2487, 0.4664, 0.3813, 0.2304, 0.4091, 0.1895, 0.2697, 0.2883, 0.3217,
+        0.3280, 0.4710, 0.4551, 0.4789, 0.1825, 0.3072, 0.1009, 0.0752, 0.2614,
+        0.2937, 0.3149], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([522, 375, 428, 537, 410, 572, 505, 492, 468, 463, 372, 382, 367, 579,
+        478, 672, 713, 512, 488, 473], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR 0
+--------SNR = 1 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.4455, 0.4554, 0.1864, 0.4555, 0.3472, 0.6378, 0.3951, 0.4225, 0.2995,
+        0.4716, 0.4553, 0.1385, 0.4275, 0.1178, 0.2351, 0.2743, 0.0528, 0.2183,
+        0.2666, 0.3045], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([387, 381, 575, 381, 450, 272, 419, 402, 483, 372, 381, 625, 399, 650,
+        533, 502, 758, 547, 508, 480], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR 1
+--------SNR = 2 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.3353, 0.4698, 0.5650, 0.3772, 0.0219, 0.6012, 0.1077, 0.1860, 0.2191,
+        0.0315, 0.1553, 0.4428, 0.4025, 0.1621, 0.3357, 0.4142, 0.4265, 0.2536,
+        0.3879, 0.2538], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([458, 373, 316, 431, 857, 294, 663, 576, 546, 818, 606, 389, 414, 599,
+        458, 407, 399, 518, 424, 518], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR 2
+--------SNR = 3 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.5444, 0.6476, 0.5691, 0.5238, 0.5240, 0.2332, 0.5088, 0.4663, 0.1652,
+        0.6072, 0.4901, 0.4755, 0.7674, 0.2764, 0.3283, 0.2181, 0.4637, 0.2125,
+        0.6010, 0.5010], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([328, 266, 313, 340, 340, 534, 349, 375, 596, 291, 360, 369, 192, 500,
+        463, 547, 376, 552, 294, 354], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR 3
+--------SNR = 4 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.3820, 0.2778, 0.5888, 0.1781, 0.5682, 0.0740, 0.5159, 0.2861, 0.6333,
+        0.3429, 0.3584, 0.2504, 0.4318, 0.7107, 0.4369, 0.6125, 0.0692, 0.4021,
+        0.2591, 0.1728], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([427, 499, 302, 583, 314, 715, 345, 493, 275, 453, 443, 520, 396, 228,
+        393, 287, 724, 415, 514, 588], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR 4
+--------SNR = 5 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.2828, 0.6805, 0.6772, 0.7216, 0.4952, 0.5994, 0.4255, 0.5805, 0.1907,
+        0.4194, 0.6752, 0.0058, 0.2812, 0.0460, 0.7001, 0.5568, 0.7509, 0.5412,
+        0.4351, 0.5935], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([496, 246, 248, 221, 357, 295, 400, 306, 571, 404, 250, 981, 497, 775,
+        234, 321, 202, 330, 394, 299], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR 5
+--------SNR = 6 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.0781, 0.5514, 0.3907, 0.7036, 0.7782, 0.5942, 0.2183, 0.3132, 0.5549,
+        0.5824, 0.5162, 0.5026, 0.7119, 0.6262, 0.2762, 0.6354, 0.6439, 0.7352,
+        0.5746, 0.7304], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([708, 324, 422, 232, 184, 298, 547, 474, 322, 305, 345, 353, 227, 279,
+        501, 274, 269, 212, 310, 215], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR 6
+--------SNR = 7 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.6465, 0.4105, 0.7837, 0.4604, 0.2863, 0.6536, 0.4492, 0.7181, 0.5678,
+        0.1407, 0.4012, 0.5013, 0.1634, 0.0816, 0.0874, 0.7198, 0.5077, 0.8459,
+        0.3433, 0.2121], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([267, 409, 181, 378, 493, 263, 385, 223, 314, 622, 415, 354, 598, 702,
+        693, 222, 350, 137, 453, 552], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR 7
+--------SNR = 8 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.3751, 0.5166, 0.8185, 0.6527, 0.7179, 0.2161, 0.4811, 0.7457, 0.8574,
+        0.7691, 0.6352, 0.6995, 0.8117, 0.8524, 0.6432, 0.6197, 0.8749, 0.4190,
+        0.6182, 0.7898], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([432, 344, 157, 263, 223, 549, 366, 206, 129, 190, 274, 235, 162, 133,
+        269, 283, 116, 404, 284, 177], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR 8
+--------SNR = 9 (Benchmark)-----------
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps, Selected timesteps for ddim sampler: (200,)
+ldm/modules/diffusionmodules/util.py, make_ddim_sampling_parameters, Selected alphas for ddim sampler: a_t: torch.Size([200]); a_(t-1): (200,)
+For the chosen value of eta, which is 0.0, this results in the following sigma_t schedule for ddim sampler tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
+ddim.py alphas_cumprod = torch.Size([1000])
+ddim.py, alpha_bar_u = tensor([0.5912, 0.6860, 0.2049, 0.9086, 0.4842, 0.7582, 0.7795, 0.6925, 0.9225,
+        0.6150, 0.7881, 0.8605, 0.4906, 0.0903, 0.7202, 0.8922, 0.7530, 0.7829,
+        0.7619, 0.7178], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([300, 243, 558,  89, 364, 198, 184, 239,  77, 286, 178, 127, 360, 688,
+        222, 102, 201, 181, 195, 223], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
+Saved SNR 9

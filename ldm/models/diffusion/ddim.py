@@ -1,11 +1,59 @@
-
 import torch
 import numpy as np
 from tqdm import tqdm
 from functools import partial
 import os
 from ldm.modules.diffusionmodules.util import make_ddim_sampling_parameters, make_ddim_timesteps, noise_like
-import torchvision.utils as vutil  # <-- この行を追加
+import torchvision.utils as vutil
+
+# ==========================================
+#  Added: Slerp (Spherical Linear Interpolation)
+# ==========================================
+def slerp_tensor(val, low, high):
+    """
+    Slerp for tensors.
+    val: float or tensor, interpolation factor (0.0 = low (pred), 1.0 = high (known))
+    low: tensor, starting vector (e.g., predicted noise)
+    high: tensor, target vector (e.g., known noise)
+    """
+    dims = low.shape
+    # Flatten for calculation
+    low_flat = low.reshape(low.shape[0], -1)
+    high_flat = high.reshape(high.shape[0], -1)
+
+    # Normalize
+    low_norm = low_flat / torch.norm(low_flat, dim=1, keepdim=True)
+    high_norm = high_flat / torch.norm(high_flat, dim=1, keepdim=True)
+
+    # Dot product (cos omega)
+    dot = (low_norm * high_norm).sum(1)
+    dot = torch.clamp(dot, -1.0, 1.0)
+    
+    omega = torch.acos(dot)
+    so = torch.sin(omega)
+
+    # Avoid zero division
+    mask = so > 1e-6
+    
+    s1 = torch.zeros_like(dot)
+    s2 = torch.zeros_like(dot)
+    
+    if isinstance(val, float):
+        val = torch.tensor(val, device=low.device)
+    
+    s1[mask] = torch.sin((1.0 - val) * omega[mask]) / so[mask]
+    s2[mask] = torch.sin(val * omega[mask]) / so[mask]
+    
+    # Linear interpolation fallback
+    s1[~mask] = 1.0 - val
+    s2[~mask] = val
+    
+    s1 = s1.view(-1, 1)
+    s2 = s2.view(-1, 1)
+    
+    res = s1 * low_flat + s2 * high_flat
+    return res.reshape(dims)
+
 
 class DDIMSampler(object):
     def __init__(self, model, schedule="linear", **kwargs):
@@ -74,19 +122,12 @@ class DDIMSampler(object):
 
         self.make_schedule(ddim_num_steps=S, ddim_eta=eta, verbose=verbose)
 
-        # 指定されたtimestepの alpha_bar を取得 (これはスカラー)
-        # self.alphas_cumprod は make_schedule によってモデルと同じデバイスに配置済み
-
         alpha_t_bar = self.alphas_cumprod[timestep]
-
-        # --- 修正点 ---
 
         # 1. torch.randn_like を使い、x と同じ形状・デバイスでガウスノイズを生成
         epsilon = torch.randn_like(x)
 
-        # 2. (推奨) 係数を [1, 1, 1, 1] の形状に変形して安全にブロードキャスト
-        #    view(-1, 1, 1, 1) は、バッチ処理（batch_size > 1）の場合に重要です
-        #    (self.alphas_cumprod[timestep]はスカラーなので、view(1, 1, 1, 1)でもOK)
+        # 2. 係数を変形
         sqrt_alpha_t_bar = torch.sqrt(alpha_t_bar).view(1, 1, 1, 1)
         if timestep == 0:
             #print(f"ddim.py ===========   sqrt_alpha_t_bar = {sqrt_alpha_t_bar}")
@@ -94,8 +135,7 @@ class DDIMSampler(object):
             return x
         sqrt_one_minus_alpha_t_bar = torch.sqrt(1.0 - alpha_t_bar).view(1, 1, 1, 1)
 
-        # 3. ノイズを加える (x_t = sqrt(alpha_bar_t) * x_0 + sqrt(1 - alpha_bar_t) * epsilon)
-        #    係数が既にxと同じデバイスにあるので .to("cuda") は不要
+        # 3. ノイズを加える
         return sqrt_alpha_t_bar * x + sqrt_one_minus_alpha_t_bar * epsilon
 
 
@@ -121,7 +161,6 @@ class DDIMSampler(object):
                log_every_t=100,
                unconditional_guidance_scale=1.,
                unconditional_conditioning=None,
-               # this has to come in the same format as the conditioning, # e.g. as encoded tokens, ...
                **kwargs
                ):
         if conditioning is not None:
@@ -209,141 +248,57 @@ class DDIMSampler(object):
 
         return img, intermediates
 
-    # =========================================================
-    # 追加: 既知ノイズガイダンス付きサンプリング (Proposal Method)
-    # =========================================================
     @torch.no_grad()
-    def known_noise_ddim_sampling(self,
-               S,
-               batch_size,
-               shape,
-               known_noise,          # <--- 追加: 送信側の既知ノイズ
-               guidance_scale=1.0,   # <--- 追加: 既知ノイズへの引き寄せ強度 (0.0~1.0)
-               conditioning=None,
-               callback=None,
-               img_callback=None,
-               quantize_x0=False,
-               eta=0.,
-               mask=None,
-               x0=None,
-               temperature=1.,
-               noise_dropout=0.,
-               score_corrector=None,
-               corrector_kwargs=None,
-               verbose=True,
-               x_T=None,
-               log_every_t=100,
-               unconditional_guidance_scale=1.,
-               unconditional_conditioning=None,
-               **kwargs
-               ):
-        
-        # スケジュール作成
-        self.make_schedule(ddim_num_steps=S, ddim_eta=eta, verbose=verbose)
-        
-        C, H, W = shape
-        size = (batch_size, C, H, W)
-        device = self.model.betas.device
-        
-        # x_T (受信信号)
-        if x_T is None:
-            img = torch.randn(shape, device=device)
+    def p_sample_ddim(self, x, c, t, index, repeat_noise=False, use_original_steps=False, quantize_denoised=False,
+                      temperature=1., noise_dropout=0., score_corrector=None, corrector_kwargs=None,
+                      unconditional_guidance_scale=1., unconditional_conditioning=None):
+        # c: cond
+        b, *_, device = *x.shape, x.device
+
+        if unconditional_conditioning is None or unconditional_guidance_scale == 1.:
+            e_t = self.model.apply_model(x, t, c)
         else:
-            img = x_T.to(device)
-            
-        # 既知ノイズの準備
-        if known_noise is not None:
-            known_noise = known_noise.to(device)
+            x_in = torch.cat([x] * 2)
+            t_in = torch.cat([t] * 2)
+            c_in = torch.cat([unconditional_conditioning, c])
+            e_t_uncond, e_t = self.model.apply_model(x_in, t_in, c_in).chunk(2)
+            e_t = e_t_uncond + unconditional_guidance_scale * (e_t - e_t_uncond)
 
-        # タイムステップ
-        timesteps = self.ddim_timesteps
-        time_range = np.flip(timesteps)
-        total_steps = timesteps.shape[0]
-        
-        print(f"Running Known-Noise Guided DDIM Sampling with {total_steps} steps (Scale={guidance_scale})")
-        iterator = tqdm(time_range, desc='Known Noise Sampler', total=total_steps)
+        if score_corrector is not None:
+            assert self.model.parameterization == "eps"
+            e_t = score_corrector.modify_score(self.model, e_t, x, t, c, **corrector_kwargs)
 
-        for i, step in enumerate(iterator):
-            index = total_steps - i - 1
-            ts = torch.full((batch_size,), step, device=device, dtype=torch.long)
+        alphas = self.model.alphas_cumprod if use_original_steps else self.ddim_alphas
+        alphas_prev = self.model.alphas_cumprod_prev if use_original_steps else self.ddim_alphas_prev
+        sqrt_one_minus_alphas = self.model.sqrt_one_minus_alphas_cumprod if use_original_steps else self.ddim_sqrt_one_minus_alphas
+        sigmas = self.model.ddim_sigmas_for_original_num_steps if use_original_steps else self.ddim_sigmas
+        # select parameters corresponding to the currently considered timestep
+        a_t = torch.full((b, 1, 1, 1), alphas[index], device=device)
+        a_prev = torch.full((b, 1, 1, 1), alphas_prev[index], device=device)
+        sigma_t = torch.full((b, 1, 1, 1), sigmas[index], device=device)
+        sqrt_one_minus_at = torch.full((b, 1, 1, 1), sqrt_one_minus_alphas[index],device=device)
 
-            # ----------------------------------------------------------------
-            # 1. 通常のノイズ予測 (Predict Noise)
-            # ----------------------------------------------------------------
-            if unconditional_conditioning is None or unconditional_guidance_scale == 1.:
-                e_t = self.model.apply_model(img, ts, conditioning)
-            else:
-                x_in = torch.cat([img] * 2)
-                t_in = torch.cat([ts] * 2)
-                c_in = torch.cat([unconditional_conditioning, conditioning])
-                e_t_uncond, e_t = self.model.apply_model(x_in, t_in, c_in).chunk(2)
-                e_t = e_t_uncond + unconditional_guidance_scale * (e_t - e_t_uncond)
+        # current prediction for x_0
+        pred_x0 = (x - sqrt_one_minus_at * e_t) / a_t.sqrt()
+        if quantize_denoised:
+            pred_x0, _, *_ = self.model.first_stage_model.quantize(pred_x0)
+        # direction pointing to x_t
+        dir_xt = (1. - a_prev - sigma_t**2).sqrt() * e_t
+        noise = sigma_t * noise_like(x.shape, device, repeat_noise) * temperature
+        if noise_dropout > 0.:
+            noise = torch.nn.functional.dropout(noise, p=noise_dropout)
+        x_prev = a_prev.sqrt() * pred_x0 + dir_xt + noise
+        return x_prev, pred_x0
 
-            # ----------------------------------------------------------------
-            # 2. 既知ノイズによるガイダンス (Known Noise Subtraction / Guidance)
-            # ----------------------------------------------------------------
-            # e_t : モデルが画像から予測した「総ノイズ」(未知+既知)
-            # known_noise : 正解の既知ノイズ
-            #
-            # 戦略: e_t を known_noise の方向に強制的に補正する。
-            # ただし、単純に置き換えると分散が壊れるので、Ratio-Preservingを行う。
-            
-            if known_noise is not None and guidance_scale > 0.0:
-                # A. 差分ベクトル (予測ノイズ - 正解ノイズ)
-                # これが「未知の通信路ノイズ」成分を含むベクトル
-                delta = e_t - known_noise
-                
-                # B. ガイダンス適用
-                # scale=1.0 なら完全に known_noise に置き換わる(通信ノイズ完全除去を意図)
-                # scale=0.5 なら半分だけ補正
-                e_t_prime = e_t - guidance_scale * delta
-                
-                # C. 分散維持 (Ratio-Preserving)
-                # 補正後のベクトルの長さを、元の予測ベクトルの長さに合わせる。
-                # これにより「ガウス分布」としてのエネルギーを保ちつつ、方向だけを正解に修正する。
-                norm_et = torch.norm(e_t.reshape(batch_size, -1), dim=1).view(batch_size, 1, 1, 1)
-                norm_prime = torch.norm(e_t_prime.reshape(batch_size, -1), dim=1).view(batch_size, 1, 1, 1) + 1e-6
-                
-                e_t = e_t_prime * (norm_et / norm_prime)
 
-            # ----------------------------------------------------------------
-            # 3. 状態更新 (Update Step)
-            # ----------------------------------------------------------------
-            alphas = self.ddim_alphas
-            alphas_prev = self.ddim_alphas_prev
-            sqrt_one_minus_alphas = self.ddim_sqrt_one_minus_alphas
-            sigmas = self.ddim_sigmas
-            
-            a_t = torch.full((batch_size, 1, 1, 1), alphas[index], device=device)
-            a_prev = torch.full((batch_size, 1, 1, 1), alphas_prev[index], device=device)
-            sigma_t = torch.full((batch_size, 1, 1, 1), sigmas[index], device=device)
-            sqrt_one_minus_at = torch.full((batch_size, 1, 1, 1), sqrt_one_minus_alphas[index], device=device)
-
-            # x_0 の予測
-            pred_x0 = (img - sqrt_one_minus_at * e_t) / a_t.sqrt()
-            if quantize_x0:
-                pred_x0, _, *_ = self.model.first_stage_model.quantize(pred_x0)
-                
-            # x_{t-1} への方向
-            dir_xt = (1. - a_prev - sigma_t**2).sqrt() * e_t
-            
-            # ノイズ項 (DeterministicなDDIMならsigma_t=0)
-            noise = sigma_t * noise_like(img.shape, device, False) * temperature
-            
-            img = a_prev.sqrt() * pred_x0 + dir_xt + noise
-
-            # コールバック
-            if callback: callback(i)
-            if img_callback: img_callback(pred_x0, i)
-
-        return img, None
 
     @torch.no_grad
     def my_ddim_sampling(self,
                S, #ddim_num_steps 200
                batch_size,
                shape,
-               noise_variance,
+               noise_sigma,
+               noise_sigma_predict,
                conditioning=None,
                callback=None,
                normals_sequence=None,
@@ -382,7 +337,7 @@ class DDIMSampler(object):
         size = (batch_size, C, H, W)
 
         device = self.model.betas.device
-        alpha_bar_u = 1/(1 + noise_variance)
+        alpha_bar_u = 1/(1 + noise_sigma_predict)
         print(f"ddim.py, alpha_bar_u = {alpha_bar_u}")
         alpha_minus = -self.alphas_cumprod
         start_timesteps = torch.searchsorted(alpha_minus, -alpha_bar_u)
@@ -457,9 +412,133 @@ class DDIMSampler(object):
         return img
 
 
+    
 
+    @torch.no_grad()
+    def known_noise_guided_ddim_sampling(self,
+               S,
+               batch_size,
+               shape,
+               noise_variance, 
+               conditioning=None,
+               eta=0.,
+               x_T=None,
+               verbose=True,
+               unconditional_guidance_scale=1.,
+               unconditional_conditioning=None,
+               added_timestep=0,
+               eps_known=None,
+               h=1.0,
+               guide_strength_start=0.2,
+               guide_strength_end=0.8,
+               **kwargs
+               ):
+        
+        # 1. スケジュールの作成
+        self.make_schedule(ddim_num_steps=S, ddim_eta=eta, verbose=verbose)
+        device = self.model.betas.device # Device定義
+        
+        # noise_variance のテンソル変換
+        if not torch.is_tensor(noise_variance):
+            noise_variance = torch.tensor(noise_variance, device=device)
 
+        # 2. 開始タイムステップ u (start_timesteps) の計算
+        alpha_bar_t = self.alphas_cumprod[added_timestep]
+        # h=1.0 (等化済みと仮定)
+        term1 = (torch.sqrt(1 - alpha_bar_t) + torch.sqrt(noise_variance) / h) / torch.sqrt(alpha_bar_t)
+        alpha_bar_u = 1 / (term1**2 + 1)
+        
+        alpha_minus = -self.alphas_cumprod
+        start_timesteps = torch.searchsorted(alpha_minus, -alpha_bar_u)
+        start_timesteps = start_timesteps.to(device)
+        start_timesteps = torch.clamp(start_timesteps, min=0, max=999) # DDPMの最大ステップ内に収める
 
+        print(f"ddim.py Computed start_timestep: {start_timesteps}")
+
+        # 3. ループ設定 (絶対時刻 0~999 ベースで回す)
+        maxind = start_timesteps.max().item()
+        iterator = tqdm(reversed(range(0, maxind + 1)), desc='Known-Noise Guided DDIM', total=maxind+1)
+
+        img = x_T.clone()
+
+        # 事前にDDIMタイムステップをテンソル化しておく（検索用）
+        ddim_timesteps_tensor = torch.from_numpy(self.ddim_timesteps).to(device)
+
+        for i, step in enumerate(iterator):
+            # -----------------------------------------------------------
+            # A. スケジュール判定 (ユーザー様の修正部分)
+            # -----------------------------------------------------------
+            # 現在の絶対時刻 'step' が、DDIMのサンプリング時刻に含まれているか確認
+            time_idx_tensor = torch.where(ddim_timesteps_tensor == step)[0]
+            
+            # DDIMスケジュールに存在しない時刻ならスキップ (Continue)
+            if time_idx_tensor.numel() == 0:
+                continue
+            
+            # DDIM用のインデックス (0 ~ S-1) を取得
+            index = time_idx_tensor.item()
+
+            # -----------------------------------------------------------
+            # B. Active Mask 作成
+            # -----------------------------------------------------------
+            # 個々の画像について、まだデノイジング開始時刻に達していない場合は更新しない
+            active_mask = (start_timesteps >= step).view(-1, 1, 1, 1)
+
+            # -----------------------------------------------------------
+            # C. ノイズ予測とSlerp (重要: p_sample_ddimは使わず展開して書く)
+            # -----------------------------------------------------------
+            ts = torch.full((batch_size,), step, device=device, dtype=torch.long)
+
+            # (1) モデルによるノイズ予測
+            if unconditional_conditioning is None or unconditional_guidance_scale == 1.:
+                e_t = self.model.apply_model(img, ts, conditioning)
+            else:
+                x_in = torch.cat([img] * 2)
+                t_in = torch.cat([ts] * 2)
+                c_in = torch.cat([unconditional_conditioning, conditioning])
+                e_t_uncond, e_t = self.model.apply_model(x_in, t_in, c_in).chunk(2)
+                e_t = e_t_uncond + unconditional_guidance_scale * (e_t - e_t_uncond)
+
+            # (2) 既知ノイズによるガイド (Slerp)
+            if eps_known is not None:
+                # 進捗度合い (0.0 -> 1.0)
+                current_progress = i / (maxind + 1e-6)
+                lambda_guide = guide_strength_start + (guide_strength_end - guide_strength_start) * current_progress
+                
+                # ガイド適用
+                e_t = slerp_tensor(lambda_guide, e_t, eps_known)
+
+            # -----------------------------------------------------------
+            # D. 状態更新 (Manual DDIM Step)
+            # -----------------------------------------------------------
+            alphas = self.ddim_alphas
+            alphas_prev = self.ddim_alphas_prev
+            sqrt_one_minus_alphas = self.ddim_sqrt_one_minus_alphas
+            sigmas = self.ddim_sigmas
+
+            a_t = torch.full((batch_size, 1, 1, 1), alphas[index], device=device)
+            a_prev = torch.full((batch_size, 1, 1, 1), alphas_prev[index], device=device)
+            sigma_t = torch.full((batch_size, 1, 1, 1), sigmas[index], device=device)
+            sqrt_one_minus_at = torch.full((batch_size, 1, 1, 1), sqrt_one_minus_alphas[index], device=device)
+
+            # x_0 推定
+            pred_x0 = (img - sqrt_one_minus_at * e_t) / a_t.sqrt()
+            
+            # x_{t-1} 方向ベクトル
+            dir_xt = (1. - a_prev - sigma_t**2).sqrt() * e_t
+            
+            # ノイズ項
+            noise = sigma_t * noise_like(img.shape, device, False) * eta
+
+            # 更新後の画像候補
+            img_prev = a_prev.sqrt() * pred_x0 + dir_xt + noise
+
+            # -----------------------------------------------------------
+            # E. マスク適用 (開始時刻を過ぎたものだけ更新)
+            # -----------------------------------------------------------
+            img = torch.where(active_mask, img_prev, img)
+
+        return img
 
     @torch.no_grad
     def jointdiffusion_ddim_sampling(self,
@@ -1085,44 +1164,3 @@ class DDIMSampler(object):
 
 
         return start_timesteps
-    @torch.no_grad()
-    def p_sample_ddim(self, x, c, t, index, repeat_noise=False, use_original_steps=False, quantize_denoised=False,
-                      temperature=1., noise_dropout=0., score_corrector=None, corrector_kwargs=None,
-                      unconditional_guidance_scale=1., unconditional_conditioning=None):
-        # c: cond
-        b, *_, device = *x.shape, x.device
-
-        if unconditional_conditioning is None or unconditional_guidance_scale == 1.:
-            e_t = self.model.apply_model(x, t, c)
-        else:
-            x_in = torch.cat([x] * 2)
-            t_in = torch.cat([t] * 2)
-            c_in = torch.cat([unconditional_conditioning, c])
-            e_t_uncond, e_t = self.model.apply_model(x_in, t_in, c_in).chunk(2)
-            e_t = e_t_uncond + unconditional_guidance_scale * (e_t - e_t_uncond)
-
-        if score_corrector is not None:
-            assert self.model.parameterization == "eps"
-            e_t = score_corrector.modify_score(self.model, e_t, x, t, c, **corrector_kwargs)
-
-        alphas = self.model.alphas_cumprod if use_original_steps else self.ddim_alphas
-        alphas_prev = self.model.alphas_cumprod_prev if use_original_steps else self.ddim_alphas_prev
-        sqrt_one_minus_alphas = self.model.sqrt_one_minus_alphas_cumprod if use_original_steps else self.ddim_sqrt_one_minus_alphas
-        sigmas = self.model.ddim_sigmas_for_original_num_steps if use_original_steps else self.ddim_sigmas
-        # select parameters corresponding to the currently considered timestep
-        a_t = torch.full((b, 1, 1, 1), alphas[index], device=device)
-        a_prev = torch.full((b, 1, 1, 1), alphas_prev[index], device=device)
-        sigma_t = torch.full((b, 1, 1, 1), sigmas[index], device=device)
-        sqrt_one_minus_at = torch.full((b, 1, 1, 1), sqrt_one_minus_alphas[index],device=device)
-
-        # current prediction for x_0
-        pred_x0 = (x - sqrt_one_minus_at * e_t) / a_t.sqrt()
-        if quantize_denoised:
-            pred_x0, _, *_ = self.model.first_stage_model.quantize(pred_x0)
-        # direction pointing to x_t
-        dir_xt = (1. - a_prev - sigma_t**2).sqrt() * e_t
-        noise = sigma_t * noise_like(x.shape, device, repeat_noise) * temperature
-        if noise_dropout > 0.:
-            noise = torch.nn.functional.dropout(noise, p=noise_dropout)
-        x_prev = a_prev.sqrt() * pred_x0 + dir_xt + noise
-        return x_prev, pred_x0
