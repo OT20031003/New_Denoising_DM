@@ -161,12 +161,12 @@ def make_pilot(tau_p, K, device, dtype):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     T = None # 固定タイムステップ
-    t = 16
+    t = 2
     N = t
-    r = 16
+    r = 2
     P_power = 1.0
     Perfect_Estimate = True
-    # python -m scripts.ALLSU-MIMO > log_ALLSU-MIMO_16_16_perfect.txt
+    # python -m scripts.ALLSU-MIMO > log_ALLSU-MIMO_2_2_perfect.txt
     parser.add_argument(
         "--prompt",
         type=str,
@@ -369,7 +369,7 @@ if __name__ == "__main__":
         P = torch.sqrt(torch.tensor(P_power/(N*t)))* torch.exp(1j*2*torch.pi*tt*NN/N)
 
 
-        for snr in range(-5, 10, 1):
+        for snr in range(-5, 30, 1):
             print(f"--------SNR = {snr}-----------")
             # Noise = t * Noise/Signal
             noise_variance = t/(10**(snr/10))
