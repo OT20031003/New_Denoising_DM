@@ -1,4 +1,4 @@
-Output Directory: outputs/SU-MIMO_Benchmark/t=2_r=2/estimated
+Output Directory: outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate
 Loading model from models/ldm/text2img-large/model.ckpt
 autoencoder.py
 LatentDiffusion: Running in eps-prediction mode
@@ -20,7 +20,7 @@ Encoder, forward@@@@@@@@@@@@@@@
 autoencoder.py, h = torch.Size([20, 8, 32, 32])
 autoencoder.py , moments = torch.Size([20, 8, 32, 32])
 --------SNR = -5 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -37,15 +37,15 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.3665, 0.3725, 0.3942, 0.3830, 0.4215, 0.3548, 0.4790, 0.3714, 0.4013,
-        0.4134, 0.3703, 0.3593, 0.3889, 0.3986, 0.3735, 0.4380, 0.3902, 0.3667,
-        0.3888, 0.3727], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([438, 434, 420, 427, 402, 445, 367, 434, 415, 407, 435, 442, 423, 417,
-        433, 392, 422, 437, 423, 434], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.3338, 0.3915, 0.3404, 0.3728, 0.3413, 0.3557, 0.3720, 0.3603, 0.3887,
+        0.3404, 0.3614, 0.3602, 0.3388, 0.3904, 0.3705, 0.3699, 0.3480, 0.4005,
+        0.4033, 0.3478], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([459, 421, 455, 433, 454, 445, 434, 442, 423, 455, 441, 442, 456, 422,
+        435, 435, 450, 416, 414, 450], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR -5
 --------SNR = -4 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -62,15 +62,15 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.4009, 0.3524, 0.4843, 0.3665, 0.3778, 0.4047, 0.4132, 0.3907, 0.3405,
-        0.3497, 0.4255, 0.4320, 0.3872, 0.3597, 0.3697, 0.4182, 0.3500, 0.4445,
-        0.3662, 0.4346], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([415, 447, 364, 438, 430, 413, 408, 422, 455, 449, 400, 396, 424, 442,
-        435, 404, 449, 388, 438, 394], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.3821, 0.3766, 0.3597, 0.3934, 0.4184, 0.3529, 0.3578, 0.3674, 0.4002,
+        0.3751, 0.3908, 0.3570, 0.3582, 0.3738, 0.3496, 0.3360, 0.4080, 0.4189,
+        0.4374, 0.4017], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([427, 431, 442, 420, 404, 447, 443, 437, 416, 432, 422, 444, 443, 433,
+        449, 458, 411, 404, 392, 415], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR -4
 --------SNR = -3 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -87,15 +87,15 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.3906, 0.4132, 0.4037, 0.3754, 0.3891, 0.3765, 0.4522, 0.3959, 0.5618,
-        0.3980, 0.4073, 0.4452, 0.3533, 0.3831, 0.3751, 0.4723, 0.3819, 0.3577,
-        0.4386, 0.4174], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([422, 408, 414, 432, 423, 431, 383, 419, 318, 417, 411, 388, 446, 427,
-        432, 371, 428, 443, 392, 405], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.3702, 0.4197, 0.3574, 0.3788, 0.4254, 0.3713, 0.4247, 0.4312, 0.3745,
+        0.3384, 0.3530, 0.3425, 0.3649, 0.3872, 0.3643, 0.3829, 0.4234, 0.3714,
+        0.4231, 0.4168], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([435, 403, 444, 430, 400, 434, 400, 396, 432, 456, 446, 454, 439, 424,
+        439, 427, 401, 434, 401, 405], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR -3
 --------SNR = -2 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -112,15 +112,15 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.4549, 0.3524, 0.3732, 0.4628, 0.4634, 0.4544, 0.4592, 0.3864, 0.4659,
-        0.3405, 0.4005, 0.3959, 0.4269, 0.5266, 0.4556, 0.4923, 0.4201, 0.3960,
-        0.3726, 0.4424], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([382, 447, 433, 377, 377, 382, 379, 425, 375, 455, 416, 419, 399, 338,
-        381, 359, 403, 418, 434, 389], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.3870, 0.3665, 0.4352, 0.3906, 0.3950, 0.3487, 0.3334, 0.3551, 0.3495,
+        0.4286, 0.4528, 0.3548, 0.4244, 0.3995, 0.3656, 0.3852, 0.3697, 0.3630,
+        0.5217, 0.4272], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([424, 438, 394, 422, 419, 449, 460, 445, 449, 398, 383, 445, 401, 416,
+        438, 425, 435, 440, 341, 399], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR -2
 --------SNR = -1 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -137,15 +137,15 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.3556, 0.4097, 0.5017, 0.4544, 0.5017, 0.3530, 0.3557, 0.4674, 0.4775,
-        0.4102, 0.4563, 0.5005, 0.4386, 0.4036, 0.3797, 0.3439, 0.4861, 0.5334,
-        0.5383, 0.5270], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([445, 410, 353, 382, 353, 447, 445, 374, 368, 409, 381, 354, 392, 414,
-        429, 453, 363, 334, 332, 338], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.3641, 0.4248, 0.4289, 0.3742, 0.3993, 0.3472, 0.3318, 0.3739, 0.3540,
+        0.4145, 0.3577, 0.3648, 0.3736, 0.3648, 0.4566, 0.4497, 0.3952, 0.3428,
+        0.3518, 0.3328], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([439, 400, 398, 433, 416, 450, 461, 433, 446, 407, 443, 439, 433, 439,
+        381, 385, 419, 453, 447, 460], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR -1
 --------SNR = 0 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -162,15 +162,15 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.4917, 0.4872, 0.4731, 0.4130, 0.4018, 0.5302, 0.4429, 0.4478, 0.5725,
-        0.3849, 0.5769, 0.5436, 0.5641, 0.3472, 0.4106, 0.4316, 0.4560, 0.4314,
-        0.4116, 0.5025], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([359, 362, 371, 408, 415, 336, 389, 386, 311, 426, 309, 328, 316, 450,
-        409, 396, 381, 396, 409, 353], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.3528, 0.3492, 0.4118, 0.4048, 0.3796, 0.3215, 0.4111, 0.3498, 0.3684,
+        0.5237, 0.3917, 0.4934, 0.5681, 0.3512, 0.3738, 0.3909, 0.5169, 0.3400,
+        0.4622, 0.3331], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([447, 449, 408, 413, 429, 468, 409, 449, 436, 340, 421, 358, 314, 448,
+        433, 422, 344, 455, 377, 460], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR 0
 --------SNR = 1 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -187,15 +187,15 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.4330, 0.4138, 0.4538, 0.5059, 0.5422, 0.3937, 0.6169, 0.4504, 0.5348,
-        0.4766, 0.4012, 0.5015, 0.5293, 0.3940, 0.5703, 0.4632, 0.4905, 0.5135,
-        0.4550, 0.5760], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([395, 407, 382, 351, 329, 420, 285, 384, 334, 368, 415, 354, 337, 420,
-        313, 377, 360, 346, 382, 309], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.4313, 0.3960, 0.4553, 0.3433, 0.3597, 0.3638, 0.5513, 0.3620, 0.3533,
+        0.3346, 0.5223, 0.3493, 0.4716, 0.3333, 0.3912, 0.3408, 0.3621, 0.3443,
+        0.3526, 0.4920], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([396, 418, 381, 453, 442, 439, 324, 441, 446, 459, 341, 449, 372, 460,
+        422, 455, 440, 452, 447, 359], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR 1
 --------SNR = 2 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -212,15 +212,15 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.3820, 0.4828, 0.4186, 0.5989, 0.5145, 0.5605, 0.4169, 0.4634, 0.4536,
-        0.5236, 0.4906, 0.4831, 0.4210, 0.5201, 0.4190, 0.6301, 0.4627, 0.4408,
-        0.4939, 0.4413], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([427, 365, 404, 295, 346, 318, 405, 376, 383, 340, 360, 365, 403, 342,
-        404, 277, 377, 390, 358, 390], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.4936, 0.5693, 0.4666, 0.3549, 0.3812, 0.4057, 0.3398, 0.5119, 0.4677,
+        0.4398, 0.4355, 0.4667, 0.3734, 0.4397, 0.3702, 0.3482, 0.3988, 0.3630,
+        0.3675, 0.3467], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([358, 313, 375, 445, 428, 412, 455, 347, 374, 391, 394, 375, 433, 391,
+        435, 450, 417, 440, 437, 451], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR 2
 --------SNR = 3 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -237,15 +237,15 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.6018, 0.6331, 0.5622, 0.4337, 0.4599, 0.7040, 0.5310, 0.4032, 0.4756,
-        0.6612, 0.4870, 0.5454, 0.5116, 0.6003, 0.5484, 0.4785, 0.6008, 0.4283,
-        0.5404, 0.5629], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([294, 275, 317, 395, 379, 232, 336, 414, 369, 258, 362, 327, 347, 295,
-        326, 367, 294, 398, 330, 317], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.3472, 0.5395, 0.3753, 0.3552, 0.3918, 0.5358, 0.4471, 0.4315, 0.3478,
+        0.3533, 0.4946, 0.4201, 0.4055, 0.6721, 0.5080, 0.3588, 0.4130, 0.4666,
+        0.3907, 0.3524], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([450, 331, 432, 445, 421, 333, 386, 396, 450, 446, 358, 403, 412, 252,
+        350, 443, 408, 375, 422, 447], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR 3
 --------SNR = 4 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -262,15 +262,15 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.5315, 0.5037, 0.6027, 0.7129, 0.4570, 0.4590, 0.6470, 0.6174, 0.6269,
-        0.5594, 0.5303, 0.5891, 0.5938, 0.4127, 0.5965, 0.5064, 0.5529, 0.6682,
-        0.5084, 0.4636], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([336, 352, 293, 226, 380, 379, 267, 284, 279, 319, 336, 301, 299, 408,
-        297, 351, 323, 254, 349, 376], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.3670, 0.5608, 0.3838, 0.4848, 0.4294, 0.4236, 0.3362, 0.4770, 0.3618,
+        0.4184, 0.3678, 0.6262, 0.3699, 0.6331, 0.4818, 0.4929, 0.6091, 0.4523,
+        0.3924, 0.3539], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([437, 318, 426, 364, 397, 401, 458, 368, 441, 404, 437, 279, 435, 275,
+        365, 359, 289, 383, 421, 446], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR 4
 --------SNR = 5 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -287,15 +287,15 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.6432, 0.5125, 0.5865, 0.7213, 0.6422, 0.4852, 0.6303, 0.5481, 0.6239,
-        0.5005, 0.7029, 0.5498, 0.6572, 0.6459, 0.6991, 0.7669, 0.6588, 0.4192,
-        0.4468, 0.6117], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([269, 347, 303, 221, 270, 363, 277, 326, 281, 354, 233, 325, 261, 267,
-        235, 192, 260, 404, 387, 288], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.4764, 0.4242, 0.6407, 0.5688, 0.4140, 0.7476, 0.6317, 0.4928, 0.4528,
+        0.7740, 0.3423, 0.7113, 0.6764, 0.4504, 0.5687, 0.5534, 0.6316, 0.6301,
+        0.6491, 0.3666], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([369, 401, 271, 313, 407, 204, 276, 359, 383, 187, 454, 227, 249, 384,
+        313, 323, 276, 277, 265, 438], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR 5
 --------SNR = 6 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -312,15 +312,15 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.6712, 0.5747, 0.6282, 0.8153, 0.7120, 0.4547, 0.5158, 0.7002, 0.7781,
-        0.6468, 0.8117, 0.6936, 0.5077, 0.7878, 0.5916, 0.4610, 0.6904, 0.5371,
-        0.5275, 0.5929], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([252, 310, 278, 159, 227, 382, 345, 234, 185, 267, 162, 238, 350, 178,
-        300, 378, 240, 332, 338, 299], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.4246, 0.3552, 0.5099, 0.7173, 0.5166, 0.4119, 0.6292, 0.6301, 0.6241,
+        0.6616, 0.4287, 0.3321, 0.5389, 0.4522, 0.7103, 0.3567, 0.4384, 0.5795,
+        0.6271, 0.5548], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([400, 445, 348, 224, 344, 408, 277, 277, 280, 258, 398, 461, 331, 383,
+        228, 444, 392, 307, 279, 322], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR 6
 --------SNR = 7 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -337,15 +337,15 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.7627, 0.6474, 0.8654, 0.4157, 0.5208, 0.7148, 0.6766, 0.4623, 0.7078,
-        0.5284, 0.7102, 0.4678, 0.5856, 0.5141, 0.4919, 0.7440, 0.5553, 0.5251,
-        0.6395, 0.4325], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([195, 267, 123, 406, 342, 225, 249, 377, 230, 337, 228, 374, 303, 346,
-        359, 207, 321, 339, 271, 396], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.7753, 0.4427, 0.6583, 0.4636, 0.6770, 0.7140, 0.5098, 0.3544, 0.6975,
+        0.5610, 0.5979, 0.6806, 0.7137, 0.7794, 0.5968, 0.4435, 0.3703, 0.4241,
+        0.3809, 0.7719], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([186, 389, 260, 376, 249, 226, 349, 446, 236, 318, 296, 246, 226, 184,
+        297, 389, 435, 401, 428, 189], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR 7
 --------SNR = 8 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -362,15 +362,15 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.5174, 0.6124, 0.7365, 0.7075, 0.6290, 0.6664, 0.7436, 0.6164, 0.8003,
-        0.6102, 0.8184, 0.7229, 0.8215, 0.6933, 0.7679, 0.7740, 0.6595, 0.6170,
-        0.7026, 0.8452], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([344, 287, 212, 230, 278, 255, 207, 285, 170, 289, 157, 220, 155, 239,
-        191, 187, 259, 285, 233, 138], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.5987, 0.6103, 0.8937, 0.7133, 0.6516, 0.8427, 0.5033, 0.6662, 0.7875,
+        0.5532, 0.7106, 0.8739, 0.4554, 0.7333, 0.6667, 0.4871, 0.6105, 0.5000,
+        0.6218, 0.7228], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([296, 289, 101, 226, 264, 140, 352, 255, 178, 323, 228, 116, 381, 214,
+        255, 362, 289, 354, 282, 220], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR 8
 --------SNR = 9 (Benchmark)-----------
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_estimated/
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/nosample_perfect/
 z_input_for_sampler variance = tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
         1.0000, 1.0000], device='cuda:0')
@@ -387,10 +387,10 @@ For the chosen value of eta, which is 0.0, this results in the following sigma_t
         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
         0., 0., 0., 0., 0., 0., 0., 0.], dtype=torch.float64)
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.7692, 0.6875, 0.5524, 0.7884, 0.5544, 0.7752, 0.5217, 0.8078, 0.8272,
-        0.5899, 0.6589, 0.5171, 0.8985, 0.7184, 0.7782, 0.7167, 0.5367, 0.7563,
-        0.4477, 0.6833], device='cuda:0')
-ddim.py start_timesteps after clamp S = 200 : tensor([190, 242, 323, 178, 322, 186, 341, 164, 151, 301, 260, 344,  97, 223,
-        184, 224, 332, 199, 386, 245], device='cuda:0')
-20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/estimated/
+ddim.py, alpha_bar_u = tensor([0.5778, 0.5615, 0.6664, 0.7208, 0.6391, 0.5601, 0.5734, 0.3742, 0.5827,
+        0.7355, 0.4905, 0.6166, 0.4017, 0.5350, 0.7876, 0.4712, 0.4130, 0.8489,
+        0.5488, 0.7539], device='cuda:0')
+ddim.py start_timesteps after clamp S = 200 : tensor([308, 318, 255, 221, 271, 319, 311, 433, 305, 212, 360, 285, 415, 333,
+        178, 372, 408, 135, 325, 200], device='cuda:0')
+20 images are saved in outputs/SU-MIMO_Benchmark/t=2_r=2/perfect_estimate/
 Saved SNR 9

@@ -101,7 +101,7 @@ if __name__ == "__main__":
     N = t
     r = 2
     P_power = 1.0
-    Perfect_Estimate = False
+    Perfect_Estimate = True
     
     # ---------------------------------------------------------
     # ベンチマーク用のディレクトリ名
@@ -261,12 +261,12 @@ if __name__ == "__main__":
         imag_part_restored = AY_real_imag[..., 1]
         q_view_restored = torch.cat([real_part_restored, imag_part_restored], dim=2)
         q_real_data_restored = q_view_restored.view(batch_size, z_channel, z_h_size, z_w_size)
-
         # -------------------------------------------------------------
-        #  BENCHMARK SPECIFIC SCALING & RECOVERY
+        #  BENCHMARK SPECIFIC SCALING & RECOVERY (Revised)
         # -------------------------------------------------------------
         
         # 1. No Sample 画像 (単純なZF復元)
+        # ※ここは変更なし（比較用のため、単純なスケーリングで復元）
         z_nosample = q_real_data_restored * torch.sqrt(2*(z_variance + eps)).view(-1, 1, 1, 1)
         z_nosample = z_nosample * (torch.sqrt(z_variances_original) + eps) + z_encode_mean
         
@@ -274,28 +274,37 @@ if __name__ == "__main__":
         save_img_individually(recoverd_img_no_samp, f"{opt.nosample_outdir}/output_{snr}.png")
 
         # 2. Diffusion Sampling (Blind Denoising)
-        # 入力スケーリング:
-        # 有効雑音分散 (current_noise_variance) に基づいて、分散が 1 になるように正規化
-        # Theoretical Variance = Signal(1) + Noise(current_noise_variance)
-        scale_factor = 1.0 / torch.sqrt(1.0 + current_noise_variance)
-        # scale_factorはスカラー(またはバッチ毎のスカラー)だが、torch.sqrt計算済みなのでそのまま掛け算可能
-        if isinstance(scale_factor, torch.Tensor):
-             scale_factor = scale_factor.view(-1, 1, 1, 1)
+        # === 修正: 実測値ベースの強制正規化 (Robust Scaling) ===
+        
+        # 各バッチごとの実際の標準偏差を計算 (Shape: [Batch_Size, 1, 1, 1])
+        # これには信号成分(約0.5)と増幅されたノイズ成分の両方が含まれます
+        actual_std = q_real_data_restored.std(dim=(1, 2, 3), keepdim=True)
+        
+        # 強制的に分散1.0に正規化
+        # これにより、ZFが不安定で値が暴れても、拡散モデル入力は必ず標準正規分布のスケールになります
+        z_input_for_sampler = q_real_data_restored / (actual_std + 1e-8)
+        
+        print(f"z_input_for_sampler variance = {torch.var(z_input_for_sampler, dim=(1, 2, 3))}")
 
-        z_input_for_sampler = q_real_data_restored * scale_factor
+        # === 重要: サンプラーに渡すノイズ分散の補正 ===
+        # 入力を actual_std で割って小さくしたため、その中に含まれるノイズ分散情報も
+        # 同じ比率(の2乗)で縮小してサンプラーに伝える必要があります。
+        
+        actual_var_flat = (actual_std.flatten()) ** 2
+        effective_noise_variance = current_noise_variance / actual_var_flat
         
         cond = model.get_learned_conditioning(z.shape[0] * [""])
         
         # サンプリング実行
-        # current_noise_variance を渡すことで、拡散モデル上の適切な u を計算させる
+        # noise_variance には補正後の effective_noise_variance を渡す
         samples = sampler.MIMO_decide_starttimestep_ddim_sampling(
             S=opt.ddim_steps,
             batch_size=batch_size,
             shape=z.shape[1:4],
-            x_T=z_input_for_sampler,
+            x_T=z_input_for_sampler, # 正規化済み入力
             conditioning=cond,
             starttimestep=T,
-            noise_variance=current_noise_variance
+            noise_variance=effective_noise_variance # 補正済みノイズ分散
         )
 
         # サンプリング結果を元のスケールに戻す
@@ -304,3 +313,4 @@ if __name__ == "__main__":
         
         save_img_individually(recoverd_img, f"{opt.outdir}/output_{snr}.png")
         print(f"Saved SNR {snr}")
+        

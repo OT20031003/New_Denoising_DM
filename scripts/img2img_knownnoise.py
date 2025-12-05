@@ -77,7 +77,7 @@ if __name__ == "__main__":
     r = 2    
     ft = 100 
     P_power = 1.0
-    Perfect_Estimate = False
+    Perfect_Estimate = True
     
     experiment_name = f"SU-MIMO_KnownNoise/t={t}_r={r}_ft={ft}"
 
@@ -148,13 +148,10 @@ if __name__ == "__main__":
     # ここが提案手法のキモ：送信側で既知ノイズを埋め込む
     z_noisy = sqrt_alpha_bar_t * z + sqrt_one_minus_alpha_bar_t * eps_known
     
-    # 信号電力正規化 (送信のため)
-    # z_noisy は理論上 分散1になっているはずだが、念のため再正規化してから送信
-    z_sender = z_noisy
-    z_variance = torch.var(z_sender, dim=(1, 2, 3))
+    z_sender = z_noisy # すでに電力は1
     
     # マッピング
-    q_real_data = z_sender / torch.sqrt(2*(z_variance + eps)).view(-1, 1, 1, 1)
+    q_real_data = z_sender / torch.sqrt(torch.tensor(2.0)).view(-1, 1, 1, 1).to(device)
     q_view = q_real_data.view(batch_size, t, -1)
     l = q_view.shape[2] // 2
     real_part, imag_part = torch.chunk(q_view, 2, dim=2)
@@ -202,14 +199,15 @@ if __name__ == "__main__":
         inv_HH = torch.inverse(H_for_ZF.mH @ H_for_ZF)
         A = inv_HH @ H_for_ZF.mH
         AY = A @ Y
-
+        
         # === 修正ポイント1: 有効雑音分散の計算 ===
         # ベンチマーク側と条件を合わせるため、ZFによるノイズ増幅を考慮する
         
+
         noise_amplification = torch.mean(torch.diagonal(inv_HH.real, dim1=1, dim2=2), dim=1) # Shape: (Batch_Size,)
 
         current_noise_variance = noise_variance * noise_amplification # Shape: (Batch_Size,)
-        # 逆符号化
+        # 逆符号化 
         AY_real_imag = torch.view_as_real(AY)
         real_part_restored = AY_real_imag[..., 0]
         imag_part_restored = AY_real_imag[..., 1]
@@ -220,31 +218,45 @@ if __name__ == "__main__":
         q_real_data_restored = q_view_restored.view(batch_size, z_channel, z_h_size, z_w_size)
 
         # 復元 (No Sample)
-        z_nosample = q_real_data_restored * torch.sqrt(2*(z_variance + eps)).view(-1, 1, 1, 1)
+        z_nosample = q_real_data_restored * torch.sqrt(torch.tensor(2)).view(-1, 1, 1, 1).to(device)
         z_nosample_decoded = z_nosample * (torch.sqrt(z_variances_original)+eps) + z_encode_mean
         recoverd_img_no_samp = model.decode_first_stage(z_nosample_decoded)
         save_img_individually(recoverd_img_no_samp, f"{opt.nosample_outdir}/output_{snr}.png")
 
-        # === 修正ポイント2: 拡散モデルへの入力スケーリング ===
-        # 受信信号の分散は理論上 1 (Signal) + current_noise_variance (Noise)
-        # これを分散1.0に正規化してサンプラーに渡す
-        scale_factor = 1.0 / torch.sqrt(1.0 + current_noise_variance)
-        if isinstance(scale_factor, torch.Tensor):
-             scale_factor = scale_factor.view(-1, 1, 1, 1)
-             
-        z_input_scaled = q_real_data_restored * scale_factor
+        # === 修正ポイント2: 実測値ベースの強制正規化 (Robust Scaling) ===
+        # 理論値ではなく、実際のデータの分散を計測して正規化します。
+        # これにより、ZFが不安定な場合でも拡散モデルへの入力は必ず分散1.0になります。
+        
+        # 各バッチごとの実際の標準偏差を計算 (Shape: [Batch_Size, 1, 1, 1])
+        actual_std = q_real_data_restored.std(dim=(1, 2, 3), keepdim=True)
+        
+        # 強制的に分散1.0に正規化
+        z_input_scaled = q_real_data_restored / (actual_std + 1e-8)
+        
+        # 確認用プリント
+        print(f"z_input_scaled variance = {torch.var(z_input_scaled, dim=(1, 2, 3))}") 
+        # -> これですべて 1.0 付近 (0.99~1.01) になるはずです
+        
+        # === 重要: サンプラーに渡すノイズ分散の補正 ===
+        # 入力を actual_std で割ったため、中のノイズ成分も小さくなっています。
+        # サンプラーに「現在のノイズ量はこれくらいだよ」と教える値も、同じ比率で小さくして伝える必要があります。
+        # 分散なので、(1/std)^2 倍 します。
+        
+        # current_noise_variance は shape [Batch] なので、計算用に変形
+        actual_var_flat = (actual_std.flatten()) ** 2
+        effective_noise_variance = current_noise_variance / actual_var_flat
 
         cond = model.get_learned_conditioning(z.shape[0] * [""])
         
         # === 修正ポイント3: サンプラー呼び出し ===
-        # noise_variance 引数には、ZF等化後の有効雑音 (current_noise_variance) を渡す
+        # noise_variance 引数には、補正後の effective_noise_variance を渡す
         samples = sampler.known_noise_guided_ddim_sampling(
             S=opt.ddim_steps, 
             batch_size=batch_size,
             shape=z.shape[1:4],
-            x_T=z_input_scaled, # スケーリング済み入力
+            x_T=z_input_scaled, # 正規化済み入力
             conditioning=cond,
-            noise_variance=current_noise_variance, # 有効雑音
+            noise_variance=effective_noise_variance, # 補正済み有効雑音
             added_timestep=ft, 
             eps_known=eps_known
         )
