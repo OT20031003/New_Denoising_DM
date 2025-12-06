@@ -200,7 +200,7 @@ if __name__ == "__main__":
     P = torch.sqrt(torch.tensor(P_power/(N*t)))* torch.exp(1j*2*torch.pi*tt*NN/N)
 
 
-    for snr in range(-5, 10, 1):
+    for snr in range(-5, 26, 3):
         print(f"--------SNR = {snr} (Benchmark)-----------")
         # ノイズ分散 (Simulation Setting / Receiver Knowledge)
         noise_variance = t/(10**(snr/10))

@@ -1,0 +1,270 @@
+Output Directory: outputs/MIMO_MethodC_DPS/t=2_r=2/perfect_estimate
+remove_png complete
+Loading model from models/ldm/text2img-large/model.ckpt
+autoencoder.py
+LatentDiffusion: Running in eps-prediction mode
+DiffusionWrapper has 872.30 M params.
+ldm.modules/diffusionmodules/util.py ; make_schedule = linear
+ldm/modules/diffusionmodules/model.py, Enocoder; in_channels = 3, ch_mult = [1, 2, 4, 4]
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+making attention of type 'vanilla' with 512 in_channels
+ldm/models/autoencoder.py, AutoencoderKL init, created
+Working with z of shape (1, 4, 32, 32) = 4096 dimensions.
+making attention of type 'vanilla' with 512 in_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+Input image shape: torch.Size([20, 3, 256, 256])
+20 images are saved in ./sentimg/
+Encoder, forward@@@@@@@@@@@@@@@
+autoencoder.py, h = torch.Size([20, 8, 32, 32])
+autoencoder.py , moments = torch.Size([20, 8, 32, 32])
+--- DEBUG: Tx Symbol Real ---
+    Shape: torch.Size([20, 2048])
+    Range: [-3.35016, 9.92368]
+    Mean:  0.46744 | Std: 0.97472
+-------------------------
+--- DEBUG: Tx Symbol Imag ---
+    Shape: torch.Size([20, 2048])
+    Range: [-9.03399, 2.66937]
+    Mean:  -0.46744 | Std: 0.78260
+-------------------------
+Number of complex symbols K: 2048
+
+======== SNR = -5 dB ========
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/nosample/perfect_estimate/
+Starting Method C Sampling... Steps=200, DPS Scale=1.0
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] Estimated Noise Var: 3.1623
+[Method C] Starting from MMSE at DDIM Step 105/200 (t=526)
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/perfect_estimate/
+Saved result for SNR -5
+
+======== SNR = -2 dB ========
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/nosample/perfect_estimate/
+Starting Method C Sampling... Steps=200, DPS Scale=1.0
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] Estimated Noise Var: 1.5849
+[Method C] Starting from MMSE at DDIM Step 85/200 (t=426)
+Warning: NaN gradient at step 121. Zeroing out.
+Warning: NaN gradient at step 116. Zeroing out.
+Warning: NaN gradient at step 111. Zeroing out.
+Warning: NaN gradient at step 106. Zeroing out.
+Warning: NaN gradient at step 101. Zeroing out.
+Warning: NaN gradient at step 96. Zeroing out.
+Warning: NaN gradient at step 91. Zeroing out.
+Warning: NaN gradient at step 86. Zeroing out.
+Warning: NaN gradient at step 81. Zeroing out.
+Warning: NaN gradient at step 76. Zeroing out.
+Warning: NaN gradient at step 71. Zeroing out.
+Warning: NaN gradient at step 66. Zeroing out.
+Warning: NaN gradient at step 61. Zeroing out.
+Warning: NaN gradient at step 56. Zeroing out.
+Warning: NaN gradient at step 51. Zeroing out.
+Warning: NaN gradient at step 46. Zeroing out.
+Warning: NaN gradient at step 41. Zeroing out.
+Warning: NaN gradient at step 36. Zeroing out.
+Warning: NaN gradient at step 31. Zeroing out.
+Warning: NaN gradient at step 26. Zeroing out.
+Warning: NaN gradient at step 21. Zeroing out.
+Warning: NaN gradient at step 16. Zeroing out.
+Warning: NaN gradient at step 11. Zeroing out.
+Warning: NaN gradient at step 6. Zeroing out.
+Warning: NaN gradient at step 1. Zeroing out.
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/perfect_estimate/
+Saved result for SNR -2
+
+======== SNR = 1 dB ========
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/nosample/perfect_estimate/
+Starting Method C Sampling... Steps=200, DPS Scale=1.0
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] Estimated Noise Var: 0.7943
+[Method C] Starting from MMSE at DDIM Step 64/200 (t=321)
+Warning: NaN gradient at step 246. Zeroing out.
+Warning: NaN gradient at step 241. Zeroing out.
+Warning: NaN gradient at step 236. Zeroing out.
+Warning: NaN gradient at step 231. Zeroing out.
+Warning: NaN gradient at step 226. Zeroing out.
+Warning: NaN gradient at step 221. Zeroing out.
+Warning: NaN gradient at step 216. Zeroing out.
+Warning: NaN gradient at step 211. Zeroing out.
+Warning: NaN gradient at step 206. Zeroing out.
+Warning: NaN gradient at step 201. Zeroing out.
+Warning: NaN gradient at step 196. Zeroing out.
+Warning: NaN gradient at step 191. Zeroing out.
+Warning: NaN gradient at step 186. Zeroing out.
+Warning: NaN gradient at step 181. Zeroing out.
+Warning: NaN gradient at step 176. Zeroing out.
+Warning: NaN gradient at step 171. Zeroing out.
+Warning: NaN gradient at step 166. Zeroing out.
+Warning: NaN gradient at step 161. Zeroing out.
+Warning: NaN gradient at step 156. Zeroing out.
+Warning: NaN gradient at step 151. Zeroing out.
+Warning: NaN gradient at step 146. Zeroing out.
+Warning: NaN gradient at step 141. Zeroing out.
+Warning: NaN gradient at step 136. Zeroing out.
+Warning: NaN gradient at step 131. Zeroing out.
+Warning: NaN gradient at step 126. Zeroing out.
+Warning: NaN gradient at step 121. Zeroing out.
+Warning: NaN gradient at step 116. Zeroing out.
+Warning: NaN gradient at step 111. Zeroing out.
+Warning: NaN gradient at step 106. Zeroing out.
+Warning: NaN gradient at step 101. Zeroing out.
+Warning: NaN gradient at step 96. Zeroing out.
+Warning: NaN gradient at step 91. Zeroing out.
+Warning: NaN gradient at step 86. Zeroing out.
+Warning: NaN gradient at step 81. Zeroing out.
+Warning: NaN gradient at step 76. Zeroing out.
+Warning: NaN gradient at step 71. Zeroing out.
+Warning: NaN gradient at step 66. Zeroing out.
+Warning: NaN gradient at step 61. Zeroing out.
+Warning: NaN gradient at step 56. Zeroing out.
+Warning: NaN gradient at step 51. Zeroing out.
+Warning: NaN gradient at step 46. Zeroing out.
+Warning: NaN gradient at step 41. Zeroing out.
+Warning: NaN gradient at step 36. Zeroing out.
+Warning: NaN gradient at step 31. Zeroing out.
+Warning: NaN gradient at step 26. Zeroing out.
+Warning: NaN gradient at step 21. Zeroing out.
+Warning: NaN gradient at step 16. Zeroing out.
+Warning: NaN gradient at step 11. Zeroing out.
+Warning: NaN gradient at step 6. Zeroing out.
+Warning: NaN gradient at step 1. Zeroing out.
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/perfect_estimate/
+Saved result for SNR 1
+
+======== SNR = 4 dB ========
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/nosample/perfect_estimate/
+Starting Method C Sampling... Steps=200, DPS Scale=1.0
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] Estimated Noise Var: 0.3981
+[Method C] Starting from MMSE at DDIM Step 45/200 (t=226)
+Warning: NaN gradient at step 161. Zeroing out.
+Warning: NaN gradient at step 156. Zeroing out.
+Warning: NaN gradient at step 151. Zeroing out.
+Warning: NaN gradient at step 146. Zeroing out.
+Warning: NaN gradient at step 141. Zeroing out.
+Warning: NaN gradient at step 136. Zeroing out.
+Warning: NaN gradient at step 131. Zeroing out.
+Warning: NaN gradient at step 126. Zeroing out.
+Warning: NaN gradient at step 121. Zeroing out.
+Warning: NaN gradient at step 116. Zeroing out.
+Warning: NaN gradient at step 111. Zeroing out.
+Warning: NaN gradient at step 106. Zeroing out.
+Warning: NaN gradient at step 101. Zeroing out.
+Warning: NaN gradient at step 96. Zeroing out.
+Warning: NaN gradient at step 91. Zeroing out.
+Warning: NaN gradient at step 86. Zeroing out.
+Warning: NaN gradient at step 81. Zeroing out.
+Warning: NaN gradient at step 76. Zeroing out.
+Warning: NaN gradient at step 71. Zeroing out.
+Warning: NaN gradient at step 66. Zeroing out.
+Warning: NaN gradient at step 61. Zeroing out.
+Warning: NaN gradient at step 56. Zeroing out.
+Warning: NaN gradient at step 51. Zeroing out.
+Warning: NaN gradient at step 46. Zeroing out.
+Warning: NaN gradient at step 41. Zeroing out.
+Warning: NaN gradient at step 36. Zeroing out.
+Warning: NaN gradient at step 31. Zeroing out.
+Warning: NaN gradient at step 26. Zeroing out.
+Warning: NaN gradient at step 21. Zeroing out.
+Warning: NaN gradient at step 16. Zeroing out.
+Warning: NaN gradient at step 11. Zeroing out.
+Warning: NaN gradient at step 6. Zeroing out.
+Warning: NaN gradient at step 1. Zeroing out.
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/perfect_estimate/
+Saved result for SNR 4
+
+======== SNR = 7 dB ========
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/nosample/perfect_estimate/
+Starting Method C Sampling... Steps=200, DPS Scale=1.0
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] Estimated Noise Var: 0.1995
+[Method C] Starting from MMSE at DDIM Step 29/200 (t=146)
+Warning: NaN gradient at step 91. Zeroing out.
+Warning: NaN gradient at step 86. Zeroing out.
+Warning: NaN gradient at step 81. Zeroing out.
+Warning: NaN gradient at step 76. Zeroing out.
+Warning: NaN gradient at step 71. Zeroing out.
+Warning: NaN gradient at step 66. Zeroing out.
+Warning: NaN gradient at step 61. Zeroing out.
+Warning: NaN gradient at step 56. Zeroing out.
+Warning: NaN gradient at step 51. Zeroing out.
+Warning: NaN gradient at step 46. Zeroing out.
+Warning: NaN gradient at step 41. Zeroing out.
+Warning: NaN gradient at step 36. Zeroing out.
+Warning: NaN gradient at step 31. Zeroing out.
+Warning: NaN gradient at step 26. Zeroing out.
+Warning: NaN gradient at step 21. Zeroing out.
+Warning: NaN gradient at step 16. Zeroing out.
+Warning: NaN gradient at step 11. Zeroing out.
+Warning: NaN gradient at step 6. Zeroing out.
+Warning: NaN gradient at step 1. Zeroing out.
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/perfect_estimate/
+Saved result for SNR 7
+
+======== SNR = 10 dB ========
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/nosample/perfect_estimate/
+Starting Method C Sampling... Steps=200, DPS Scale=1.0
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] Estimated Noise Var: 0.1000
+[Method C] Starting from MMSE at DDIM Step 17/200 (t=86)
+Warning: NaN gradient at step 41. Zeroing out.
+Warning: NaN gradient at step 36. Zeroing out.
+Warning: NaN gradient at step 31. Zeroing out.
+Warning: NaN gradient at step 26. Zeroing out.
+Warning: NaN gradient at step 21. Zeroing out.
+Warning: NaN gradient at step 16. Zeroing out.
+Warning: NaN gradient at step 11. Zeroing out.
+Warning: NaN gradient at step 6. Zeroing out.
+Warning: NaN gradient at step 1. Zeroing out.
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/perfect_estimate/
+Saved result for SNR 10
+
+======== SNR = 13 dB ========
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/nosample/perfect_estimate/
+Starting Method C Sampling... Steps=200, DPS Scale=1.0
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] Estimated Noise Var: 0.0501
+[Method C] Starting from MMSE at DDIM Step 10/200 (t=51)
+Warning: NaN gradient at step 11. Zeroing out.
+Warning: NaN gradient at step 6. Zeroing out.
+Warning: NaN gradient at step 1. Zeroing out.
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/perfect_estimate/
+Saved result for SNR 13
+
+======== SNR = 16 dB ========
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/nosample/perfect_estimate/
+Starting Method C Sampling... Steps=200, DPS Scale=1.0
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] Estimated Noise Var: 0.0251
+[Method C] Starting from MMSE at DDIM Step 5/200 (t=26)
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/perfect_estimate/
+Saved result for SNR 16
+
+======== SNR = 19 dB ========
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/nosample/perfect_estimate/
+Starting Method C Sampling... Steps=200, DPS Scale=1.0
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] Estimated Noise Var: 0.0126
+[Method C] Starting from MMSE at DDIM Step 2/200 (t=11)
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/perfect_estimate/
+Saved result for SNR 19
+
+======== SNR = 22 dB ========
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/nosample/perfect_estimate/
+Starting Method C Sampling... Steps=200, DPS Scale=1.0
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] Estimated Noise Var: 0.0063
+[Method C] Starting from MMSE at DDIM Step 1/200 (t=6)
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/perfect_estimate/
+Saved result for SNR 22
+
+======== SNR = 25 dB ========
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/nosample/perfect_estimate/
+Starting Method C Sampling... Steps=200, DPS Scale=1.0
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] Estimated Noise Var: 0.0032
+[Method C] Starting from MMSE at DDIM Step 0/200 (t=1)
+20 images are saved in outputs/MIMO_MethodC_DPS/t=2_r=2/perfect_estimate/
+Saved result for SNR 25

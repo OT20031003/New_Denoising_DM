@@ -1870,170 +1870,150 @@ class DDIMSampler(object):
 
 
         return start_timesteps
-    @torch.enable_grad()
-    def dps_sampling(self,
+    @torch.no_grad()
+    def method_c_dps_sampling(self,
                S,
                batch_size,
                shape,
                conditioning=None,
-               x_T=None,
-               # DPS Specific Arguments
-               measure_loss_fn=None,
-               guide_scale=1.0,
-               verbose=True,
-               unconditional_guidance_scale=1.,
-               unconditional_conditioning=None,
-               eta=0.,
-               # 追加引数: ノイズ分散または固定開始ステップ
-               noise_variance=None, 
-               fixed_start_step=None, 
+               y=None, H_hat=None, Sigma_inv=None, z_init=None, zeta=1.0,
+               mapper=None, inv_mapper=None,
+               eta=0., verbose=True, unconditional_guidance_scale=1., unconditional_conditioning=None,
                **kwargs
                ):
         
-        # 1. スケジュール作成
+        # --- Helper for Logging ---
+        def log_stats(step, name, tensor):
+            with torch.no_grad():
+                if torch.isnan(tensor).any():
+                    print(f"!!! [Step {step}] {name} contains NaN !!!")
+                    return True
+                mean = tensor.mean().item()
+                std = tensor.std().item()
+                max_val = tensor.abs().max().item()
+                norm = torch.norm(tensor).item()
+                print(f"[Step {step}] {name:10s} | Mean: {mean:.4f} | Std: {std:.4f} | MaxAbs: {max_val:.4f} | Norm: {norm:.4f}")
+                return False
+        # --------------------------
+
         self.make_schedule(ddim_num_steps=S, ddim_eta=eta, verbose=verbose)
         device = self.model.betas.device
         
-        # -------------------------------------------------------------
-        # [NEW] 動的な開始ステップの計算 (SNR Matching)
-        # -------------------------------------------------------------
-        # デフォルトは全ステップ (純粋なノイズからの生成)
-        start_index = S - 1 
+        # Start Timestep Determination
+        avg_precision = Sigma_inv.abs().mean().item()
+        est_noise_var = 1.0 / (avg_precision + 1e-8)
+        target_alpha = 1.0 / (1.0 + est_noise_var)
+        diffs = torch.abs(self.alphas_cumprod.to(device) - target_alpha)
+        start_t_ddpm = torch.argmin(diffs).item()
+        abs_diff = torch.abs(torch.from_numpy(self.ddim_timesteps).to(device) - start_t_ddpm)
+        start_index = torch.argmin(abs_diff).item()
         
-        if fixed_start_step is not None:
-            # 固定値が指定された場合 (デバッグ用など)
-            start_index = min(fixed_start_step, S - 1)
-            print(f"DPS: Using fixed start step index: {start_index}/{S}")
-            
-        elif noise_variance is not None:
-            # ノイズ分散から最適なタイムステップを逆算する
-            # 理論: SNR_diffusion(t) = alpha_bar_t / (1 - alpha_bar_t)
-            #       SNR_channel    = 1 / noise_variance (信号電力=1と仮定)
-            #       => alpha_bar_t = 1 / (1 + noise_variance)
-            
-            if not torch.is_tensor(noise_variance):
-                noise_variance = torch.tensor(noise_variance, device=device)
-                
-            target_alpha_bar = 1.0 / (1.0 + noise_variance)
-            
-            # alpha_cumprod は [T] (例:1000) なので、DDIMのステップ [S] にマップされたものを使う必要がある
-            # ここでは self.ddim_alphas (shape=[S]) を使用
-            # self.ddim_alphas は t=0 -> t=T の順にはなっていない可能性があるため、元のalphasを参照して検索推奨
-            
-            # diffusionのalphas_cumprod (降順ではない) から検索
-            alphas_cumprod = self.alphas_cumprod.to(device) # shape [1000]
-            
-            # target_alpha_bar に最も近い値を探索 (降順ソートされていると仮定してsearchsortedするために符号反転することもあるが、
-            # LDMのalphas_cumprodは通常 t=0で1.0, t=1000で0.0 に減衰する)
-            
-            # 最も近い alpha_bar を持つ DDIM ステップを探す
-            # self.ddim_alphas は make_schedule で計算済み (通常 t_steps の値が入っている)
-            
-            diffs = torch.abs(self.ddim_alphas.to(device) - target_alpha_bar)
-            start_index = torch.argmin(diffs).item()
-            
-            # 安全策: SNRが極端に低い場合は最大ステップから、高い場合は0から
-            print(f"DPS: SNR/Variance Adaptive Start. Variance={noise_variance:.4f} -> alpha_bar={target_alpha_bar:.4f} -> Start Index={start_index}/{S}")
+        print(f"[Method C] SNR-based Start: DDIM Step {start_index}/{S} (t={self.ddim_timesteps[start_index]})")
 
-        # -------------------------------------------------------------
+        # Initialize x_T (Latent)
+        alpha_bar_start = self.ddim_alphas[start_index]
+        sqrt_alpha = torch.sqrt(alpha_bar_start)
+        sqrt_one_minus_alpha = torch.sqrt(1.0 - alpha_bar_start)
+        
+        z_init = z_init.to(device)
+        noise = torch.randn_like(z_init)
+        img = sqrt_alpha * z_init + sqrt_one_minus_alpha * noise
+        
+        # Initial Check
+        log_stats("Init", "img (x_t)", img)
 
-        # 初期ノイズあるいは初期画像
-        img = x_T.to(device) if x_T is not None else torch.randn((batch_size, *shape), device=device)
-        
-        # タイムステップ配列の作成 (start_index から 0 に向かって進む)
-        # DDIMのタイムステップ: [0, 5, 10, ... 995] のようになっている
-        # これを反転させたものから、start_index に対応する部分だけを取り出す
-        
-        # self.ddim_timesteps は [0, ..., 1000] の昇順
-        # time_range は逆順 (生成プロセス用)
-        timesteps = self.ddim_timesteps
-        time_range = np.flip(timesteps) # [995, ..., 0]
-        
-        # start_index は DDIMステップ数(S)のインデックス。
-        # 例: S=200, start_index=199 (t=995), start_index=0 (t=0)
-        # 生成ループは t=High -> Low なので、配列の先頭から始めるかどうかを決める
-        
-        # time_range[0] は t=Max (一番ノイズが多い)
-        # noise_varianceが大きい -> start_indexが大きい(tが大きい) -> ループの最初の方から始める
-        # noise_varianceが小さい -> start_indexが小さい(tが小さい) -> ループの途中から始める
-        
-        # 注意: DDIMの alphas は index と対応している。
-        # ddim_alphas[i] は time_range[Total - 1 - i] に対応する？
-        # 一般的な実装では:
-        # iterator loop: i goes 0 to S. 
-        # index = total_steps - i - 1  (これは配列の後ろからアクセスするためのもの)
-        # step = time_range[i]
-        
-        # 我々が欲しいのは「t = start_t から開始する」こと
-        # time_range は [995, 990, ..., 5, 0]
-        # start_index が 199 (max noise) なら、time_range[0] から始めたい。
-        # start_index が 10 (low noise) なら、time_range[S - 1 - 10] あたりから始めたい。
-        
-        # インデックスロジックの修正:
-        # target_alpha_bar にマッチする index を見つけた。
-        # これが "DDIM配列の何番目か" 
-        
-        # シンプルに実装するために、ループ内でスキップする方式を取ります
-        total_steps = timesteps.shape[0]
-        iterator = tqdm(time_range, desc='DPS Adaptive Sampling', total=total_steps)
+        # Sampling Loop
+        timesteps = self.ddim_timesteps[:start_index+1]
+        time_range = np.flip(timesteps)
+        iterator = tqdm(time_range, desc='Method C Sampling', total=len(time_range))
 
         for i, step in enumerate(iterator):
-            index = total_steps - i - 1
-            
-            # [NEW] スキップ判定
-            # もし現在のステップ (index) が計算した開始地点 (start_index) より大きければスキップ
-            # (ただし index 0 が t=0(画像), index S-1 が t=T(ノイズ) であることに注意)
-            # make_scheduleの実装によるが、通常 ddim_alphas[index] は t[index] に対応
-            # ddim_timesteps[index] = step
-            
-            if index > start_index:
-                continue
-
+            index = np.where(self.ddim_timesteps == step)[0][0]
             ts = torch.full((batch_size,), step, device=device, dtype=torch.long)
 
-            # --- 以下、既存の DPS ロジック ---
-            img_in = img.detach().requires_grad_(True)
-            
-            if unconditional_conditioning is None or unconditional_guidance_scale == 1.:
-                e_t = self.model.apply_model(img_in, ts, conditioning)
-            else:
-                x_in = torch.cat([img_in] * 2)
-                t_in = torch.cat([ts] * 2)
-                c_in = torch.cat([unconditional_conditioning, conditioning])
-                e_t_uncond, e_t = self.model.apply_model(x_in, t_in, c_in).chunk(2)
-                e_t = e_t_uncond + unconditional_guidance_scale * (e_t - e_t_uncond)
+            # --- 1. Gradient Computation with Debugging ---
+            with torch.enable_grad():
+                img_in = img.detach().requires_grad_(True)
 
-            a_t = torch.full((batch_size, 1, 1, 1), self.ddim_alphas[index], device=device)
-            sqrt_one_minus_at = torch.full((batch_size, 1, 1, 1), self.ddim_sqrt_one_minus_alphas[index], device=device)
-            
-            pred_x0 = (img_in - sqrt_one_minus_at * e_t) / a_t.sqrt()
-
-            guidance_grad = torch.zeros_like(img_in)
-            
-            if measure_loss_fn is not None:
-                loss = measure_loss_fn(pred_x0)
-                grad = torch.autograd.grad(loss, img_in)[0]
-                grad_norm = torch.linalg.norm(grad)
-                if grad_norm > 1e-5:
-                    normalized_grad = grad / grad_norm
+                # UNet Prediction
+                if unconditional_conditioning is None or unconditional_guidance_scale == 1.:
+                    e_t = self.model.apply_model(img_in, ts, conditioning)
                 else:
-                    normalized_grad = torch.zeros_like(grad)
+                    x_in = torch.cat([img_in] * 2)
+                    t_in = torch.cat([ts] * 2)
+                    c_in = torch.cat([unconditional_conditioning, conditioning])
+                    e_t_uncond, e_t = self.model.apply_model(x_in, t_in, c_in).chunk(2)
+                    e_t = e_t_uncond + unconditional_guidance_scale * (e_t - e_t_uncond)
+
+                # Tweedie Estimation
+                a_t = torch.full((batch_size, 1, 1, 1), self.ddim_alphas[index], device=device)
+                sqrt_one_minus_at = torch.full((batch_size, 1, 1, 1), self.ddim_sqrt_one_minus_alphas[index], device=device)
+                pred_z0 = (img_in - sqrt_one_minus_at * e_t) / a_t.sqrt()
+
+                # Physical Mapping & Loss
+                s_hat, _ = mapper(pred_z0) 
+                y_est = H_hat * s_hat 
+                residual = y - y_est
                 
-                # デバッグ表示 (最初の有効なステップだけ表示したい場合工夫が必要だが、とりあえずそのまま)
-                if i < (total_steps - start_index + 3): 
-                     # ループ開始直後のみ表示
-                     print(f"Step {step}: Loss={loss.item():.4e}, GradNorm={grad_norm.item():.4e} -> Normalized")
+                # Check residual magnitude (Log periodically)
+                if i % 10 == 0: 
+                     print(f"\n--- Debug Step {step} ---")
+                     log_stats(step, "Residual", residual)
+                
+                # Weighted Loss
+                weighted_res = residual * Sigma_inv 
+                
+                # [Fix 1] Normalize Loss by Dimension K to prevent scale explosion
+                K = residual.shape[1]
+                loss = 0.5 * torch.sum(torch.conj(residual) * weighted_res).real / K
+                
+                if i % 10 == 0:
+                     print(f"[Step {step}] Loss Value (Normed): {loss.item():.5f}")
 
-                guidance_grad = normalized_grad * guide_scale
+                # Backward
+                guidance_grad = torch.autograd.grad(loss, img_in)[0]
 
+            # --- 2. Adaptive Scaling (Crucial Fix) ---
+            # Hard clippingではなく、U-Netの更新量(Score)に対する相対比率でスケーリングする
+            
+            # バッチごとのノルムを計算 (Batch, -1)
+            score_norm = torch.linalg.norm(e_t.reshape(batch_size, -1), dim=1)
+            grad_norm = torch.linalg.norm(guidance_grad.reshape(batch_size, -1), dim=1)
+            
+            # Adaptive Scaling Factor: 
+            # ガイダンスの強さを、本来の生成方向(Score)と同じスケールに合わせる
+            # zeta=1.0 なら Scoreと同じ強さ、zeta=0.1 なら Scoreの10%の強さになる
+            scaling_factor = score_norm / (grad_norm + 1e-8)
+            
+            # Broadcastingのために次元を合わせる (B, 1, 1, 1)
+            scaling_factor = scaling_factor.view(batch_size, 1, 1, 1)
+            
+            # 最終的な勾配
+            scaled_grad = guidance_grad * scaling_factor * zeta
+
+            # デバッグ表示 (最初のバッチ要素のみ)
+            if i % 10 == 0:
+                s_n = score_norm[0].item()
+                g_n = grad_norm[0].item()
+                factor = scaling_factor[0,0,0,0].item()
+                print(f"[Step {step}] Adaptive Scale: ScoreNorm={s_n:.4f} | GradNorm={g_n:.4f} | Factor={factor:.4f}")
+
+            # --- 3. DDIM Update Step ---
             with torch.no_grad():
                 alphas_prev = self.ddim_alphas_prev
                 sigmas = self.ddim_sigmas
                 a_prev = torch.full((batch_size, 1, 1, 1), alphas_prev[index], device=device)
                 sigma_t = torch.full((batch_size, 1, 1, 1), sigmas[index], device=device)
+                
                 dir_xt = (1. - a_prev - sigma_t**2).sqrt() * e_t
                 noise = sigma_t * noise_like(img.shape, device, False) * eta
-                img_prev = a_prev.sqrt() * pred_x0 + dir_xt + noise
-                img = img_prev - guidance_grad
+                img_prev_ddim = a_prev.sqrt() * pred_z0 + dir_xt + noise
                 
+                # Apply Guided Gradient
+                img = img_prev_ddim - scaled_grad
+                
+                # NaN Check
+                if log_stats(step, "img_next", img):
+                    break 
+
         return img
