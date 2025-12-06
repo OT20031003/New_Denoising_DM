@@ -2025,3 +2025,177 @@ class DDIMSampler(object):
                     break 
 
         return img
+    # ==========================================
+    #  Method A: Blind Refinement (No Guidance)
+    # ==========================================
+    @torch.no_grad()
+    def method_a_blind_sampling(self,
+               S,
+               batch_size,
+               shape,
+               conditioning=None,
+               Sigma_inv=None, z_init=None,
+               eta=0., verbose=True, unconditional_guidance_scale=1., unconditional_conditioning=None,
+               **kwargs
+               ):
+        """
+        Method A: Starts from the estimated latent (z_init) at a timestep determined by noise variance,
+        then runs standard DDIM to t=0 WITHOUT gradient guidance.
+        """
+        self.make_schedule(ddim_num_steps=S, ddim_eta=eta, verbose=verbose)
+        device = self.model.betas.device
+        
+        # 1. Determine Start Timestep (Same logic as Method C)
+        avg_precision = Sigma_inv.abs().mean().item()
+        est_noise_var = 1.0 / (avg_precision + 1e-8)
+        
+        target_alpha = 1.0 / (1.0 + est_noise_var)
+        diffs = torch.abs(self.alphas_cumprod.to(device) - target_alpha)
+        start_t_ddpm = torch.argmin(diffs).item()
+        
+        ddim_timesteps_tensor = torch.from_numpy(self.ddim_timesteps).to(device)
+        abs_diff = torch.abs(ddim_timesteps_tensor - start_t_ddpm)
+        start_index = torch.argmin(abs_diff).item()
+        
+        actual_start_step = self.ddim_timesteps[start_index]
+        if verbose:
+            print(f"[Method A] Blind Start: DDIM Step {start_index}/{S} (t={actual_start_step})")
+
+        # 2. Initialization
+        z_init = z_init.to(device)
+        img = z_init.clone()
+
+        # 3. Sampling Loop
+        timesteps = self.ddim_timesteps[:start_index+1]
+        time_range = np.flip(timesteps)
+        iterator = tqdm(time_range, desc='Method A (Blind)', total=len(time_range))
+
+        for i, step in enumerate(iterator):
+            index = np.where(self.ddim_timesteps == step)[0][0]
+            ts = torch.full((batch_size,), step, device=device, dtype=torch.long)
+
+            # --- Standard DDIM Prediction (No Gradient) ---
+            if unconditional_conditioning is None or unconditional_guidance_scale == 1.:
+                e_t = self.model.apply_model(img, ts, conditioning)
+            else:
+                x_in = torch.cat([img] * 2)
+                t_in = torch.cat([ts] * 2)
+                c_in = torch.cat([unconditional_conditioning, conditioning])
+                e_t_uncond, e_t = self.model.apply_model(x_in, t_in, c_in).chunk(2)
+                e_t = e_t_uncond + unconditional_guidance_scale * (e_t - e_t_uncond)
+
+            # --- DDIM Update ---
+            alphas = self.ddim_alphas
+            alphas_prev = self.ddim_alphas_prev
+            sqrt_one_minus_alphas = self.ddim_sqrt_one_minus_alphas
+            sigmas = self.ddim_sigmas
+
+            a_t = torch.full((batch_size, 1, 1, 1), alphas[index], device=device)
+            a_prev = torch.full((batch_size, 1, 1, 1), alphas_prev[index], device=device)
+            sigma_t = torch.full((batch_size, 1, 1, 1), sigmas[index], device=device)
+            sqrt_one_minus_at = torch.full((batch_size, 1, 1, 1), sqrt_one_minus_alphas[index], device=device)
+
+            pred_x0 = (img - sqrt_one_minus_at * e_t) / a_t.sqrt()
+            dir_xt = (1. - a_prev - sigma_t**2).sqrt() * e_t
+            noise = sigma_t * noise_like(img.shape, device, False) * eta
+            
+            img_prev = a_prev.sqrt() * pred_x0 + dir_xt + noise
+            img = img_prev
+
+        return img
+
+    # ==========================================
+    #  Method B: Full DPS (Start from Noise)
+    # ==========================================
+    @torch.no_grad()
+    def method_b_full_dps_sampling(self,
+               S,
+               batch_size,
+               shape,
+               conditioning=None,
+               y=None, H_hat=None, Sigma_inv=None, zeta=1.0,
+               mapper=None, inv_mapper=None,
+               eta=0., verbose=True, unconditional_guidance_scale=1., unconditional_conditioning=None,
+               **kwargs
+               ):
+        """
+        Method B: Starts from Pure Noise (Random Gaussian) at t=T.
+        Uses Gradient Guidance (DPS) throughout the entire process.
+        """
+        self.make_schedule(ddim_num_steps=S, ddim_eta=eta, verbose=verbose)
+        device = self.model.betas.device
+        
+        # 1. Initialization (Pure Noise)
+        C, H, W = shape
+        img = torch.randn((batch_size, C, H, W), device=device)
+        
+        if verbose:
+            print(f"[Method B] Full DPS Start: From Random Noise")
+
+        # 2. Sampling Loop (Full Range)
+        timesteps = self.ddim_timesteps
+        time_range = np.flip(timesteps)
+        iterator = tqdm(time_range, desc='Method B (Full DPS)', total=len(time_range))
+
+        for i, step in enumerate(iterator):
+            index = np.where(self.ddim_timesteps == step)[0][0]
+            ts = torch.full((batch_size,), step, device=device, dtype=torch.long)
+
+            # --- A. Gradient Computation ---
+            with torch.enable_grad():
+                img_in = img.detach().requires_grad_(True)
+
+                if unconditional_conditioning is None or unconditional_guidance_scale == 1.:
+                    e_t = self.model.apply_model(img_in, ts, conditioning)
+                else:
+                    x_in = torch.cat([img_in] * 2)
+                    t_in = torch.cat([ts] * 2)
+                    c_in = torch.cat([unconditional_conditioning, conditioning])
+                    e_t_uncond, e_t = self.model.apply_model(x_in, t_in, c_in).chunk(2)
+                    e_t = e_t_uncond + unconditional_guidance_scale * (e_t - e_t_uncond)
+
+                # Tweedie Estimation
+                alphas = self.ddim_alphas
+                sqrt_one_minus_alphas = self.ddim_sqrt_one_minus_alphas
+                a_t = torch.full((batch_size, 1, 1, 1), alphas[index], device=device)
+                sqrt_one_minus_at = torch.full((batch_size, 1, 1, 1), sqrt_one_minus_alphas[index], device=device)
+                
+                pred_z0 = (img_in - sqrt_one_minus_at * e_t) / a_t.sqrt()
+
+                # Physical Mapping & Loss
+                s_hat, _ = mapper(pred_z0) 
+                y_est = H_hat * s_hat 
+                residual = y - y_est
+                weighted_res = residual * Sigma_inv 
+                K = residual.shape[1] * residual.shape[2]
+                loss_val = 0.5 * torch.sum(torch.conj(residual) * weighted_res).real / K
+                
+                guidance_grad = torch.autograd.grad(loss_val, img_in)[0]
+
+            # --- B. Scaling ---
+            # Standard DPS scaling (can be constant or decaying)
+            # Here we use the same decay logic as Method C for consistency
+            max_timestep = self.ddim_timesteps[-1]
+            decay_factor = step / max_timestep 
+            current_zeta = zeta * decay_factor # or just zeta for standard DPS
+            
+            scaled_grad = guidance_grad * current_zeta
+
+            # --- C. DDIM Update ---
+            with torch.no_grad():
+                alphas_prev = self.ddim_alphas_prev
+                sigmas = self.ddim_sigmas
+                a_prev = torch.full((batch_size, 1, 1, 1), alphas_prev[index], device=device)
+                sigma_t = torch.full((batch_size, 1, 1, 1), sigmas[index], device=device)
+                
+                dir_xt = (1. - a_prev - sigma_t**2).sqrt() * e_t
+                noise = sigma_t * noise_like(img.shape, device, False) * eta
+                img_prev_ddim = a_prev.sqrt() * pred_z0 + dir_xt + noise
+                
+                # Apply Gradient
+                img = img_prev_ddim - scaled_grad
+                
+                # Clamp
+                img = torch.clamp(img, min=-3.0, max=3.0)
+
+        return img
