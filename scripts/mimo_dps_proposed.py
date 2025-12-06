@@ -18,28 +18,11 @@ import lpips
 # ==========================================
 
 class MatrixOperator:
-    """
-    ddim.py の 'H_hat * s_hat' という記述を変更せずに、
-    行列積 (Batch, Nr, Nt) @ (Batch, Nt, L) を実行するためのラッパー
-    """
     def __init__(self, tensor):
         self.tensor = tensor
 
     def __mul__(self, other):
-        # other: (Batch, Nt, L)
-        # self.tensor: (Batch, Nr, Nt)
         return torch.matmul(self.tensor, other)
-
-def print_debug_stats(tensor, name="Tensor"):
-    if tensor is None:
-        print(f"[{name}] is None!")
-        return
-    t = tensor.detach().cpu().float()
-    min_val = t.min().item()
-    max_val = t.max().item()
-    mean_val = t.mean().item()
-    std_val = t.std().item()
-    print(f"--- DEBUG: {name} --- Shape: {t.shape} | Range: [{min_val:.5f}, {max_val:.5f}] | Mean: {mean_val:.5f} | Std: {std_val:.5f}")
 
 def load_images_as_tensors(dir_path, image_size=(256, 256)):
     transform = transforms.Compose([
@@ -97,18 +80,10 @@ def remove_png(path):
 #  Mappers (Latent <-> MIMO Streams)
 # ==========================================
 def latent_to_mimo_streams(z_real, t_antennas):
-    """
-    (Batch, C, H, W) -> (Batch, t, L) Complex
-    """
     B, C, H, W = z_real.shape
-    # Flatten to (Batch, -1)
     z_flat = z_real.view(B, -1)
     
-    # Reshape for t antennas
-    # Padding if necessary (not handled here, assuming dimensions match or truncate)
     total_elements = z_flat.shape[1]
-    
-    # We need to ensure total_elements is divisible by (t * 2) for complex
     L_complex = total_elements // (t_antennas * 2)
     cutoff = L_complex * t_antennas * 2
     z_used = z_flat[:, :cutoff]
@@ -120,16 +95,11 @@ def latent_to_mimo_streams(z_real, t_antennas):
     return s, (B, C, H, W)
 
 def mimo_streams_to_latent(s, original_shape):
-    """
-    (Batch, t, L) Complex -> (Batch, C, H, W) Real
-    """
     real_part = s.real
     imag_part = s.imag
-    # Concatenate back
     z_view = torch.cat([real_part, imag_part], dim=2) # (B, t, 2L)
     z_flat = z_view.view(s.shape[0], -1)
     
-    # Reshape to original
     target_size = np.prod(original_shape[1:])
     current_size = z_flat.shape[1]
     
@@ -147,14 +117,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     
     # MIMO Parameters
-    t_mimo = 2 # Transmit antennas (streams)
-    r_mimo = 2 # Receive antennas
-    N_pilot = 2 # Pilot length (usually >= t)
+    t_mimo = 2 
+    r_mimo = 2 
+    N_pilot = 2 
     
     P_power = 1.0 
-    Perfect_Estimate = False 
-
-    base_experiment_name = f"MIMO_MethodC_LS/t={t_mimo}_r={r_mimo}"
+    Perfect_Estimate = False
+    # python -m scripts.mimo_dps_proposed > output_dps_estimate.txt
+    # Rename Experiment to "Proposed"
+    base_experiment_name = f"MIMO_Proposed_LS/t={t_mimo}_r={r_mimo}"
     
     parser.add_argument("--input_path", type=str, default="input_img")
     parser.add_argument("--outdir", type=str, default=f"outputs/{base_experiment_name}")
@@ -163,7 +134,7 @@ if __name__ == "__main__":
     
     parser.add_argument("--ddim_steps", type=int, default=200)
     parser.add_argument("--scale", type=float, default=5.0)
-    parser.add_argument("--dps_scale", type=float, default=0.1) # Zeta
+    parser.add_argument("--dps_scale", type=float, default=0.1) 
     
     opt = parser.parse_args()
 
@@ -199,7 +170,7 @@ if __name__ == "__main__":
     z_norm = (z - z_mean) / (torch.sqrt(z_var) + eps)
     
     # ----------------------------------------------------------------
-    # 1. Map Latent to MIMO Streams (Matrix Form)
+    # 1. Map Latent to MIMO Streams
     # ----------------------------------------------------------------
     s_0_real = z_norm / np.sqrt(2.0)
     s_0, latent_shape = latent_to_mimo_streams(s_0_real, t_mimo)
@@ -209,13 +180,13 @@ if __name__ == "__main__":
     print(f"MIMO Streams: {t_mimo}x{L_len} complex symbols")
 
     # ----------------------------------------------------------------
-    # 2. Pilot Signal Setup (LS Estimation)
+    # 2. Pilot Signal Setup
     # ----------------------------------------------------------------
     t_vec = torch.arange(t_mimo, device=device)
     N_vec = torch.arange(N_pilot, device=device)
     tt, NN = torch.meshgrid(t_vec, N_vec, indexing='ij')
     P = torch.sqrt(torch.tensor(P_power/(N_pilot*t_mimo))) * torch.exp(1j*2*torch.pi*tt*NN/N_pilot)
-    P = P.to(device) # (t, N)
+    P = P.to(device) 
 
     # Simulation Loop
     for snr in range(-5, 26, 3): 
@@ -224,7 +195,7 @@ if __name__ == "__main__":
         noise_variance = t_mimo / (10**(snr/10))
         sigma_n = np.sqrt(noise_variance / 2.0)
 
-        # A. Channel Generation H (Batch, r, t)
+        # A. Channel Generation
         H_real = torch.randn(batch_size, r_mimo, t_mimo, device=device) * np.sqrt(0.5)
         H_imag = torch.randn(batch_size, r_mimo, t_mimo, device=device) * np.sqrt(0.5)
         H = torch.complex(H_real, H_imag)
@@ -252,7 +223,7 @@ if __name__ == "__main__":
         
         Y = torch.matmul(H, s_0) + W
         
-        # D. MMSE Initialization (Baseline)
+        # D. MMSE Initialization
         eff_noise = sigma_e2 + noise_variance
         
         H_hat_H = H_hat.mH
@@ -265,26 +236,29 @@ if __name__ == "__main__":
         # Equalization
         s_mmse = torch.matmul(W_mmse, Y) # (B, t, L)
         
-        # Save MMSE Result (Scaling back for display)
+        # Save MMSE Result
         z_init_real = mimo_streams_to_latent(s_mmse, latent_shape)
-        
-        # z_init_mmse: 生の信号スケール (信号電力は減衰している可能性がある)
         z_init_mmse = z_init_real * np.sqrt(2.0)
         
-        # 単純復号 (No-Sample)
         z_nosample = z_init_mmse * (torch.sqrt(z_var) + eps) + z_mean
         rec_nosample = model.decode_first_stage(z_nosample)
         save_img_individually(rec_nosample, f"{opt.nosample_outdir}/mmse_snr{snr}.png")
         
-        # E. Prepare for Method C (DPS)
+        # E. Prepare for Proposed Method (DPS)
         
-        # Sigma_inv Construction
+        # [Fix 2] Calculate Post-MMSE Noise Variance
+        # MMSEフィルタ通過後のノイズ共分散行列の対角成分(平均)を推定
+        # R_post = W_mmse @ (eff_noise * I) @ W_mmse^H = eff_noise * (W_mmse @ W_mmse^H)
+        W_W_H = torch.matmul(W_mmse, W_mmse.mH) # (B, t, t)
+        noise_power_factor = W_W_H.diagonal(dim1=-2, dim2=-1).real.mean() # scalar (batch average handled in sampler if needed, but mean here is safe)
+        post_mmse_noise_var = eff_noise * noise_power_factor
+        
+        # 通常のチャネルノイズ逆数 (Guidance用)
         eff_var_scalar = noise_variance + sigma_e2
         Sigma_inv = 1.0 / eff_var_scalar
         
         H_hat_wrapper = MatrixOperator(H_hat)
         
-        # Define Mapper Wrappers for Sampler
         def forward_mapper(z):
             return latent_to_mimo_streams(z / np.sqrt(2.0), t_mimo)
         
@@ -292,32 +266,39 @@ if __name__ == "__main__":
             z = mimo_streams_to_latent(s, shape)
             return z * np.sqrt(2.0)
 
-        # [Fix 1] 入力信号の正規化 (Normalization)
-        # MMSE出力はノイズ除去過程で振幅が小さくなっている(Shrinkage)ため、
-        # 拡散モデルの入力仕様 (Mean 0, Var 1) に合わせて正規化する。
-        # これにより拡散モデルが「薄い画像」ではなく「ノイズの乗った画像」として正しく認識できるようにする。
+        # [Fix 1] Normalization
         actual_std = z_init_mmse.std(dim=(1, 2, 3), keepdim=True)
         z_init_normalized = z_init_mmse / (actual_std + 1e-8)
         
         cond = model.get_learned_conditioning(batch_size * [""])
+
+        # [Fix 1] Adaptive Guidance Scale
+        # 低SNR時はガイドを弱めて、モデルの事前分布（補完能力）を優先する
+        current_zeta = opt.dps_scale
+        if snr < 5:
+            current_zeta *= 0.1
+            print(f"[Info] Low SNR ({snr}dB): Reducing Zeta to {current_zeta:.4f}")
         
-        print(f"Starting Method C Sampling... Steps={opt.ddim_steps}, Zeta={opt.dps_scale}")
-        
-        samples = sampler.method_c_dps_sampling(
+        print(f"Starting Proposed Sampling... Steps={opt.ddim_steps}, Zeta={current_zeta}")
+        target_variance_for_timestep = eff_noise
+        # Call Proposed Sampling (Renamed from method_c)
+        samples = sampler.proposed_dps_sampling(
             S=opt.ddim_steps,
             batch_size=batch_size,
             shape=z.shape[1:4], 
             conditioning=cond,
             
-            # Method C Arguments
             y=Y,                 
             H_hat=H_hat_wrapper, 
             Sigma_inv=torch.tensor(Sigma_inv, device=device),
-            z_init=z_init_normalized, # [Fix 1] 正規化済みの初期値を渡す
-            zeta=opt.dps_scale,
+            z_init=z_init_normalized, 
+            zeta=current_zeta,
             
             mapper=forward_mapper,
             inv_mapper=backward_mapper,
+            
+            # [Fix 2] Pass correct noise variance for start timestep
+            initial_noise_variance=post_mmse_noise_var,
             
             eta=0.0,
             verbose=False
@@ -325,7 +306,7 @@ if __name__ == "__main__":
         
         # Denormalize & Decode
         z_restored = samples * (torch.sqrt(z_var) + eps) + z_mean
-        rec_method_c = model.decode_first_stage(z_restored)
+        rec_proposed = model.decode_first_stage(z_restored)
         
-        save_img_individually(rec_method_c, f"{opt.outdir}/method_c_snr{snr}.png")
+        save_img_individually(rec_proposed, f"{opt.outdir}/proposed_snr{snr}.png")
         print(f"Saved result for SNR {snr}")

@@ -1,0 +1,393 @@
+Loading model from models/ldm/text2img-large/model.ckpt
+autoencoder.py
+LatentDiffusion: Running in eps-prediction mode
+DiffusionWrapper has 872.30 M params.
+ldm.modules/diffusionmodules/util.py ; make_schedule = linear
+ldm/modules/diffusionmodules/model.py, Enocoder; in_channels = 3, ch_mult = [1, 2, 4, 4]
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+making attention of type 'vanilla' with 512 in_channels
+ldm/models/autoencoder.py, AutoencoderKL init, created
+Working with z of shape (1, 4, 32, 32) = 4096 dimensions.
+making attention of type 'vanilla' with 512 in_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+Saved images to ./sentimg/
+Encoder, forward@@@@@@@@@@@@@@@
+autoencoder.py, h = torch.Size([20, 8, 32, 32])
+autoencoder.py , moments = torch.Size([20, 8, 32, 32])
+MIMO Streams: 2x1024 complex symbols
+
+======== SNR = -5 dB ========
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/perfect/
+Starting Method C Sampling... Steps=200, Zeta=0.1
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] SNR-based Start: DDIM Step 125/200 (t=626)
+[Step Init] img (x_t)  | Mean: 0.0262 | Std: 1.0036 | MaxAbs: 8.6496 | Norm: 287.3418
+
+--- Debug Step t=626 (Loop i=0) ---
+Loss Value: 11.380977
+[Step 626] Adaptive Scale (Reference Only): ScoreNorm=59.4785 | GradNorm=0.0167 | Factor=3562.2260
+[Step 626] img (x_t) stats: Mean: 0.0262 | Std: 1.0036 | MaxAbs: 8.6496 | Norm: 287.3418
+
+--- Debug Step t=576 (Loop i=10) ---
+Loss Value: 11.261065
+[Step 576] Adaptive Scale (Reference Only): ScoreNorm=58.2682 | GradNorm=0.0145 | Factor=4017.0939
+[Step 576] img (x_t) stats: Mean: 0.0293 | Std: 1.0030 | MaxAbs: 3.0000 | Norm: 287.1940
+
+--- Debug Step t=526 (Loop i=20) ---
+Loss Value: 11.145247
+[Step 526] Adaptive Scale (Reference Only): ScoreNorm=57.6431 | GradNorm=0.0129 | Factor=4474.7422
+[Step 526] img (x_t) stats: Mean: 0.0336 | Std: 1.0148 | MaxAbs: 3.0000 | Norm: 290.5981
+
+--- Debug Step t=476 (Loop i=30) ---
+Loss Value: 11.042109
+[Step 476] Adaptive Scale (Reference Only): ScoreNorm=56.9934 | GradNorm=0.0117 | Factor=4888.5610
+[Step 476] img (x_t) stats: Mean: 0.0378 | Std: 1.0276 | MaxAbs: 3.0000 | Norm: 294.3060
+
+--- Debug Step t=426 (Loop i=40) ---
+Loss Value: 10.954462
+[Step 426] Adaptive Scale (Reference Only): ScoreNorm=56.3407 | GradNorm=0.0107 | Factor=5256.5265
+[Step 426] img (x_t) stats: Mean: 0.0419 | Std: 1.0410 | MaxAbs: 3.0000 | Norm: 298.1831
+
+--- Debug Step t=376 (Loop i=50) ---
+Loss Value: 10.873721
+[Step 376] Adaptive Scale (Reference Only): ScoreNorm=55.6897 | GradNorm=0.0100 | Factor=5585.4705
+[Step 376] img (x_t) stats: Mean: 0.0458 | Std: 1.0545 | MaxAbs: 3.0000 | Norm: 302.0984
+
+--- Debug Step t=326 (Loop i=60) ---
+Loss Value: 10.796389
+[Step 326] Adaptive Scale (Reference Only): ScoreNorm=55.0186 | GradNorm=0.0093 | Factor=5887.2462
+[Step 326] img (x_t) stats: Mean: 0.0494 | Std: 1.0676 | MaxAbs: 3.0000 | Norm: 305.8949
+
+--- Debug Step t=276 (Loop i=70) ---
+Loss Value: 10.720291
+[Step 276] Adaptive Scale (Reference Only): ScoreNorm=54.3020 | GradNorm=0.0087 | Factor=6215.4122
+[Step 276] img (x_t) stats: Mean: 0.0528 | Std: 1.0798 | MaxAbs: 3.0000 | Norm: 309.4121
+
+--- Debug Step t=226 (Loop i=80) ---
+Loss Value: 10.640860
+[Step 226] Adaptive Scale (Reference Only): ScoreNorm=53.4865 | GradNorm=0.0083 | Factor=6424.1366
+[Step 226] img (x_t) stats: Mean: 0.0559 | Std: 1.0905 | MaxAbs: 3.0000 | Norm: 312.5274
+
+--- Debug Step t=176 (Loop i=90) ---
+Loss Value: 10.558198
+[Step 176] Adaptive Scale (Reference Only): ScoreNorm=52.5176 | GradNorm=0.0080 | Factor=6539.5853
+[Step 176] img (x_t) stats: Mean: 0.0587 | Std: 1.0995 | MaxAbs: 3.0000 | Norm: 315.1469
+
+--- Debug Step t=126 (Loop i=100) ---
+Loss Value: 10.466597
+[Step 126] Adaptive Scale (Reference Only): ScoreNorm=51.2197 | GradNorm=0.0079 | Factor=6483.2711
+[Step 126] img (x_t) stats: Mean: 0.0611 | Std: 1.1066 | MaxAbs: 3.0000 | Norm: 317.1946
+
+--- Debug Step t=76 (Loop i=110) ---
+Loss Value: 10.359009
+[Step 76] Adaptive Scale (Reference Only): ScoreNorm=49.1890 | GradNorm=0.0080 | Factor=6174.0223
+[Step 76] img (x_t) stats: Mean: 0.0631 | Std: 1.1114 | MaxAbs: 3.0000 | Norm: 318.6159
+
+--- Debug Step t=26 (Loop i=120) ---
+Loss Value: 10.202753
+[Step 26] Adaptive Scale (Reference Only): ScoreNorm=44.3393 | GradNorm=0.0081 | Factor=5446.4972
+[Step 26] img (x_t) stats: Mean: 0.0648 | Std: 1.1136 | MaxAbs: 3.0000 | Norm: 319.2706
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/perfect/
+Saved result for SNR -5
+
+======== SNR = -2 dB ========
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/perfect/
+Starting Method C Sampling... Steps=200, Zeta=0.1
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] SNR-based Start: DDIM Step 105/200 (t=526)
+[Step Init] img (x_t)  | Mean: -0.0220 | Std: 1.0057 | MaxAbs: 7.8860 | Norm: 287.9224
+
+--- Debug Step t=526 (Loop i=0) ---
+Loss Value: 11.261158
+[Step 526] Adaptive Scale (Reference Only): ScoreNorm=58.8002 | GradNorm=0.0180 | Factor=3273.6289
+[Step 526] img (x_t) stats: Mean: -0.0220 | Std: 1.0057 | MaxAbs: 7.8860 | Norm: 287.9224
+
+--- Debug Step t=476 (Loop i=10) ---
+Loss Value: 11.139561
+[Step 476] Adaptive Scale (Reference Only): ScoreNorm=57.5656 | GradNorm=0.0170 | Factor=3376.5403
+[Step 476] img (x_t) stats: Mean: -0.0238 | Std: 1.0012 | MaxAbs: 3.0000 | Norm: 286.6419
+
+--- Debug Step t=426 (Loop i=20) ---
+Loss Value: 11.002415
+[Step 426] Adaptive Scale (Reference Only): ScoreNorm=56.8126 | GradNorm=0.0151 | Factor=3760.6804
+[Step 426] img (x_t) stats: Mean: -0.0257 | Std: 1.0075 | MaxAbs: 3.0000 | Norm: 288.4594
+
+--- Debug Step t=376 (Loop i=30) ---
+Loss Value: 10.873119
+[Step 376] Adaptive Scale (Reference Only): ScoreNorm=56.0431 | GradNorm=0.0136 | Factor=4111.6385
+[Step 376] img (x_t) stats: Mean: -0.0276 | Std: 1.0137 | MaxAbs: 3.0000 | Norm: 290.2520
+
+--- Debug Step t=326 (Loop i=40) ---
+Loss Value: 10.750755
+[Step 326] Adaptive Scale (Reference Only): ScoreNorm=55.2453 | GradNorm=0.0125 | Factor=4407.5144
+[Step 326] img (x_t) stats: Mean: -0.0295 | Std: 1.0195 | MaxAbs: 3.0000 | Norm: 291.9267
+
+--- Debug Step t=276 (Loop i=50) ---
+Loss Value: 10.634075
+[Step 276] Adaptive Scale (Reference Only): ScoreNorm=54.3979 | GradNorm=0.0117 | Factor=4650.6031
+[Step 276] img (x_t) stats: Mean: -0.0312 | Std: 1.0246 | MaxAbs: 3.0000 | Norm: 293.3993
+
+--- Debug Step t=226 (Loop i=60) ---
+Loss Value: 10.516764
+[Step 226] Adaptive Scale (Reference Only): ScoreNorm=53.4515 | GradNorm=0.0111 | Factor=4816.6165
+[Step 226] img (x_t) stats: Mean: -0.0327 | Std: 1.0288 | MaxAbs: 3.0000 | Norm: 294.5985
+
+--- Debug Step t=176 (Loop i=70) ---
+Loss Value: 10.398127
+[Step 176] Adaptive Scale (Reference Only): ScoreNorm=52.3480 | GradNorm=0.0106 | Factor=4948.4684
+[Step 176] img (x_t) stats: Mean: -0.0341 | Std: 1.0318 | MaxAbs: 3.0000 | Norm: 295.4756
+
+--- Debug Step t=126 (Loop i=80) ---
+Loss Value: 10.270988
+[Step 126] Adaptive Scale (Reference Only): ScoreNorm=50.9142 | GradNorm=0.0102 | Factor=4977.4107
+[Step 126] img (x_t) stats: Mean: -0.0353 | Std: 1.0336 | MaxAbs: 3.0000 | Norm: 295.9939
+
+--- Debug Step t=76 (Loop i=90) ---
+Loss Value: 10.124521
+[Step 76] Adaptive Scale (Reference Only): ScoreNorm=48.7260 | GradNorm=0.0102 | Factor=4774.1263
+[Step 76] img (x_t) stats: Mean: -0.0362 | Std: 1.0339 | MaxAbs: 3.0000 | Norm: 296.1108
+
+--- Debug Step t=26 (Loop i=100) ---
+Loss Value: 9.910911
+[Step 26] Adaptive Scale (Reference Only): ScoreNorm=43.5433 | GradNorm=0.0105 | Factor=4137.1658
+[Step 26] img (x_t) stats: Mean: -0.0368 | Std: 1.0324 | MaxAbs: 3.0000 | Norm: 295.6851
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/perfect/
+Saved result for SNR -2
+
+======== SNR = 1 dB ========
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/perfect/
+Starting Method C Sampling... Steps=200, Zeta=0.1
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] SNR-based Start: DDIM Step 85/200 (t=426)
+[Step Init] img (x_t)  | Mean: -0.0138 | Std: 1.0086 | MaxAbs: 9.4972 | Norm: 288.7045
+
+--- Debug Step t=426 (Loop i=0) ---
+Loss Value: 12.955622
+[Step 426] Adaptive Scale (Reference Only): ScoreNorm=58.0288 | GradNorm=0.0288 | Factor=2015.4117
+[Step 426] img (x_t) stats: Mean: -0.0138 | Std: 1.0086 | MaxAbs: 9.4972 | Norm: 288.7045
+
+--- Debug Step t=376 (Loop i=10) ---
+Loss Value: 12.739221
+[Step 376] Adaptive Scale (Reference Only): ScoreNorm=56.5276 | GradNorm=0.0266 | Factor=2124.8892
+[Step 376] img (x_t) stats: Mean: -0.0147 | Std: 0.9966 | MaxAbs: 3.0000 | Norm: 285.2654
+
+--- Debug Step t=326 (Loop i=20) ---
+Loss Value: 12.543417
+[Step 326] Adaptive Scale (Reference Only): ScoreNorm=55.6081 | GradNorm=0.0237 | Factor=2343.9779
+[Step 326] img (x_t) stats: Mean: -0.0156 | Std: 0.9980 | MaxAbs: 3.0000 | Norm: 285.6788
+
+--- Debug Step t=276 (Loop i=30) ---
+Loss Value: 12.365182
+[Step 276] Adaptive Scale (Reference Only): ScoreNorm=54.5989 | GradNorm=0.0215 | Factor=2545.2961
+[Step 276] img (x_t) stats: Mean: -0.0165 | Std: 0.9988 | MaxAbs: 3.0000 | Norm: 285.9044
+
+--- Debug Step t=226 (Loop i=40) ---
+Loss Value: 12.195768
+[Step 226] Adaptive Scale (Reference Only): ScoreNorm=53.4768 | GradNorm=0.0200 | Factor=2675.7947
+[Step 226] img (x_t) stats: Mean: -0.0173 | Std: 0.9988 | MaxAbs: 3.0000 | Norm: 285.9277
+
+--- Debug Step t=176 (Loop i=50) ---
+Loss Value: 12.028516
+[Step 176] Adaptive Scale (Reference Only): ScoreNorm=52.1936 | GradNorm=0.0187 | Factor=2798.4019
+[Step 176] img (x_t) stats: Mean: -0.0180 | Std: 0.9981 | MaxAbs: 3.0000 | Norm: 285.7199
+
+--- Debug Step t=126 (Loop i=60) ---
+Loss Value: 11.846894
+[Step 126] Adaptive Scale (Reference Only): ScoreNorm=50.5835 | GradNorm=0.0178 | Factor=2844.7569
+[Step 126] img (x_t) stats: Mean: -0.0186 | Std: 0.9965 | MaxAbs: 3.0000 | Norm: 285.2602
+
+--- Debug Step t=76 (Loop i=70) ---
+Loss Value: 11.631893
+[Step 76] Adaptive Scale (Reference Only): ScoreNorm=48.1932 | GradNorm=0.0174 | Factor=2768.0837
+[Step 76] img (x_t) stats: Mean: -0.0190 | Std: 0.9939 | MaxAbs: 3.0000 | Norm: 284.5082
+
+--- Debug Step t=26 (Loop i=80) ---
+Loss Value: 11.320326
+[Step 26] Adaptive Scale (Reference Only): ScoreNorm=42.7814 | GradNorm=0.0175 | Factor=2441.3497
+[Step 26] img (x_t) stats: Mean: -0.0193 | Std: 0.9896 | MaxAbs: 3.0000 | Norm: 283.2993
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/perfect/
+Saved result for SNR 1
+
+======== SNR = 4 dB ========
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/perfect/
+Starting Method C Sampling... Steps=200, Zeta=0.1
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] SNR-based Start: DDIM Step 64/200 (t=321)
+[Step Init] img (x_t)  | Mean: -0.0096 | Std: 1.0031 | MaxAbs: 8.7959 | Norm: 287.1025
+
+--- Debug Step t=321 (Loop i=0) ---
+Loss Value: 11.485073
+[Step 321] Adaptive Scale (Reference Only): ScoreNorm=56.6860 | GradNorm=0.0328 | Factor=1729.8886
+[Step 321] img (x_t) stats: Mean: -0.0096 | Std: 1.0031 | MaxAbs: 8.7959 | Norm: 287.1025
+
+--- Debug Step t=271 (Loop i=10) ---
+Loss Value: 11.168263
+[Step 271] Adaptive Scale (Reference Only): ScoreNorm=54.8912 | GradNorm=0.0301 | Factor=1820.6346
+[Step 271] img (x_t) stats: Mean: -0.0100 | Std: 0.9891 | MaxAbs: 3.0000 | Norm: 283.1086
+
+--- Debug Step t=221 (Loop i=20) ---
+Loss Value: 10.799521
+[Step 221] Adaptive Scale (Reference Only): ScoreNorm=53.4390 | GradNorm=0.0266 | Factor=2007.8372
+[Step 221] img (x_t) stats: Mean: -0.0101 | Std: 0.9857 | MaxAbs: 3.0000 | Norm: 282.1241
+
+--- Debug Step t=171 (Loop i=30) ---
+Loss Value: 10.455188
+[Step 171] Adaptive Scale (Reference Only): ScoreNorm=51.7424 | GradNorm=0.0248 | Factor=2086.9695
+[Step 171] img (x_t) stats: Mean: -0.0103 | Std: 0.9816 | MaxAbs: 3.0000 | Norm: 280.9711
+
+--- Debug Step t=121 (Loop i=40) ---
+Loss Value: 10.106936
+[Step 121] Adaptive Scale (Reference Only): ScoreNorm=49.6195 | GradNorm=0.0236 | Factor=2102.8692
+[Step 121] img (x_t) stats: Mean: -0.0103 | Std: 0.9770 | MaxAbs: 3.0000 | Norm: 279.6612
+
+--- Debug Step t=71 (Loop i=50) ---
+Loss Value: 9.713943
+[Step 71] Adaptive Scale (Reference Only): ScoreNorm=46.4891 | GradNorm=0.0228 | Factor=2038.4870
+[Step 71] img (x_t) stats: Mean: -0.0104 | Std: 0.9719 | MaxAbs: 3.0000 | Norm: 278.1833
+
+--- Debug Step t=21 (Loop i=60) ---
+Loss Value: 9.145746
+[Step 21] Adaptive Scale (Reference Only): ScoreNorm=38.9862 | GradNorm=0.0224 | Factor=1739.2005
+[Step 21] img (x_t) stats: Mean: -0.0103 | Std: 0.9657 | MaxAbs: 3.0000 | Norm: 276.4106
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/perfect/
+Saved result for SNR 4
+
+======== SNR = 7 dB ========
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/perfect/
+Starting Method C Sampling... Steps=200, Zeta=0.1
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] SNR-based Start: DDIM Step 45/200 (t=226)
+[Step Init] img (x_t)  | Mean: -0.0188 | Std: 1.0043 | MaxAbs: 9.5759 | Norm: 287.5014
+
+--- Debug Step t=226 (Loop i=0) ---
+Loss Value: 12.820698
+[Step 226] Adaptive Scale (Reference Only): ScoreNorm=54.1844 | GradNorm=0.0479 | Factor=1130.2984
+[Step 226] img (x_t) stats: Mean: -0.0188 | Std: 1.0043 | MaxAbs: 9.5759 | Norm: 287.5014
+
+--- Debug Step t=176 (Loop i=10) ---
+Loss Value: 12.524397
+[Step 176] Adaptive Scale (Reference Only): ScoreNorm=51.5687 | GradNorm=0.0446 | Factor=1157.0959
+[Step 176] img (x_t) stats: Mean: -0.0200 | Std: 0.9843 | MaxAbs: 3.0000 | Norm: 281.7817
+
+--- Debug Step t=126 (Loop i=20) ---
+Loss Value: 12.151142
+[Step 126] Adaptive Scale (Reference Only): ScoreNorm=49.1155 | GradNorm=0.0424 | Factor=1159.2247
+[Step 126] img (x_t) stats: Mean: -0.0205 | Std: 0.9772 | MaxAbs: 3.0000 | Norm: 279.7607
+
+--- Debug Step t=76 (Loop i=30) ---
+Loss Value: 11.747982
+[Step 76] Adaptive Scale (Reference Only): ScoreNorm=45.6700 | GradNorm=0.0416 | Factor=1098.9158
+[Step 76] img (x_t) stats: Mean: -0.0210 | Std: 0.9698 | MaxAbs: 3.0000 | Norm: 277.6312
+
+--- Debug Step t=26 (Loop i=40) ---
+Loss Value: 11.159666
+[Step 26] Adaptive Scale (Reference Only): ScoreNorm=38.5295 | GradNorm=0.0401 | Factor=960.9820
+[Step 26] img (x_t) stats: Mean: -0.0213 | Std: 0.9615 | MaxAbs: 3.0000 | Norm: 275.2662
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/perfect/
+Saved result for SNR 7
+
+======== SNR = 10 dB ========
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/perfect/
+Starting Method C Sampling... Steps=200, Zeta=0.1
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] SNR-based Start: DDIM Step 29/200 (t=146)
+[Step Init] img (x_t)  | Mean: 0.0118 | Std: 1.0035 | MaxAbs: 10.1021 | Norm: 287.2263
+
+--- Debug Step t=146 (Loop i=0) ---
+Loss Value: 11.389219
+[Step 146] Adaptive Scale (Reference Only): ScoreNorm=52.0470 | GradNorm=0.0529 | Factor=983.7718
+[Step 146] img (x_t) stats: Mean: 0.0118 | Std: 1.0035 | MaxAbs: 10.1021 | Norm: 287.2263
+
+--- Debug Step t=96 (Loop i=10) ---
+Loss Value: 11.124331
+[Step 96] Adaptive Scale (Reference Only): ScoreNorm=47.7206 | GradNorm=0.0513 | Factor=930.2834
+[Step 96] img (x_t) stats: Mean: 0.0109 | Std: 0.9786 | MaxAbs: 3.0000 | Norm: 280.1183
+
+--- Debug Step t=46 (Loop i=20) ---
+Loss Value: 10.401068
+[Step 46] Adaptive Scale (Reference Only): ScoreNorm=42.1496 | GradNorm=0.0490 | Factor=859.8069
+[Step 46] img (x_t) stats: Mean: 0.0114 | Std: 0.9695 | MaxAbs: 3.0000 | Norm: 277.5121
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/perfect/
+Saved result for SNR 10
+
+======== SNR = 13 dB ========
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/perfect/
+Starting Method C Sampling... Steps=200, Zeta=0.1
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] SNR-based Start: DDIM Step 17/200 (t=86)
+[Step Init] img (x_t)  | Mean: -0.0128 | Std: 1.0006 | MaxAbs: 8.1149 | Norm: 286.4025
+
+--- Debug Step t=86 (Loop i=0) ---
+Loss Value: 8.704246
+[Step 86] Adaptive Scale (Reference Only): ScoreNorm=48.1858 | GradNorm=0.0611 | Factor=788.9840
+[Step 86] img (x_t) stats: Mean: -0.0128 | Std: 1.0006 | MaxAbs: 8.1149 | Norm: 286.4025
+
+--- Debug Step t=36 (Loop i=10) ---
+Loss Value: 8.291114
+[Step 36] Adaptive Scale (Reference Only): ScoreNorm=40.1269 | GradNorm=0.0617 | Factor=650.6252
+[Step 36] img (x_t) stats: Mean: -0.0140 | Std: 0.9759 | MaxAbs: 3.0000 | Norm: 279.3574
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/perfect/
+Saved result for SNR 13
+
+======== SNR = 16 dB ========
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/perfect/
+Starting Method C Sampling... Steps=200, Zeta=0.1
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] SNR-based Start: DDIM Step 10/200 (t=51)
+[Step Init] img (x_t)  | Mean: -0.0138 | Std: 1.0040 | MaxAbs: 9.4519 | Norm: 287.4003
+
+--- Debug Step t=51 (Loop i=0) ---
+Loss Value: 8.992977
+[Step 51] Adaptive Scale (Reference Only): ScoreNorm=44.7223 | GradNorm=0.0891 | Factor=501.6765
+[Step 51] img (x_t) stats: Mean: -0.0138 | Std: 1.0040 | MaxAbs: 9.4519 | Norm: 287.4003
+
+--- Debug Step t=1 (Loop i=10) ---
+Loss Value: 8.311993
+[Step 1] Adaptive Scale (Reference Only): ScoreNorm=17.2330 | GradNorm=0.0933 | Factor=184.8028
+[Step 1] img (x_t) stats: Mean: -0.0155 | Std: 0.9710 | MaxAbs: 3.0000 | Norm: 277.9399
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/perfect/
+Saved result for SNR 16
+
+======== SNR = 19 dB ========
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/perfect/
+Starting Method C Sampling... Steps=200, Zeta=0.1
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] SNR-based Start: DDIM Step 5/200 (t=26)
+[Step Init] img (x_t)  | Mean: 0.0015 | Std: 0.9999 | MaxAbs: 9.5758 | Norm: 286.1923
+
+--- Debug Step t=26 (Loop i=0) ---
+Loss Value: 7.151222
+[Step 26] Adaptive Scale (Reference Only): ScoreNorm=41.0974 | GradNorm=0.1262 | Factor=325.6192
+[Step 26] img (x_t) stats: Mean: 0.0015 | Std: 0.9999 | MaxAbs: 9.5758 | Norm: 286.1923
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/perfect/
+Saved result for SNR 19
+
+======== SNR = 22 dB ========
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/perfect/
+Starting Method C Sampling... Steps=200, Zeta=0.1
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] SNR-based Start: DDIM Step 2/200 (t=11)
+[Step Init] img (x_t)  | Mean: -0.0035 | Std: 1.0003 | MaxAbs: 9.9844 | Norm: 286.3020
+
+--- Debug Step t=11 (Loop i=0) ---
+Loss Value: 11.929483
+[Step 11] Adaptive Scale (Reference Only): ScoreNorm=34.1042 | GradNorm=0.1976 | Factor=172.5576
+[Step 11] img (x_t) stats: Mean: -0.0035 | Std: 1.0003 | MaxAbs: 9.9844 | Norm: 286.3020
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/perfect/
+Saved result for SNR 22
+
+======== SNR = 25 dB ========
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/perfect/
+Starting Method C Sampling... Steps=200, Zeta=0.1
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Method C] SNR-based Start: DDIM Step 1/200 (t=6)
+[Step Init] img (x_t)  | Mean: 0.0002 | Std: 0.9999 | MaxAbs: 10.3625 | Norm: 286.1830
+
+--- Debug Step t=6 (Loop i=0) ---
+Loss Value: 8.795480
+[Step 6] Adaptive Scale (Reference Only): ScoreNorm=30.7000 | GradNorm=0.2561 | Factor=119.8757
+[Step 6] img (x_t) stats: Mean: 0.0002 | Std: 0.9999 | MaxAbs: 10.3625 | Norm: 286.1830
+Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/perfect/
+Saved result for SNR 25
