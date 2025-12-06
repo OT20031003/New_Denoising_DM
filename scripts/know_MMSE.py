@@ -15,7 +15,6 @@ import os
 import glob
 import lpips
 
-# ... (load_images_as_tensors, load_model_from_config, save_img_individually などの関数定義は変更なし。そのまま使ってください) ...
 def load_images_as_tensors(dir_path, image_size=(256, 256)):
     """指定されたディレクトリ内のすべての画像ファイルを読み込む"""
     transform = transforms.Compose([
@@ -87,11 +86,12 @@ if __name__ == "__main__":
     t = 2    
     N = t
     r = 2    
-    ft = 150 
+    ft = 100 
     P_power = 1.0
-    Perfect_Estimate = False
-    # python -m scripts.img2img_knownnoise > output_knownnoise_estimate.txt 
-    experiment_name = f"SU-MIMO_KnownNoise/t={t}_r={r}_ft={ft}"
+    Perfect_Estimate = True
+    
+    # 変更点: MMSE用のディレクトリ名に変更 (SU-MIMO_KnownNoise_MMSE)
+    experiment_name = f"SU-MIMO_KnownNoise_MMSE/t={t}_r={r}_ft={ft}"
 
     parser.add_argument("--prompt", type=str, nargs="?", default="known noise", help="the prompt to render")
     parser.add_argument("--outdir", type=str, nargs="?", default=f"outputs/{experiment_name}")
@@ -108,12 +108,6 @@ if __name__ == "__main__":
     parser.add_argument("--input_path", type=str, default="input_img", help="input image path")
     parser.add_argument("--intermediate_path", type=str, default=None, help="intermediate path")
     parser.add_argument("--intermediate_skip", type=int, default=1, help="intermediate path")
-    parser.add_argument("--ortho_scale", type=float, default=0.3, help="scale for orthogonal noise subtraction (0.0 to 1.0)")
-    # 新規追加: 曲線の形状を決めるパラメータ
-    # 1.0: 直線的
-    # 2.0: 二次関数的 (推奨: 0周辺で急激に立ち上がる)
-    # 3.0: さらに急激
-    parser.add_argument("--curve_power", type=float, default=2.0, help="Power of the transition curve. 2.0 means quadratic.")
     opt = parser.parse_args()
 
     if opt.intermediate_path != None:
@@ -167,13 +161,6 @@ if __name__ == "__main__":
     z_sender = z_noisy 
     
     # マッピング (全体)
-    # q_real_data = z_sender / torch.sqrt(torch.tensor(2.0)).view(-1, 1, 1, 1).to(device)
-    # q_view = q_real_data.view(batch_size, t, -1)
-    # l = q_view.shape[2] // 2
-    # real_part, imag_part = torch.chunk(q_view, 2, dim=2)
-    # q = torch.complex(real_part, imag_part).to(device)
-    
-    # 修正: map_latent_to_complex_symbol を使用して統一
     q = map_latent_to_complex_symbol(z_sender, batch_size, t, device)
     
     # SINR計算用に成分ごとの複素シンボルも生成しておく
@@ -187,7 +174,7 @@ if __name__ == "__main__":
     tt, NN = torch.meshgrid(t_vec, N_vec)
     P = torch.sqrt(torch.tensor(P_power/(N*t)))* torch.exp(1j*2*torch.pi*tt*NN/N)
     base_seed = 42
-    for snr in range(-5, 26, 3):
+    for snr in range(-5, 10, 1):
         print(f"--------SNR = {snr} (Known Noise)-----------")
         current_seed = base_seed + snr
         torch.manual_seed(current_seed)
@@ -219,14 +206,21 @@ if __name__ == "__main__":
 
         Y = H @ X + W
         
-        # ZF Equalization
+        # === MMSE Equalization ===
         if Perfect_Estimate:
-            H_for_ZF = H
+            H_for_Eq = H
         else:
-            H_for_ZF = H_hat
+            H_for_Eq = H_hat
             
-        inv_HH = torch.inverse(H_for_ZF.mH @ H_for_ZF)
-        A = inv_HH @ H_for_ZF.mH
+        # Gram matrix: H^H * H
+        gram = H_for_Eq.mH @ H_for_Eq
+        
+        # Regularization term (sigma^2 * I)
+        eye = torch.eye(t, device=device).unsqueeze(0)
+        
+        # A = (H^H * H + sigma^2 * I)^-1 * H^H
+        inv_matrix = torch.inverse(gram + noise_variance * eye)
+        A = inv_matrix @ H_for_Eq.mH
         AY = A @ Y
         
         # --- SINR Calculation Start ---
@@ -236,7 +230,7 @@ if __name__ == "__main__":
         # ※ ここでの X は送信信号全体 (q)
         Interference_Link = - (A @ (H_tilde @ X))
         if Perfect_Estimate:
-            Interference_Link = torch.zeros_like(A @ W) # 完全推定なら干渉はゼロ
+            Interference_Link = torch.zeros_like(A @ W) # 完全推定なら(推定誤差による)干渉はゼロ
         else:
             Interference_Link = - (A @ (H_tilde @ X))
         Filtered_Noise = A @ W
@@ -265,8 +259,10 @@ if __name__ == "__main__":
         print(f"SINR (Link/Included): {sinr_link_db.item():.2f} dB | SINR (Content/Excluded): {sinr_content_db.item():.2f} dB")
         # --- SINR Calculation End ---
         
-        # Effective Noise Variance Calculation
-        noise_amplification = torch.mean(torch.diagonal(inv_HH.real, dim1=1, dim2=2), dim=1) 
+        # Effective Noise Variance Calculation for Diffusion Model
+        # For MMSE/ZF: variance of noise A*W. Covariance is A * A^H * sigma^2.
+        # noise_amplification is the average diagonal of A * A^H.
+        noise_amplification = torch.mean(torch.diagonal((A @ A.mH).real, dim1=1, dim2=2), dim=1)
         current_noise_variance = noise_variance * noise_amplification 
         
         # 逆符号化 
@@ -296,28 +292,7 @@ if __name__ == "__main__":
         cond = model.get_learned_conditioning(z.shape[0] * [""])
         
         # Sampling
-        # samples = sampler.known_noise_guided_ddim_sampling(
-        #     S=opt.ddim_steps, 
-        #     batch_size=batch_size,
-        #     shape=z.shape[1:4],
-        #     x_T=z_input_scaled, 
-        #     conditioning=cond,
-        #     noise_variance=effective_noise_variance, 
-        #     added_timestep=ft, 
-        #     eps_known=eps_known
-        # )
-        # samples = sampler.known_noise_guided_ddim_sampling_orthogonal(
-        #     S=opt.ddim_steps, 
-        #     batch_size=batch_size,
-        #     shape=z.shape[1:4],
-        #     x_T=z_input_scaled, 
-        #     conditioning=cond,
-        #     noise_variance=effective_noise_variance, 
-        #     added_timestep=ft, 
-        #     eps_known=eps_known,
-        #     ortho_guidance_scale=opt.ortho_scale # ここを追加
-        # )
-        samples = sampler.orthogonal_projection_guided_ddim_sampling(
+        samples = sampler.known_noise_guided_ddim_sampling(
             S=opt.ddim_steps, 
             batch_size=batch_size,
             shape=z.shape[1:4],
@@ -325,20 +300,9 @@ if __name__ == "__main__":
             conditioning=cond,
             noise_variance=effective_noise_variance, 
             added_timestep=ft, 
-            eps_known=eps_known,
-            ortho_guidance_scale=opt.ortho_scale  # 新しいパラメータを渡す
+            eps_known=eps_known
         )
-        # samples = sampler.smooth_transition_ddim_sampling(
-        #     S=opt.ddim_steps, 
-        #     batch_size=batch_size,
-        #     shape=z.shape[1:4],
-        #     x_T=z_input_scaled, 
-        #     conditioning=cond,
-        #     noise_variance=effective_noise_variance, 
-        #     added_timestep=ft, 
-        #     eps_known=eps_known,
-        #     curve_power=opt.curve_power # パラメータを渡す
-        # )
+
         # デコード
         z_restored = samples * (torch.sqrt(z_variances_original) + eps) + z_encode_mean
         recoverd_img = model.decode_first_stage(z_restored)
