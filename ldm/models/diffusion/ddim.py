@@ -1882,47 +1882,47 @@ class DDIMSampler(object):
                **kwargs
                ):
         
-        # --- Helper for Logging ---
-        def log_stats(step, name, tensor):
+        # --- Helper for Logging (ご指定のフォーマットに対応) ---
+        def get_tensor_stats_str(tensor):
             with torch.no_grad():
                 if torch.isnan(tensor).any():
-                    print(f"!!! [Step {step}] {name} contains NaN !!!")
-                    return True
+                    return "!!! CONTAINS NaN !!!"
                 mean = tensor.mean().item()
                 std = tensor.std().item()
                 max_val = tensor.abs().max().item()
                 norm = torch.norm(tensor).item()
-                print(f"[Step {step}] {name:10s} | Mean: {mean:.4f} | Std: {std:.4f} | MaxAbs: {max_val:.4f} | Norm: {norm:.4f}")
-                return False
+                return f"Mean: {mean:.4f} | Std: {std:.4f} | MaxAbs: {max_val:.4f} | Norm: {norm:.4f}"
         # --------------------------
 
         self.make_schedule(ddim_num_steps=S, ddim_eta=eta, verbose=verbose)
         device = self.model.betas.device
         
-        # Start Timestep Determination
+        # 1. Start Timestep Determination based on SNR
+        # 残留ノイズ分散の推定値から、拡散過程の途中開始点(t)を逆算する
         avg_precision = Sigma_inv.abs().mean().item()
         est_noise_var = 1.0 / (avg_precision + 1e-8)
+        
+        # アルファバーのスケジュールから逆算
         target_alpha = 1.0 / (1.0 + est_noise_var)
         diffs = torch.abs(self.alphas_cumprod.to(device) - target_alpha)
         start_t_ddpm = torch.argmin(diffs).item()
-        abs_diff = torch.abs(torch.from_numpy(self.ddim_timesteps).to(device) - start_t_ddpm)
+        
+        ddim_timesteps_tensor = torch.from_numpy(self.ddim_timesteps).to(device)
+        abs_diff = torch.abs(ddim_timesteps_tensor - start_t_ddpm)
         start_index = torch.argmin(abs_diff).item()
         
-        print(f"[Method C] SNR-based Start: DDIM Step {start_index}/{S} (t={self.ddim_timesteps[start_index]})")
+        actual_start_step = self.ddim_timesteps[start_index]
+        print(f"[Method C] SNR-based Start: DDIM Step {start_index}/{S} (t={actual_start_step})")
 
-        # Initialize x_T (Latent)
-        alpha_bar_start = self.ddim_alphas[start_index]
-        sqrt_alpha = torch.sqrt(alpha_bar_start)
-        sqrt_one_minus_alpha = torch.sqrt(1.0 - alpha_bar_start)
-        
+        # 2. Initialization
         z_init = z_init.to(device)
-        noise = torch.randn_like(z_init)
-        img = sqrt_alpha * z_init + sqrt_one_minus_alpha * noise
+        img = z_init.clone()
         
         # Initial Check
-        log_stats("Init", "img (x_t)", img)
+        print(f"[Step Init] img (x_t)  | {get_tensor_stats_str(img)}")
 
-        # Sampling Loop
+        # 3. Sampling Loop
+        # start_index から 0 まで逆順にループ
         timesteps = self.ddim_timesteps[:start_index+1]
         time_range = np.flip(timesteps)
         iterator = tqdm(time_range, desc='Method C Sampling', total=len(time_range))
@@ -1931,7 +1931,12 @@ class DDIMSampler(object):
             index = np.where(self.ddim_timesteps == step)[0][0]
             ts = torch.full((batch_size,), step, device=device, dtype=torch.long)
 
-            # --- 1. Gradient Computation with Debugging ---
+            # Debug出力判定: 最初のステップ、または一定間隔で出力
+            # 高SNR時はステップ数が少ないため、i==0 も条件に加えることで確実に出力させる
+            should_print = (i == 0) or (i % 10 == 0) or (step % 20 == 0)
+
+            # --- A. Gradient Computation ---
+            # 勾配計算のために requires_grad を有効化
             with torch.enable_grad():
                 img_in = img.detach().requires_grad_(True)
 
@@ -1945,75 +1950,78 @@ class DDIMSampler(object):
                     e_t_uncond, e_t = self.model.apply_model(x_in, t_in, c_in).chunk(2)
                     e_t = e_t_uncond + unconditional_guidance_scale * (e_t - e_t_uncond)
 
-                # Tweedie Estimation
-                a_t = torch.full((batch_size, 1, 1, 1), self.ddim_alphas[index], device=device)
-                sqrt_one_minus_at = torch.full((batch_size, 1, 1, 1), self.ddim_sqrt_one_minus_alphas[index], device=device)
+                # Tweedie Estimation (x0_hat)
+                # DPSでは x_t から予測された x_0 に対して物理制約(yとの誤差)を計算する
+                alphas = self.ddim_alphas
+                sqrt_one_minus_alphas = self.ddim_sqrt_one_minus_alphas
+                
+                a_t = torch.full((batch_size, 1, 1, 1), alphas[index], device=device)
+                sqrt_one_minus_at = torch.full((batch_size, 1, 1, 1), sqrt_one_minus_alphas[index], device=device)
+                
                 pred_z0 = (img_in - sqrt_one_minus_at * e_t) / a_t.sqrt()
 
                 # Physical Mapping & Loss
+                # Latent(z) -> MimoSymbols(s) -> Received(y_est)
                 s_hat, _ = mapper(pred_z0) 
                 y_est = H_hat * s_hat 
                 residual = y - y_est
                 
-                # Check residual magnitude (Log periodically)
-                if i % 10 == 0: 
-                     print(f"\n--- Debug Step {step} ---")
-                     log_stats(step, "Residual", residual)
-                
-                # Weighted Loss
+                # Weighted Loss (MMSE誤差分散などを考慮)
                 weighted_res = residual * Sigma_inv 
                 
-                # [Fix 1] Normalize Loss by Dimension K to prevent scale explosion
-                K = residual.shape[1]
-                loss = 0.5 * torch.sum(torch.conj(residual) * weighted_res).real / K
+                # Normalize Loss by dimension K
+                K = residual.shape[1] * residual.shape[2] # (Nt * L) or similar
+                loss_val = 0.5 * torch.sum(torch.conj(residual) * weighted_res).real / K
                 
-                if i % 10 == 0:
-                     print(f"[Step {step}] Loss Value (Normed): {loss.item():.5f}")
+                # Backward to get Gradient w.r.t x_t (img_in)
+                guidance_grad = torch.autograd.grad(loss_val, img_in)[0]
 
-                # Backward
-                guidance_grad = torch.autograd.grad(loss, img_in)[0]
+                # --- Debug Print Block (User Requested) ---
+                if should_print:
+                     print(f"\n--- Debug Step t={step} (Loop i={i}) ---")
+                     print(f"Loss Value: {loss_val.item():.6f}")
+                     
+                     score_norm = torch.linalg.norm(e_t.reshape(batch_size, -1), dim=1).mean().item()
+                     grad_norm = torch.linalg.norm(guidance_grad.reshape(batch_size, -1), dim=1).mean().item()
+                     ref_factor = score_norm / (grad_norm + 1e-8)
+                     
+                     print(f"[Step {step}] Adaptive Scale (Reference Only): ScoreNorm={score_norm:.4f} | GradNorm={grad_norm:.4f} | Factor={ref_factor:.4f}")
+                     print(f"[Step {step}] img (x_t) stats: {get_tensor_stats_str(img)}")
 
-            # --- 2. Adaptive Scaling (Crucial Fix) ---
-            # Hard clippingではなく、U-Netの更新量(Score)に対する相対比率でスケーリングする
+            # --- B. Scaling with Decay (Fix for High SNR) ---
+            # タイムステップが0に近い(=画像が完成に近い)ほど、Guidanceの強度(zeta)を下げる。
+            # 例: t=1000なら factor=1.0, t=20なら factor=0.02
+            # これにより、高SNR時の「微小な修正だけで良いのにハンマーで叩いてしまう」現象を防ぐ。
+            max_timestep = self.ddim_timesteps[-1]
+            decay_factor = step / max_timestep 
+            current_zeta = zeta * decay_factor
             
-            # バッチごとのノルムを計算 (Batch, -1)
-            score_norm = torch.linalg.norm(e_t.reshape(batch_size, -1), dim=1)
-            grad_norm = torch.linalg.norm(guidance_grad.reshape(batch_size, -1), dim=1)
-            
-            # Adaptive Scaling Factor: 
-            # ガイダンスの強さを、本来の生成方向(Score)と同じスケールに合わせる
-            # zeta=1.0 なら Scoreと同じ強さ、zeta=0.1 なら Scoreの10%の強さになる
-            scaling_factor = score_norm / (grad_norm + 1e-8)
-            
-            # Broadcastingのために次元を合わせる (B, 1, 1, 1)
-            scaling_factor = scaling_factor.view(batch_size, 1, 1, 1)
-            
-            # 最終的な勾配
-            scaled_grad = guidance_grad * scaling_factor * zeta
+            # 勾配適用
+            scaled_grad = guidance_grad * current_zeta
 
-            # デバッグ表示 (最初のバッチ要素のみ)
-            if i % 10 == 0:
-                s_n = score_norm[0].item()
-                g_n = grad_norm[0].item()
-                factor = scaling_factor[0,0,0,0].item()
-                print(f"[Step {step}] Adaptive Scale: ScoreNorm={s_n:.4f} | GradNorm={g_n:.4f} | Factor={factor:.4f}")
-
-            # --- 3. DDIM Update Step ---
+            # --- C. DDIM Update Step ---
             with torch.no_grad():
                 alphas_prev = self.ddim_alphas_prev
                 sigmas = self.ddim_sigmas
                 a_prev = torch.full((batch_size, 1, 1, 1), alphas_prev[index], device=device)
                 sigma_t = torch.full((batch_size, 1, 1, 1), sigmas[index], device=device)
                 
+                # Standard DDIM Step (Denoising)
                 dir_xt = (1. - a_prev - sigma_t**2).sqrt() * e_t
                 noise = sigma_t * noise_like(img.shape, device, False) * eta
                 img_prev_ddim = a_prev.sqrt() * pred_z0 + dir_xt + noise
                 
-                # Apply Guided Gradient
+                # Apply Guided Gradient (Subtraction)
+                # DPS: x_{t-1} = x_{t-1, standard} - scale * grad
                 img = img_prev_ddim - scaled_grad
                 
+                # --- D. Dynamic Thresholding / Clamping ---
+                # 値が発散しないようにクランプ（学習済み分布の範囲内へ）
+                img = torch.clamp(img, min=-3.0, max=3.0)
+
                 # NaN Check
-                if log_stats(step, "img_next", img):
+                if torch.isnan(img).any():
+                    print(f"!!! NAN DETECTED at Step {step} !!!")
                     break 
 
         return img

@@ -23,241 +23,87 @@ Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/estimated/
 Starting Method C Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 [Method C] SNR-based Start: DDIM Step 153/200 (t=766)
-[Step Init] img (x_t)  | Mean: -0.0007 | Std: 0.9771 | MaxAbs: 4.4902 | Norm: 279.6632
+[Step Init] img (x_t)  | Mean: 0.0097 | Std: 1.0079 | MaxAbs: 6.1288 | Norm: 288.4998
 
---- Debug Step 766 ---
-[Step 766] Residual   | Mean: 0.0748+0.0625j | Std: 2.9607 | MaxAbs: 16.3011 | Norm: 599.5190
-[Step 766] Loss Value (Normed): 4735.81445
-[Step 766] Adaptive Scale: ScoreNorm=62.9703 | GradNorm=12.2958 | Factor=5.1213
-[Step 766] img_next   | Mean: -0.0036 | Std: 0.9708 | MaxAbs: 4.5060 | Norm: 277.8562
-[Step 761] img_next   | Mean: 0.0013 | Std: 0.9689 | MaxAbs: 4.3981 | Norm: 277.3109
-[Step 756] img_next   | Mean: -0.0052 | Std: 0.9684 | MaxAbs: 4.3580 | Norm: 277.1862
-[Step 751] img_next   | Mean: 0.0034 | Std: 0.9681 | MaxAbs: 4.4615 | Norm: 277.1003
-[Step 746] img_next   | Mean: -0.0064 | Std: 0.9672 | MaxAbs: 4.4303 | Norm: 276.8340
-[Step 741] img_next   | Mean: 0.0057 | Std: 0.9665 | MaxAbs: 4.4298 | Norm: 276.6456
-[Step 736] img_next   | Mean: -0.0057 | Std: 0.9654 | MaxAbs: 4.4024 | Norm: 276.3292
-[Step 731] img_next   | Mean: 0.0059 | Std: 0.9651 | MaxAbs: 4.3818 | Norm: 276.2198
-[Step 726] img_next   | Mean: -0.0075 | Std: 0.9642 | MaxAbs: 4.3828 | Norm: 275.9662
-[Step 721] img_next   | Mean: 0.0096 | Std: 0.9634 | MaxAbs: 4.3677 | Norm: 275.7434
+--- Debug Step t=766 (Loop i=0) ---
+Loss Value: 20.841526
+[Step 766] Adaptive Scale (Reference Only): ScoreNorm=62.2046 | GradNorm=0.1150 | Factor=540.8117
+[Step 766] img (x_t) stats: Mean: 0.0097 | Std: 1.0079 | MaxAbs: 6.1288 | Norm: 288.4998
 
---- Debug Step 716 ---
-[Step 716] Residual   | Mean: 0.2029-0.0075j | Std: 2.9248 | MaxAbs: 15.5416 | Norm: 593.3658
-[Step 716] Loss Value (Normed): 4639.10059
-[Step 716] Adaptive Scale: ScoreNorm=61.9688 | GradNorm=21.5538 | Factor=2.8751
-[Step 716] img_next   | Mean: -0.0077 | Std: 0.9631 | MaxAbs: 4.3335 | Norm: 275.6766
-[Step 711] img_next   | Mean: 0.0098 | Std: 0.9628 | MaxAbs: 4.3236 | Norm: 275.5773
-[Step 706] img_next   | Mean: -0.0072 | Std: 0.9617 | MaxAbs: 4.2965 | Norm: 275.2573
-[Step 701] img_next   | Mean: 0.0111 | Std: 0.9618 | MaxAbs: 4.2898 | Norm: 275.3025
-[Step 696] img_next   | Mean: -0.0041 | Std: 0.9610 | MaxAbs: 4.2853 | Norm: 275.0490
-[Step 691] img_next   | Mean: 0.0098 | Std: 0.9617 | MaxAbs: 4.2696 | Norm: 275.2791
-[Step 686] img_next   | Mean: -0.0056 | Std: 0.9617 | MaxAbs: 4.2797 | Norm: 275.2445
-[Step 681] img_next   | Mean: 0.0090 | Std: 0.9626 | MaxAbs: 4.2619 | Norm: 275.5275
-[Step 676] img_next   | Mean: -0.0067 | Std: 0.9628 | MaxAbs: 4.2622 | Norm: 275.5863
-[Step 671] img_next   | Mean: 0.0095 | Std: 0.9636 | MaxAbs: 4.2446 | Norm: 275.8042
+--- Debug Step t=716 (Loop i=10) ---
+Loss Value: 21.218327
+[Step 716] Adaptive Scale (Reference Only): ScoreNorm=61.7874 | GradNorm=0.0941 | Factor=656.7363
+[Step 716] img (x_t) stats: Mean: 0.0130 | Std: 1.0124 | MaxAbs: 3.0000 | Norm: 289.7926
 
---- Debug Step 666 ---
-[Step 666] Residual   | Mean: 0.1592+0.0512j | Std: 2.7803 | MaxAbs: 14.2960 | Norm: 563.6999
-[Step 666] Loss Value (Normed): 4186.82422
-[Step 666] Adaptive Scale: ScoreNorm=61.6933 | GradNorm=13.9730 | Factor=4.4152
-[Step 666] img_next   | Mean: -0.0072 | Std: 0.9652 | MaxAbs: 4.2410 | Norm: 276.2547
-[Step 661] img_next   | Mean: 0.0103 | Std: 0.9671 | MaxAbs: 4.2112 | Norm: 276.8160
-[Step 656] img_next   | Mean: -0.0061 | Std: 0.9685 | MaxAbs: 4.2863 | Norm: 277.1945
-[Step 651] img_next   | Mean: 0.0095 | Std: 0.9708 | MaxAbs: 4.2343 | Norm: 277.8786
-[Step 646] img_next   | Mean: -0.0043 | Std: 0.9708 | MaxAbs: 4.2384 | Norm: 277.8660
-[Step 641] img_next   | Mean: 0.0084 | Std: 0.9734 | MaxAbs: 4.2577 | Norm: 278.6065
-[Step 636] img_next   | Mean: -0.0045 | Std: 0.9749 | MaxAbs: 4.3735 | Norm: 279.0196
-[Step 631] img_next   | Mean: 0.0077 | Std: 0.9780 | MaxAbs: 4.3327 | Norm: 279.9353
-[Step 626] img_next   | Mean: -0.0048 | Std: 0.9793 | MaxAbs: 4.4196 | Norm: 280.2833
-[Step 621] img_next   | Mean: 0.0076 | Std: 0.9846 | MaxAbs: 4.3777 | Norm: 281.8250
+--- Debug Step t=666 (Loop i=20) ---
+Loss Value: 21.478628
+[Step 666] Adaptive Scale (Reference Only): ScoreNorm=61.5905 | GradNorm=0.0808 | Factor=762.0913
+[Step 666] img (x_t) stats: Mean: 0.0163 | Std: 1.0229 | MaxAbs: 3.0000 | Norm: 292.7981
 
---- Debug Step 616 ---
-[Step 616] Residual   | Mean: 0.0564+0.0908j | Std: 2.6435 | MaxAbs: 13.3543 | Norm: 535.4423
-[Step 616] Loss Value (Normed): 3777.58301
-[Step 616] Adaptive Scale: ScoreNorm=62.6184 | GradNorm=9.1835 | Factor=6.8186
-[Step 616] img_next   | Mean: -0.0034 | Std: 0.9851 | MaxAbs: 4.3710 | Norm: 281.9615
-[Step 611] img_next   | Mean: 0.0075 | Std: 0.9873 | MaxAbs: 4.3363 | Norm: 282.5767
-[Step 606] img_next   | Mean: -0.0006 | Std: 0.9901 | MaxAbs: 4.4396 | Norm: 283.3917
-[Step 601] img_next   | Mean: 0.0040 | Std: 0.9978 | MaxAbs: 4.4724 | Norm: 285.5747
-[Step 596] img_next   | Mean: -0.0006 | Std: 0.9988 | MaxAbs: 4.4231 | Norm: 285.8838
-[Step 591] img_next   | Mean: 0.0004 | Std: 1.0015 | MaxAbs: 4.4666 | Norm: 286.6346
-[Step 586] img_next   | Mean: 0.0008 | Std: 1.0079 | MaxAbs: 4.5173 | Norm: 288.4683
-[Step 581] img_next   | Mean: 0.0023 | Std: 1.0071 | MaxAbs: 4.5341 | Norm: 288.2448
-[Step 576] img_next   | Mean: 0.0016 | Std: 1.0128 | MaxAbs: 4.6041 | Norm: 289.8906
-[Step 571] img_next   | Mean: 0.0026 | Std: 1.0192 | MaxAbs: 4.5479 | Norm: 291.6989
+--- Debug Step t=616 (Loop i=30) ---
+Loss Value: 21.648121
+[Step 616] Adaptive Scale (Reference Only): ScoreNorm=61.3538 | GradNorm=0.0698 | Factor=878.7720
+[Step 616] img (x_t) stats: Mean: 0.0198 | Std: 1.0352 | MaxAbs: 3.0000 | Norm: 296.3463
 
---- Debug Step 566 ---
-[Step 566] Residual   | Mean: -0.0150+0.0467j | Std: 2.4142 | MaxAbs: 11.9900 | Norm: 488.6955
-[Step 566] Loss Value (Normed): 3146.77368
-[Step 566] Adaptive Scale: ScoreNorm=61.9525 | GradNorm=12.9771 | Factor=4.7740
-[Step 566] img_next   | Mean: -0.0001 | Std: 1.0222 | MaxAbs: 4.5806 | Norm: 292.5801
-[Step 561] img_next   | Mean: -0.0015 | Std: 1.0262 | MaxAbs: 4.6752 | Norm: 293.7063
-[Step 556] img_next   | Mean: 0.0038 | Std: 1.0318 | MaxAbs: 4.8556 | Norm: 295.3071
-[Step 551] img_next   | Mean: -0.0012 | Std: 1.0357 | MaxAbs: 4.8149 | Norm: 296.4311
-[Step 546] img_next   | Mean: 0.0051 | Std: 1.0419 | MaxAbs: 4.9376 | Norm: 298.2118
-[Step 541] img_next   | Mean: -0.0020 | Std: 1.0487 | MaxAbs: 4.9303 | Norm: 300.1544
-[Step 536] img_next   | Mean: 0.0034 | Std: 1.0561 | MaxAbs: 5.1277 | Norm: 302.2841
-[Step 531] img_next   | Mean: -0.0003 | Std: 1.0627 | MaxAbs: 5.2653 | Norm: 304.1670
-[Step 526] img_next   | Mean: 0.0039 | Std: 1.0679 | MaxAbs: 5.6851 | Norm: 305.6523
-[Step 521] img_next   | Mean: -0.0025 | Std: 1.0800 | MaxAbs: 5.6494 | Norm: 309.1017
+--- Debug Step t=566 (Loop i=40) ---
+Loss Value: 21.778532
+[Step 566] Adaptive Scale (Reference Only): ScoreNorm=61.0615 | GradNorm=0.0620 | Factor=984.3646
+[Step 566] img (x_t) stats: Mean: 0.0233 | Std: 1.0493 | MaxAbs: 3.0000 | Norm: 300.4075
 
---- Debug Step 516 ---
-[Step 516] Residual   | Mean: -0.0371+0.0408j | Std: 2.1177 | MaxAbs: 11.5694 | Norm: 428.7317
-[Step 516] Loss Value (Normed): 2421.92090
-[Step 516] Adaptive Scale: ScoreNorm=63.0232 | GradNorm=7.8307 | Factor=8.0482
-[Step 516] img_next   | Mean: 0.0022 | Std: 1.0806 | MaxAbs: 5.8607 | Norm: 309.2782
-[Step 511] img_next   | Mean: -0.0011 | Std: 1.0915 | MaxAbs: 5.9508 | Norm: 312.4070
-[Step 506] img_next   | Mean: 0.0030 | Std: 1.0991 | MaxAbs: 6.2677 | Norm: 314.5930
-[Step 501] img_next   | Mean: -0.0006 | Std: 1.1067 | MaxAbs: 6.2666 | Norm: 316.7420
-[Step 496] img_next   | Mean: 0.0050 | Std: 1.1131 | MaxAbs: 6.6392 | Norm: 318.5848
-[Step 491] img_next   | Mean: -0.0038 | Std: 1.1207 | MaxAbs: 6.6141 | Norm: 320.7724
-[Step 486] img_next   | Mean: 0.0062 | Std: 1.1289 | MaxAbs: 6.8587 | Norm: 323.1263
-[Step 481] img_next   | Mean: -0.0024 | Std: 1.1364 | MaxAbs: 6.8911 | Norm: 325.2535
-[Step 476] img_next   | Mean: 0.0050 | Std: 1.1437 | MaxAbs: 7.0892 | Norm: 327.3584
-[Step 471] img_next   | Mean: -0.0016 | Std: 1.1512 | MaxAbs: 7.0407 | Norm: 329.4970
+--- Debug Step t=516 (Loop i=50) ---
+Loss Value: 21.869886
+[Step 516] Adaptive Scale (Reference Only): ScoreNorm=60.7551 | GradNorm=0.0550 | Factor=1104.0144
+[Step 516] img (x_t) stats: Mean: 0.0269 | Std: 1.0649 | MaxAbs: 3.0000 | Norm: 304.8978
 
---- Debug Step 466 ---
-[Step 466] Residual   | Mean: -0.0510+0.0106j | Std: 1.8105 | MaxAbs: 11.3760 | Norm: 366.5582
-[Step 466] Loss Value (Normed): 1770.41357
-[Step 466] Adaptive Scale: ScoreNorm=69.1588 | GradNorm=3.7179 | Factor=18.6016
-[Step 466] img_next   | Mean: 0.0038 | Std: 1.1584 | MaxAbs: 7.2925 | Norm: 331.5463
-[Step 461] img_next   | Mean: -0.0006 | Std: 1.1632 | MaxAbs: 7.1646 | Norm: 332.9155
-[Step 456] img_next   | Mean: 0.0025 | Std: 1.1675 | MaxAbs: 7.4367 | Norm: 334.1437
-[Step 451] img_next   | Mean: 0.0021 | Std: 1.1783 | MaxAbs: 7.4561 | Norm: 337.2595
-[Step 446] img_next   | Mean: 0.0023 | Std: 1.1794 | MaxAbs: 7.5773 | Norm: 337.5644
-[Step 441] img_next   | Mean: 0.0013 | Std: 1.1913 | MaxAbs: 7.4816 | Norm: 340.9735
-[Step 436] img_next   | Mean: 0.0038 | Std: 1.1932 | MaxAbs: 7.7017 | Norm: 341.5006
-[Step 431] img_next   | Mean: 0.0028 | Std: 1.2033 | MaxAbs: 7.5399 | Norm: 344.4158
-[Step 426] img_next   | Mean: 0.0021 | Std: 1.2078 | MaxAbs: 7.7333 | Norm: 345.7025
-[Step 421] img_next   | Mean: 0.0024 | Std: 1.2132 | MaxAbs: 7.6393 | Norm: 347.2252
+--- Debug Step t=466 (Loop i=60) ---
+Loss Value: 21.931011
+[Step 466] Adaptive Scale (Reference Only): ScoreNorm=60.4193 | GradNorm=0.0495 | Factor=1220.3549
+[Step 466] img (x_t) stats: Mean: 0.0304 | Std: 1.0816 | MaxAbs: 3.0000 | Norm: 309.6895
 
---- Debug Step 416 ---
-[Step 416] Residual   | Mean: -0.0116+0.0221j | Std: 1.5410 | MaxAbs: 11.5421 | Norm: 311.9108
-[Step 416] Loss Value (Normed): 1281.88647
-[Step 416] Adaptive Scale: ScoreNorm=77.9660 | GradNorm=2.3765 | Factor=32.8068
-[Step 416] img_next   | Mean: 0.0030 | Std: 1.2199 | MaxAbs: 7.7947 | Norm: 349.1432
-[Step 411] img_next   | Mean: 0.0018 | Std: 1.2258 | MaxAbs: 7.6299 | Norm: 350.8298
-[Step 406] img_next   | Mean: 0.0055 | Std: 1.2320 | MaxAbs: 7.7934 | Norm: 352.6278
-[Step 401] img_next   | Mean: -0.0009 | Std: 1.2371 | MaxAbs: 7.7937 | Norm: 354.0624
-[Step 396] img_next   | Mean: 0.0038 | Std: 1.2434 | MaxAbs: 7.9259 | Norm: 355.8763
-[Step 391] img_next   | Mean: 0.0019 | Std: 1.2479 | MaxAbs: 8.2556 | Norm: 357.1703
-[Step 386] img_next   | Mean: 0.0052 | Std: 1.2537 | MaxAbs: 8.3795 | Norm: 358.8407
-[Step 381] img_next   | Mean: 0.0011 | Std: 1.2572 | MaxAbs: 8.6582 | Norm: 359.8370
-[Step 376] img_next   | Mean: 0.0060 | Std: 1.2632 | MaxAbs: 8.8828 | Norm: 361.5485
-[Step 371] img_next   | Mean: 0.0011 | Std: 1.2664 | MaxAbs: 9.1197 | Norm: 362.4496
+--- Debug Step t=416 (Loop i=70) ---
+Loss Value: 21.983932
+[Step 416] Adaptive Scale (Reference Only): ScoreNorm=60.0405 | GradNorm=0.0451 | Factor=1331.4480
+[Step 416] img (x_t) stats: Mean: 0.0339 | Std: 1.0987 | MaxAbs: 3.0000 | Norm: 314.6090
 
---- Debug Step 366 ---
-[Step 366] Residual   | Mean: -0.0047+0.0317j | Std: 1.3105 | MaxAbs: 11.5072 | Norm: 265.3031
-[Step 366] Loss Value (Normed): 927.41321
-[Step 366] Adaptive Scale: ScoreNorm=84.4158 | GradNorm=3.1904 | Factor=26.4592
-[Step 366] img_next   | Mean: 0.0062 | Std: 1.2710 | MaxAbs: 9.2596 | Norm: 363.7976
-[Step 361] img_next   | Mean: 0.0015 | Std: 1.2744 | MaxAbs: 9.5381 | Norm: 364.7629
-[Step 356] img_next   | Mean: 0.0059 | Std: 1.2780 | MaxAbs: 9.5980 | Norm: 365.7979
-[Step 351] img_next   | Mean: 0.0021 | Std: 1.2815 | MaxAbs: 9.9000 | Norm: 366.7927
-[Step 346] img_next   | Mean: 0.0069 | Std: 1.2852 | MaxAbs: 9.9472 | Norm: 367.8421
-[Step 341] img_next   | Mean: 0.0027 | Std: 1.2890 | MaxAbs: 10.2027 | Norm: 368.9198
-[Step 336] img_next   | Mean: 0.0071 | Std: 1.2909 | MaxAbs: 10.2572 | Norm: 369.4710
-[Step 331] img_next   | Mean: 0.0024 | Std: 1.2928 | MaxAbs: 10.4751 | Norm: 370.0276
-[Step 326] img_next   | Mean: 0.0078 | Std: 1.2953 | MaxAbs: 10.5105 | Norm: 370.7424
-[Step 321] img_next   | Mean: 0.0026 | Std: 1.2975 | MaxAbs: 10.6897 | Norm: 371.3537
+--- Debug Step t=366 (Loop i=80) ---
+Loss Value: 22.015802
+[Step 366] Adaptive Scale (Reference Only): ScoreNorm=59.5950 | GradNorm=0.0416 | Factor=1432.8450
+[Step 366] img (x_t) stats: Mean: 0.0372 | Std: 1.1157 | MaxAbs: 3.0000 | Norm: 319.5005
 
---- Debug Step 316 ---
-[Step 316] Residual   | Mean: -0.0126+0.0556j | Std: 1.1042 | MaxAbs: 11.5246 | Norm: 223.7717
-[Step 316] Loss Value (Normed): 659.77991
-[Step 316] Adaptive Scale: ScoreNorm=84.6511 | GradNorm=2.9093 | Factor=29.0966
-[Step 316] img_next   | Mean: 0.0083 | Std: 1.2985 | MaxAbs: 10.7032 | Norm: 371.6458
-[Step 311] img_next   | Mean: 0.0024 | Std: 1.3009 | MaxAbs: 10.8519 | Norm: 372.3503
-[Step 306] img_next   | Mean: 0.0091 | Std: 1.3021 | MaxAbs: 10.8455 | Norm: 372.6785
-[Step 301] img_next   | Mean: 0.0024 | Std: 1.3041 | MaxAbs: 10.9671 | Norm: 373.2596
-[Step 296] img_next   | Mean: 0.0096 | Std: 1.3032 | MaxAbs: 10.9398 | Norm: 373.0003
-[Step 291] img_next   | Mean: 0.0026 | Std: 1.3059 | MaxAbs: 11.0406 | Norm: 373.7678
-[Step 286] img_next   | Mean: 0.0097 | Std: 1.3044 | MaxAbs: 10.9963 | Norm: 373.3393
-[Step 281] img_next   | Mean: 0.0026 | Std: 1.3057 | MaxAbs: 11.0749 | Norm: 373.7109
-[Step 276] img_next   | Mean: 0.0104 | Std: 1.3048 | MaxAbs: 11.0288 | Norm: 373.4680
-[Step 271] img_next   | Mean: 0.0021 | Std: 1.3051 | MaxAbs: 11.0707 | Norm: 373.5291
+--- Debug Step t=316 (Loop i=90) ---
+Loss Value: 22.029913
+[Step 316] Adaptive Scale (Reference Only): ScoreNorm=59.0581 | GradNorm=0.0389 | Factor=1517.3909
+[Step 316] img (x_t) stats: Mean: 0.0403 | Std: 1.1320 | MaxAbs: 3.0000 | Norm: 324.2040
 
---- Debug Step 266 ---
-[Step 266] Residual   | Mean: -0.0070+0.0365j | Std: 0.9566 | MaxAbs: 10.9861 | Norm: 193.7442
-[Step 266] Loss Value (Normed): 494.59082
-[Step 266] Adaptive Scale: ScoreNorm=81.1428 | GradNorm=2.8966 | Factor=28.0134
-[Step 266] img_next   | Mean: 0.0105 | Std: 1.3038 | MaxAbs: 11.0496 | Norm: 373.1883
-[Step 261] img_next   | Mean: 0.0023 | Std: 1.3023 | MaxAbs: 11.0284 | Norm: 372.7344
-[Step 256] img_next   | Mean: 0.0107 | Std: 1.3015 | MaxAbs: 11.0732 | Norm: 372.5324
-[Step 251] img_next   | Mean: 0.0028 | Std: 1.2981 | MaxAbs: 10.9835 | Norm: 371.5388
-[Step 246] img_next   | Mean: 0.0103 | Std: 1.2986 | MaxAbs: 11.0790 | Norm: 371.6927
-[Step 241] img_next   | Mean: 0.0036 | Std: 1.2937 | MaxAbs: 10.9801 | Norm: 370.2673
-[Step 236] img_next   | Mean: 0.0102 | Std: 1.2942 | MaxAbs: 11.0440 | Norm: 370.4357
-[Step 231] img_next   | Mean: 0.0041 | Std: 1.2877 | MaxAbs: 10.9506 | Norm: 368.5551
-[Step 226] img_next   | Mean: 0.0093 | Std: 1.2878 | MaxAbs: 10.9715 | Norm: 368.6022
-[Step 221] img_next   | Mean: 0.0050 | Std: 1.2810 | MaxAbs: 10.8759 | Norm: 366.6553
+--- Debug Step t=266 (Loop i=100) ---
+Loss Value: 22.043678
+[Step 266] Adaptive Scale (Reference Only): ScoreNorm=58.4169 | GradNorm=0.0369 | Factor=1581.4286
+[Step 266] img (x_t) stats: Mean: 0.0432 | Std: 1.1472 | MaxAbs: 3.0000 | Norm: 328.5872
 
---- Debug Step 216 ---
-[Step 216] Residual   | Mean: -0.0068+0.0196j | Std: 0.8606 | MaxAbs: 11.0785 | Norm: 174.2127
-[Step 216] Loss Value (Normed): 399.89709
-[Step 216] Adaptive Scale: ScoreNorm=74.0243 | GradNorm=2.8423 | Factor=26.0440
-[Step 216] img_next   | Mean: 0.0093 | Std: 1.2795 | MaxAbs: 10.8870 | Norm: 366.2337
-[Step 211] img_next   | Mean: 0.0053 | Std: 1.2728 | MaxAbs: 10.7729 | Norm: 364.2912
-[Step 206] img_next   | Mean: 0.0089 | Std: 1.2703 | MaxAbs: 10.7954 | Norm: 363.5889
-[Step 201] img_next   | Mean: 0.0056 | Std: 1.2633 | MaxAbs: 10.6438 | Norm: 361.5873
-[Step 196] img_next   | Mean: 0.0095 | Std: 1.2606 | MaxAbs: 10.6861 | Norm: 360.8090
-[Step 191] img_next   | Mean: 0.0054 | Std: 1.2530 | MaxAbs: 10.4902 | Norm: 358.6432
-[Step 186] img_next   | Mean: 0.0094 | Std: 1.2494 | MaxAbs: 10.5544 | Norm: 357.5950
-[Step 181] img_next   | Mean: 0.0055 | Std: 1.2418 | MaxAbs: 10.3215 | Norm: 355.4239
-[Step 176] img_next   | Mean: 0.0098 | Std: 1.2380 | MaxAbs: 10.4002 | Norm: 354.3526
-[Step 171] img_next   | Mean: 0.0056 | Std: 1.2298 | MaxAbs: 10.3058 | Norm: 351.9797
+--- Debug Step t=216 (Loop i=110) ---
+Loss Value: 22.047710
+[Step 216] Adaptive Scale (Reference Only): ScoreNorm=57.6288 | GradNorm=0.0355 | Factor=1623.1987
+[Step 216] img (x_t) stats: Mean: 0.0458 | Std: 1.1609 | MaxAbs: 3.0000 | Norm: 332.5152
 
---- Debug Step 166 ---
-[Step 166] Residual   | Mean: -0.0113+0.0192j | Std: 0.7871 | MaxAbs: 10.7777 | Norm: 159.3541
-[Step 166] Loss Value (Normed): 334.59186
-[Step 166] Adaptive Scale: ScoreNorm=63.8559 | GradNorm=2.6861 | Factor=23.7730
-[Step 166] img_next   | Mean: 0.0098 | Std: 1.2251 | MaxAbs: 10.3957 | Norm: 350.6430
-[Step 161] img_next   | Mean: 0.0056 | Std: 1.2174 | MaxAbs: 10.3260 | Norm: 348.4551
-[Step 156] img_next   | Mean: 0.0101 | Std: 1.2121 | MaxAbs: 10.4041 | Norm: 346.9304
-[Step 151] img_next   | Mean: 0.0055 | Std: 1.2042 | MaxAbs: 10.3264 | Norm: 344.6588
-[Step 146] img_next   | Mean: 0.0101 | Std: 1.1980 | MaxAbs: 10.3923 | Norm: 342.9089
-[Step 141] img_next   | Mean: 0.0056 | Std: 1.1903 | MaxAbs: 10.3092 | Norm: 340.6902
-[Step 136] img_next   | Mean: 0.0105 | Std: 1.1841 | MaxAbs: 10.3650 | Norm: 338.9313
-[Step 131] img_next   | Mean: 0.0056 | Std: 1.1765 | MaxAbs: 10.2781 | Norm: 336.7216
-[Step 126] img_next   | Mean: 0.0105 | Std: 1.1701 | MaxAbs: 10.3223 | Norm: 334.9019
-[Step 121] img_next   | Mean: 0.0058 | Std: 1.1622 | MaxAbs: 10.2296 | Norm: 332.6525
+--- Debug Step t=166 (Loop i=120) ---
+Loss Value: 22.045200
+[Step 166] Adaptive Scale (Reference Only): ScoreNorm=56.6509 | GradNorm=0.0345 | Factor=1640.2919
+[Step 166] img (x_t) stats: Mean: 0.0480 | Std: 1.1726 | MaxAbs: 3.0000 | Norm: 335.8863
 
---- Debug Step 116 ---
-[Step 116] Residual   | Mean: -0.0087+0.0199j | Std: 0.7192 | MaxAbs: 10.6486 | Norm: 145.6208
-[Step 116] Loss Value (Normed): 279.40610
-[Step 116] Adaptive Scale: ScoreNorm=49.7178 | GradNorm=2.1747 | Factor=22.8614
-[Step 116] img_next   | Mean: 0.0105 | Std: 1.1558 | MaxAbs: 10.2633 | Norm: 330.8312
-[Step 111] img_next   | Mean: 0.0058 | Std: 1.1478 | MaxAbs: 10.1693 | Norm: 328.5222
-[Step 106] img_next   | Mean: 0.0105 | Std: 1.1418 | MaxAbs: 10.1937 | Norm: 326.8138
-[Step 101] img_next   | Mean: 0.0059 | Std: 1.1334 | MaxAbs: 10.0954 | Norm: 324.3875
-[Step 96] img_next   | Mean: 0.0104 | Std: 1.1278 | MaxAbs: 10.1099 | Norm: 322.8139
-[Step 91] img_next   | Mean: 0.0059 | Std: 1.1188 | MaxAbs: 10.0101 | Norm: 320.2283
-[Step 86] img_next   | Mean: 0.0103 | Std: 1.1137 | MaxAbs: 10.0153 | Norm: 318.7787
-[Step 81] img_next   | Mean: 0.0060 | Std: 1.1047 | MaxAbs: 9.9118 | Norm: 316.1779
-[Step 76] img_next   | Mean: 0.0100 | Std: 1.0997 | MaxAbs: 9.9093 | Norm: 314.7497
-[Step 71] img_next   | Mean: 0.0061 | Std: 1.0905 | MaxAbs: 9.8014 | Norm: 312.1233
+--- Debug Step t=116 (Loop i=130) ---
+Loss Value: 22.035530
+[Step 116] Adaptive Scale (Reference Only): ScoreNorm=55.3286 | GradNorm=0.0342 | Factor=1619.7967
+[Step 116] img (x_t) stats: Mean: 0.0500 | Std: 1.1820 | MaxAbs: 3.0000 | Norm: 338.6094
 
---- Debug Step 66 ---
-[Step 66] Residual   | Mean: -0.0064+0.0218j | Std: 0.6445 | MaxAbs: 10.4839 | Norm: 130.5111
-[Step 66] Loss Value (Normed): 224.43137
-[Step 66] Adaptive Scale: ScoreNorm=33.7185 | GradNorm=1.6592 | Factor=20.3219
-[Step 66] img_next   | Mean: 0.0098 | Std: 1.0856 | MaxAbs: 9.7898 | Norm: 310.7419
-[Step 61] img_next   | Mean: 0.0063 | Std: 1.0764 | MaxAbs: 9.6791 | Norm: 308.0804
-[Step 56] img_next   | Mean: 0.0096 | Std: 1.0715 | MaxAbs: 9.9241 | Norm: 306.6929
-[Step 51] img_next   | Mean: 0.0065 | Std: 1.0621 | MaxAbs: 10.1178 | Norm: 303.9939
-[Step 46] img_next   | Mean: 0.0093 | Std: 1.0573 | MaxAbs: 10.3683 | Norm: 302.6187
-[Step 41] img_next   | Mean: 0.0067 | Std: 1.0480 | MaxAbs: 10.5511 | Norm: 299.9616
-[Step 36] img_next   | Mean: 0.0090 | Std: 1.0429 | MaxAbs: 10.7782 | Norm: 298.5131
-[Step 31] img_next   | Mean: 0.0069 | Std: 1.0337 | MaxAbs: 10.9407 | Norm: 295.8680
-[Step 26] img_next   | Mean: 0.0088 | Std: 1.0281 | MaxAbs: 11.1333 | Norm: 294.2650
-[Step 21] img_next   | Mean: 0.0071 | Std: 1.0186 | MaxAbs: 11.2595 | Norm: 291.5499
+--- Debug Step t=66 (Loop i=140) ---
+Loss Value: 22.009085
+[Step 66] Adaptive Scale (Reference Only): ScoreNorm=53.1372 | GradNorm=0.0343 | Factor=1550.5825
+[Step 66] img (x_t) stats: Mean: 0.0518 | Std: 1.1889 | MaxAbs: 3.0000 | Norm: 340.6029
 
---- Debug Step 16 ---
-[Step 16] Residual   | Mean: -0.0021+0.0246j | Std: 0.5411 | MaxAbs: 10.2771 | Norm: 109.6230
-[Step 16] Loss Value (Normed): 158.34061
-[Step 16] Adaptive Scale: ScoreNorm=18.7829 | GradNorm=0.7107 | Factor=26.4304
-[Step 16] img_next   | Mean: 0.0086 | Std: 1.0118 | MaxAbs: 11.3926 | Norm: 289.6159
-[Step 11] img_next   | Mean: 0.0073 | Std: 1.0008 | MaxAbs: 11.4352 | Norm: 286.4644
-[Step 6] img_next   | Mean: 0.0085 | Std: 0.9893 | MaxAbs: 11.3753 | Norm: 283.1694
-[Step 1] img_next   | Mean: 0.0076 | Std: 0.9849 | MaxAbs: 11.5401 | Norm: 281.8954
+--- Debug Step t=16 (Loop i=150) ---
+Loss Value: 21.923231
+[Step 16] Adaptive Scale (Reference Only): ScoreNorm=46.8544 | GradNorm=0.0355 | Factor=1319.5485
+[Step 16] img (x_t) stats: Mean: 0.0534 | Std: 1.1922 | MaxAbs: 3.0000 | Norm: 341.5776
 Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/estimated/
 Saved result for SNR -5
 
@@ -266,214 +112,77 @@ Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/estimated/
 Starting Method C Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 [Method C] SNR-based Start: DDIM Step 136/200 (t=681)
-[Step Init] img (x_t)  | Mean: 0.0042 | Std: 0.9596 | MaxAbs: 4.3631 | Norm: 274.6464
+[Step Init] img (x_t)  | Mean: -0.0388 | Std: 1.0207 | MaxAbs: 6.5697 | Norm: 292.3447
 
---- Debug Step 681 ---
-[Step 681] Residual   | Mean: -0.0695+0.0671j | Std: 2.2549 | MaxAbs: 15.5169 | Norm: 456.7723
-[Step 681] Loss Value (Normed): 5485.14795
-[Step 681] Adaptive Scale: ScoreNorm=62.1156 | GradNorm=20.9134 | Factor=2.9701
-[Step 681] img_next   | Mean: 0.0071 | Std: 0.9484 | MaxAbs: 4.2541 | Norm: 271.4612
-[Step 676] img_next   | Mean: 0.0048 | Std: 0.9424 | MaxAbs: 4.3557 | Norm: 269.7264
-[Step 671] img_next   | Mean: 0.0052 | Std: 0.9439 | MaxAbs: 4.0721 | Norm: 270.1761
-[Step 666] img_next   | Mean: 0.0066 | Std: 0.9416 | MaxAbs: 4.1357 | Norm: 269.4958
-[Step 661] img_next   | Mean: 0.0040 | Std: 0.9423 | MaxAbs: 4.1302 | Norm: 269.7167
-[Step 656] img_next   | Mean: 0.0044 | Std: 0.9383 | MaxAbs: 4.2106 | Norm: 268.5525
-[Step 651] img_next   | Mean: 0.0034 | Std: 0.9395 | MaxAbs: 4.0704 | Norm: 268.8923
-[Step 646] img_next   | Mean: 0.0066 | Std: 0.9395 | MaxAbs: 4.1723 | Norm: 268.8988
-[Step 641] img_next   | Mean: 0.0031 | Std: 0.9403 | MaxAbs: 4.0529 | Norm: 269.1198
-[Step 636] img_next   | Mean: 0.0056 | Std: 0.9409 | MaxAbs: 4.2189 | Norm: 269.3120
+--- Debug Step t=681 (Loop i=0) ---
+Loss Value: 13.713047
+[Step 681] Adaptive Scale (Reference Only): ScoreNorm=61.6722 | GradNorm=0.0628 | Factor=981.6075
+[Step 681] img (x_t) stats: Mean: -0.0388 | Std: 1.0207 | MaxAbs: 6.5697 | Norm: 292.3447
 
---- Debug Step 631 ---
-[Step 631] Residual   | Mean: 0.0494+0.0364j | Std: 2.1326 | MaxAbs: 21.0850 | Norm: 431.7878
-[Step 631] Loss Value (Normed): 4901.50684
-[Step 631] Adaptive Scale: ScoreNorm=60.2883 | GradNorm=7.4420 | Factor=8.1011
-[Step 631] img_next   | Mean: 0.0022 | Std: 0.9401 | MaxAbs: 4.0453 | Norm: 269.0636
-[Step 626] img_next   | Mean: 0.0069 | Std: 0.9420 | MaxAbs: 4.2803 | Norm: 269.6191
-[Step 621] img_next   | Mean: 0.0036 | Std: 0.9465 | MaxAbs: 4.1285 | Norm: 270.9116
-[Step 616] img_next   | Mean: 0.0040 | Std: 0.9470 | MaxAbs: 4.4566 | Norm: 271.0337
-[Step 611] img_next   | Mean: 0.0049 | Std: 0.9505 | MaxAbs: 4.0854 | Norm: 272.0376
-[Step 606] img_next   | Mean: 0.0058 | Std: 0.9529 | MaxAbs: 4.6572 | Norm: 272.7373
-[Step 601] img_next   | Mean: 0.0038 | Std: 0.9558 | MaxAbs: 4.6539 | Norm: 273.5587
-[Step 596] img_next   | Mean: 0.0063 | Std: 0.9571 | MaxAbs: 5.2547 | Norm: 273.9392
-[Step 591] img_next   | Mean: 0.0051 | Std: 0.9622 | MaxAbs: 4.7157 | Norm: 275.4099
-[Step 586] img_next   | Mean: 0.0053 | Std: 0.9637 | MaxAbs: 5.1653 | Norm: 275.8189
+--- Debug Step t=631 (Loop i=10) ---
+Loss Value: 13.856594
+[Step 631] Adaptive Scale (Reference Only): ScoreNorm=60.9642 | GradNorm=0.0531 | Factor=1147.4897
+[Step 631] img (x_t) stats: Mean: -0.0434 | Std: 1.0231 | MaxAbs: 3.0000 | Norm: 293.0896
 
---- Debug Step 581 ---
-[Step 581] Residual   | Mean: -0.0017-0.0003j | Std: 1.9644 | MaxAbs: 9.1234 | Norm: 397.5586
-[Step 581] Loss Value (Normed): 4155.19141
-[Step 581] Adaptive Scale: ScoreNorm=60.8995 | GradNorm=6.4733 | Factor=9.4078
-[Step 581] img_next   | Mean: 0.0056 | Std: 0.9687 | MaxAbs: 5.7965 | Norm: 277.2547
-[Step 576] img_next   | Mean: 0.0053 | Std: 0.9728 | MaxAbs: 5.2977 | Norm: 278.4209
-[Step 571] img_next   | Mean: 0.0039 | Std: 0.9742 | MaxAbs: 5.7567 | Norm: 278.8460
-[Step 566] img_next   | Mean: 0.0092 | Std: 0.9772 | MaxAbs: 5.7748 | Norm: 279.7051
-[Step 561] img_next   | Mean: 0.0066 | Std: 0.9828 | MaxAbs: 6.2374 | Norm: 281.3071
-[Step 556] img_next   | Mean: 0.0051 | Std: 0.9869 | MaxAbs: 6.0499 | Norm: 282.4631
-[Step 551] img_next   | Mean: 0.0071 | Std: 0.9946 | MaxAbs: 6.7787 | Norm: 284.6640
-[Step 546] img_next   | Mean: 0.0065 | Std: 0.9990 | MaxAbs: 6.6694 | Norm: 285.9460
-[Step 541] img_next   | Mean: 0.0112 | Std: 1.0016 | MaxAbs: 7.1633 | Norm: 286.6903
-[Step 536] img_next   | Mean: 0.0046 | Std: 1.0084 | MaxAbs: 7.4325 | Norm: 288.6271
+--- Debug Step t=581 (Loop i=20) ---
+Loss Value: 14.024734
+[Step 581] Adaptive Scale (Reference Only): ScoreNorm=60.6108 | GradNorm=0.0473 | Factor=1281.1110
+[Step 581] img (x_t) stats: Mean: -0.0487 | Std: 1.0347 | MaxAbs: 3.0000 | Norm: 296.4680
 
---- Debug Step 531 ---
-[Step 531] Residual   | Mean: 0.0146-0.0050j | Std: 1.7797 | MaxAbs: 9.7175 | Norm: 360.1976
-[Step 531] Loss Value (Normed): 3410.91016
-[Step 531] Adaptive Scale: ScoreNorm=61.4655 | GradNorm=11.7843 | Factor=5.2159
-[Step 531] img_next   | Mean: 0.0126 | Std: 1.0139 | MaxAbs: 7.7116 | Norm: 290.2162
-[Step 526] img_next   | Mean: 0.0059 | Std: 1.0169 | MaxAbs: 8.0467 | Norm: 291.0660
-[Step 521] img_next   | Mean: 0.0113 | Std: 1.0267 | MaxAbs: 8.3118 | Norm: 293.8671
-[Step 516] img_next   | Mean: 0.0080 | Std: 1.0307 | MaxAbs: 8.6388 | Norm: 295.0161
-[Step 511] img_next   | Mean: 0.0116 | Std: 1.0380 | MaxAbs: 8.7553 | Norm: 297.1158
-[Step 506] img_next   | Mean: 0.0067 | Std: 1.0477 | MaxAbs: 9.2986 | Norm: 299.8633
-[Step 501] img_next   | Mean: 0.0110 | Std: 1.0543 | MaxAbs: 9.7269 | Norm: 301.7659
-[Step 496] img_next   | Mean: 0.0096 | Std: 1.0615 | MaxAbs: 10.3090 | Norm: 303.8392
-[Step 491] img_next   | Mean: 0.0096 | Std: 1.0696 | MaxAbs: 10.6689 | Norm: 306.1341
-[Step 486] img_next   | Mean: 0.0085 | Std: 1.0815 | MaxAbs: 11.1295 | Norm: 309.5609
+--- Debug Step t=531 (Loop i=30) ---
+Loss Value: 14.144176
+[Step 531] Adaptive Scale (Reference Only): ScoreNorm=60.2308 | GradNorm=0.0413 | Factor=1458.4410
+[Step 531] img (x_t) stats: Mean: -0.0541 | Std: 1.0475 | MaxAbs: 3.0000 | Norm: 300.2132
 
---- Debug Step 481 ---
-[Step 481] Residual   | Mean: -0.0013+0.0135j | Std: 1.5459 | MaxAbs: 7.7736 | Norm: 312.8768
-[Step 481] Loss Value (Normed): 2573.56641
-[Step 481] Adaptive Scale: ScoreNorm=61.0755 | GradNorm=6.7574 | Factor=9.0383
-[Step 481] img_next   | Mean: 0.0106 | Std: 1.0882 | MaxAbs: 11.4235 | Norm: 311.4613
-[Step 476] img_next   | Mean: 0.0074 | Std: 1.0974 | MaxAbs: 11.7013 | Norm: 314.0986
-[Step 471] img_next   | Mean: 0.0105 | Std: 1.1068 | MaxAbs: 12.0989 | Norm: 316.7906
-[Step 466] img_next   | Mean: 0.0082 | Std: 1.1155 | MaxAbs: 12.2670 | Norm: 319.2709
-[Step 461] img_next   | Mean: 0.0119 | Std: 1.1230 | MaxAbs: 12.3377 | Norm: 321.4462
-[Step 456] img_next   | Mean: 0.0109 | Std: 1.1344 | MaxAbs: 12.6150 | Norm: 324.7086
-[Step 451] img_next   | Mean: 0.0114 | Std: 1.1385 | MaxAbs: 12.7989 | Norm: 325.8786
-[Step 446] img_next   | Mean: 0.0132 | Std: 1.1481 | MaxAbs: 12.9520 | Norm: 328.6143
-[Step 441] img_next   | Mean: 0.0098 | Std: 1.1525 | MaxAbs: 12.9939 | Norm: 329.8767
-[Step 436] img_next   | Mean: 0.0132 | Std: 1.1618 | MaxAbs: 13.2261 | Norm: 332.5479
+--- Debug Step t=481 (Loop i=40) ---
+Loss Value: 14.224613
+[Step 481] Adaptive Scale (Reference Only): ScoreNorm=59.8227 | GradNorm=0.0367 | Factor=1629.4257
+[Step 481] img (x_t) stats: Mean: -0.0594 | Std: 1.0612 | MaxAbs: 3.0000 | Norm: 304.2181
 
---- Debug Step 431 ---
-[Step 431] Residual   | Mean: -0.0261+0.0089j | Std: 1.3437 | MaxAbs: 6.7879 | Norm: 271.9966
-[Step 431] Loss Value (Normed): 1944.98169
-[Step 431] Adaptive Scale: ScoreNorm=62.0829 | GradNorm=6.6441 | Factor=9.3440
-[Step 431] img_next   | Mean: 0.0102 | Std: 1.1680 | MaxAbs: 13.4728 | Norm: 334.3217
-[Step 426] img_next   | Mean: 0.0122 | Std: 1.1791 | MaxAbs: 13.5648 | Norm: 337.5031
-[Step 421] img_next   | Mean: 0.0109 | Std: 1.1826 | MaxAbs: 13.7116 | Norm: 338.4781
-[Step 416] img_next   | Mean: 0.0120 | Std: 1.1947 | MaxAbs: 13.8329 | Norm: 341.9659
-[Step 411] img_next   | Mean: 0.0124 | Std: 1.1974 | MaxAbs: 13.8857 | Norm: 342.7419
-[Step 406] img_next   | Mean: 0.0119 | Std: 1.2088 | MaxAbs: 13.9704 | Norm: 345.9990
-[Step 401] img_next   | Mean: 0.0116 | Std: 1.2127 | MaxAbs: 14.0784 | Norm: 347.1136
-[Step 396] img_next   | Mean: 0.0131 | Std: 1.2221 | MaxAbs: 14.1365 | Norm: 349.8003
-[Step 391] img_next   | Mean: 0.0121 | Std: 1.2259 | MaxAbs: 14.2215 | Norm: 350.8849
-[Step 386] img_next   | Mean: 0.0140 | Std: 1.2382 | MaxAbs: 14.2837 | Norm: 354.4090
+--- Debug Step t=431 (Loop i=50) ---
+Loss Value: 14.246208
+[Step 431] Adaptive Scale (Reference Only): ScoreNorm=59.3579 | GradNorm=0.0330 | Factor=1798.3794
+[Step 431] img (x_t) stats: Mean: -0.0646 | Std: 1.0754 | MaxAbs: 3.0000 | Norm: 308.3490
 
---- Debug Step 381 ---
-[Step 381] Residual   | Mean: -0.0308+0.0110j | Std: 1.1732 | MaxAbs: 6.7067 | Norm: 237.5285
-[Step 381] Loss Value (Normed): 1483.27002
-[Step 381] Adaptive Scale: ScoreNorm=65.0370 | GradNorm=7.2096 | Factor=9.0209
-[Step 381] img_next   | Mean: 0.0131 | Std: 1.2397 | MaxAbs: 14.3191 | Norm: 354.8491
-[Step 376] img_next   | Mean: 0.0141 | Std: 1.2519 | MaxAbs: 14.3724 | Norm: 358.3267
-[Step 371] img_next   | Mean: 0.0125 | Std: 1.2549 | MaxAbs: 14.4275 | Norm: 359.1879
-[Step 366] img_next   | Mean: 0.0147 | Std: 1.2684 | MaxAbs: 14.4580 | Norm: 363.0626
-[Step 361] img_next   | Mean: 0.0139 | Std: 1.2681 | MaxAbs: 14.5069 | Norm: 362.9568
-[Step 356] img_next   | Mean: 0.0141 | Std: 1.2823 | MaxAbs: 14.5276 | Norm: 367.0328
-[Step 351] img_next   | Mean: 0.0148 | Std: 1.2831 | MaxAbs: 14.5607 | Norm: 367.2585
-[Step 346] img_next   | Mean: 0.0143 | Std: 1.2964 | MaxAbs: 14.5738 | Norm: 371.0818
-[Step 341] img_next   | Mean: 0.0158 | Std: 1.2944 | MaxAbs: 14.5862 | Norm: 370.4994
-[Step 336] img_next   | Mean: 0.0143 | Std: 1.3086 | MaxAbs: 14.5880 | Norm: 374.5738
+--- Debug Step t=381 (Loop i=60) ---
+Loss Value: 14.247420
+[Step 381] Adaptive Scale (Reference Only): ScoreNorm=58.8126 | GradNorm=0.0303 | Factor=1941.4103
+[Step 381] img (x_t) stats: Mean: -0.0694 | Std: 1.0895 | MaxAbs: 3.0000 | Norm: 312.4685
 
---- Debug Step 331 ---
-[Step 331] Residual   | Mean: -0.0227+0.0194j | Std: 1.0291 | MaxAbs: 6.2701 | Norm: 208.3586
-[Step 331] Loss Value (Normed): 1141.33154
-[Step 331] Adaptive Scale: ScoreNorm=70.8108 | GradNorm=3.0035 | Factor=23.5762
-[Step 331] img_next   | Mean: 0.0158 | Std: 1.3060 | MaxAbs: 14.5923 | Norm: 373.8369
-[Step 326] img_next   | Mean: 0.0157 | Std: 1.3201 | MaxAbs: 14.5821 | Norm: 377.8733
-[Step 321] img_next   | Mean: 0.0166 | Std: 1.3186 | MaxAbs: 14.5818 | Norm: 377.4436
-[Step 316] img_next   | Mean: 0.0160 | Std: 1.3291 | MaxAbs: 14.5552 | Norm: 380.4223
-[Step 311] img_next   | Mean: 0.0171 | Std: 1.3300 | MaxAbs: 14.5503 | Norm: 380.7031
-[Step 306] img_next   | Mean: 0.0163 | Std: 1.3396 | MaxAbs: 14.5079 | Norm: 383.4333
-[Step 301] img_next   | Mean: 0.0182 | Std: 1.3395 | MaxAbs: 14.4997 | Norm: 383.4101
-[Step 296] img_next   | Mean: 0.0174 | Std: 1.3488 | MaxAbs: 14.4442 | Norm: 386.0761
-[Step 291] img_next   | Mean: 0.0184 | Std: 1.3491 | MaxAbs: 14.4317 | Norm: 386.1780
-[Step 286] img_next   | Mean: 0.0179 | Std: 1.3574 | MaxAbs: 14.3605 | Norm: 388.5315
+--- Debug Step t=331 (Loop i=70) ---
+Loss Value: 14.236652
+[Step 331] Adaptive Scale (Reference Only): ScoreNorm=58.1874 | GradNorm=0.0282 | Factor=2065.7384
+[Step 331] img (x_t) stats: Mean: -0.0739 | Std: 1.1032 | MaxAbs: 3.0000 | Norm: 316.4471
 
---- Debug Step 281 ---
-[Step 281] Residual   | Mean: -0.0239+0.0032j | Std: 0.9049 | MaxAbs: 5.8314 | Norm: 183.2082
-[Step 281] Loss Value (Normed): 882.42645
-[Step 281] Adaptive Scale: ScoreNorm=79.5346 | GradNorm=3.7877 | Factor=20.9982
-[Step 281] img_next   | Mean: 0.0192 | Std: 1.3577 | MaxAbs: 14.3446 | Norm: 388.6412
-[Step 276] img_next   | Mean: 0.0181 | Std: 1.3654 | MaxAbs: 14.2584 | Norm: 390.8266
-[Step 271] img_next   | Mean: 0.0203 | Std: 1.3649 | MaxAbs: 14.2402 | Norm: 390.7043
-[Step 266] img_next   | Mean: 0.0184 | Std: 1.3720 | MaxAbs: 14.1386 | Norm: 392.7253
-[Step 261] img_next   | Mean: 0.0211 | Std: 1.3722 | MaxAbs: 14.1223 | Norm: 392.7856
-[Step 256] img_next   | Mean: 0.0188 | Std: 1.3783 | MaxAbs: 14.0020 | Norm: 394.5382
-[Step 251] img_next   | Mean: 0.0224 | Std: 1.3785 | MaxAbs: 13.9879 | Norm: 394.5912
-[Step 246] img_next   | Mean: 0.0185 | Std: 1.3840 | MaxAbs: 13.8470 | Norm: 396.1474
-[Step 241] img_next   | Mean: 0.0233 | Std: 1.3845 | MaxAbs: 13.8343 | Norm: 396.3190
-[Step 236] img_next   | Mean: 0.0191 | Std: 1.3889 | MaxAbs: 13.6770 | Norm: 397.5695
+--- Debug Step t=281 (Loop i=80) ---
+Loss Value: 14.226368
+[Step 281] Adaptive Scale (Reference Only): ScoreNorm=57.4738 | GradNorm=0.0264 | Factor=2174.1342
+[Step 281] img (x_t) stats: Mean: -0.0780 | Std: 1.1159 | MaxAbs: 3.0000 | Norm: 320.1686
 
---- Debug Step 231 ---
-[Step 231] Residual   | Mean: -0.0311+0.0070j | Std: 0.8043 | MaxAbs: 5.5562 | Norm: 162.9002
-[Step 231] Loss Value (Normed): 697.64087
-[Step 231] Adaptive Scale: ScoreNorm=82.0251 | GradNorm=4.2018 | Factor=19.5215
-[Step 231] img_next   | Mean: 0.0238 | Std: 1.3897 | MaxAbs: 13.6541 | Norm: 397.7992
-[Step 226] img_next   | Mean: 0.0196 | Std: 1.3931 | MaxAbs: 13.4982 | Norm: 398.7611
-[Step 221] img_next   | Mean: 0.0245 | Std: 1.3951 | MaxAbs: 13.4427 | Norm: 399.3694
-[Step 216] img_next   | Mean: 0.0203 | Std: 1.3974 | MaxAbs: 13.3148 | Norm: 399.9873
-[Step 211] img_next   | Mean: 0.0248 | Std: 1.3996 | MaxAbs: 13.2344 | Norm: 400.6608
-[Step 206] img_next   | Mean: 0.0207 | Std: 1.4010 | MaxAbs: 13.1080 | Norm: 401.0384
-[Step 201] img_next   | Mean: 0.0254 | Std: 1.4039 | MaxAbs: 13.0331 | Norm: 401.8735
-[Step 196] img_next   | Mean: 0.0208 | Std: 1.4047 | MaxAbs: 12.8893 | Norm: 402.1031
-[Step 191] img_next   | Mean: 0.0262 | Std: 1.4069 | MaxAbs: 12.8285 | Norm: 402.7361
-[Step 186] img_next   | Mean: 0.0211 | Std: 1.4086 | MaxAbs: 12.6741 | Norm: 403.2215
+--- Debug Step t=231 (Loop i=90) ---
+Loss Value: 14.222460
+[Step 231] Adaptive Scale (Reference Only): ScoreNorm=56.6590 | GradNorm=0.0251 | Factor=2260.4911
+[Step 231] img (x_t) stats: Mean: -0.0816 | Std: 1.1274 | MaxAbs: 3.0000 | Norm: 323.5320
 
---- Debug Step 181 ---
-[Step 181] Residual   | Mean: -0.0302+0.0005j | Std: 0.7106 | MaxAbs: 5.5343 | Norm: 143.9337
-[Step 181] Loss Value (Normed): 544.64514
-[Step 181] Adaptive Scale: ScoreNorm=80.0684 | GradNorm=3.5060 | Factor=22.8376
-[Step 181] img_next   | Mean: 0.0266 | Std: 1.4093 | MaxAbs: 12.6020 | Norm: 403.4384
-[Step 176] img_next   | Mean: 0.0211 | Std: 1.4117 | MaxAbs: 12.4593 | Norm: 404.0967
-[Step 171] img_next   | Mean: 0.0275 | Std: 1.4117 | MaxAbs: 12.3614 | Norm: 404.1259
-[Step 166] img_next   | Mean: 0.0211 | Std: 1.4146 | MaxAbs: 12.2303 | Norm: 404.9125
-[Step 161] img_next   | Mean: 0.0283 | Std: 1.4138 | MaxAbs: 12.1066 | Norm: 404.7307
-[Step 156] img_next   | Mean: 0.0210 | Std: 1.4166 | MaxAbs: 11.9869 | Norm: 405.5048
-[Step 151] img_next   | Mean: 0.0288 | Std: 1.4145 | MaxAbs: 11.8460 | Norm: 404.9434
-[Step 146] img_next   | Mean: 0.0211 | Std: 1.4182 | MaxAbs: 11.7247 | Norm: 405.9549
-[Step 141] img_next   | Mean: 0.0295 | Std: 1.4152 | MaxAbs: 11.9344 | Norm: 405.1271
-[Step 136] img_next   | Mean: 0.0210 | Std: 1.4188 | MaxAbs: 12.0076 | Norm: 406.1393
+--- Debug Step t=181 (Loop i=100) ---
+Loss Value: 14.218201
+[Step 181] Adaptive Scale (Reference Only): ScoreNorm=55.6853 | GradNorm=0.0241 | Factor=2307.7441
+[Step 181] img (x_t) stats: Mean: -0.0847 | Std: 1.1374 | MaxAbs: 3.0000 | Norm: 326.4463
 
---- Debug Step 131 ---
-[Step 131] Residual   | Mean: -0.0324+0.0004j | Std: 0.6348 | MaxAbs: 5.5470 | Norm: 128.6372
-[Step 131] Loss Value (Normed): 435.03281
-[Step 131] Adaptive Scale: ScoreNorm=72.5005 | GradNorm=3.3318 | Factor=21.7603
-[Step 131] img_next   | Mean: 0.0300 | Std: 1.4154 | MaxAbs: 12.2345 | Norm: 405.2135
-[Step 126] img_next   | Mean: 0.0208 | Std: 1.4189 | MaxAbs: 12.2869 | Norm: 406.1523
-[Step 121] img_next   | Mean: 0.0306 | Std: 1.4151 | MaxAbs: 12.4938 | Norm: 405.1200
-[Step 116] img_next   | Mean: 0.0205 | Std: 1.4182 | MaxAbs: 12.5265 | Norm: 405.9457
-[Step 111] img_next   | Mean: 0.0310 | Std: 1.4142 | MaxAbs: 12.7132 | Norm: 404.8573
-[Step 106] img_next   | Mean: 0.0203 | Std: 1.4168 | MaxAbs: 12.7272 | Norm: 405.5632
-[Step 101] img_next   | Mean: 0.0314 | Std: 1.4125 | MaxAbs: 12.8929 | Norm: 404.3773
-[Step 96] img_next   | Mean: 0.0201 | Std: 1.4148 | MaxAbs: 12.8875 | Norm: 404.9868
-[Step 91] img_next   | Mean: 0.0315 | Std: 1.4103 | MaxAbs: 13.0336 | Norm: 403.7415
-[Step 86] img_next   | Mean: 0.0199 | Std: 1.4119 | MaxAbs: 13.0114 | Norm: 404.1526
+--- Debug Step t=131 (Loop i=110) ---
+Loss Value: 14.206622
+[Step 131] Adaptive Scale (Reference Only): ScoreNorm=54.4246 | GradNorm=0.0235 | Factor=2315.9487
+[Step 131] img (x_t) stats: Mean: -0.0872 | Std: 1.1456 | MaxAbs: 3.0000 | Norm: 328.8478
 
---- Debug Step 81 ---
-[Step 81] Residual   | Mean: -0.0307-0.0023j | Std: 0.5627 | MaxAbs: 5.5426 | Norm: 114.0478
-[Step 81] Loss Value (Normed): 341.94992
-[Step 81] Adaptive Scale: ScoreNorm=58.3761 | GradNorm=2.9412 | Factor=19.8480
-[Step 81] img_next   | Mean: 0.0316 | Std: 1.4071 | MaxAbs: 13.1376 | Norm: 402.8433
-[Step 76] img_next   | Mean: 0.0198 | Std: 1.4081 | MaxAbs: 13.0992 | Norm: 403.0676
-[Step 71] img_next   | Mean: 0.0316 | Std: 1.4032 | MaxAbs: 13.2048 | Norm: 401.7171
-[Step 66] img_next   | Mean: 0.0197 | Std: 1.4034 | MaxAbs: 13.1517 | Norm: 401.7253
-[Step 61] img_next   | Mean: 0.0315 | Std: 1.3982 | MaxAbs: 13.2359 | Norm: 400.2938
-[Step 56] img_next   | Mean: 0.0195 | Std: 1.3976 | MaxAbs: 13.1683 | Norm: 400.0444
-[Step 51] img_next   | Mean: 0.0314 | Std: 1.3920 | MaxAbs: 13.2316 | Norm: 398.5066
-[Step 46] img_next   | Mean: 0.0194 | Std: 1.3904 | MaxAbs: 13.1476 | Norm: 397.9886
-[Step 41] img_next   | Mean: 0.0312 | Std: 1.3841 | MaxAbs: 13.1885 | Norm: 396.2423
-[Step 36] img_next   | Mean: 0.0193 | Std: 1.3814 | MaxAbs: 13.0864 | Norm: 395.4238
+--- Debug Step t=81 (Loop i=120) ---
+Loss Value: 14.181013
+[Step 81] Adaptive Scale (Reference Only): ScoreNorm=52.5110 | GradNorm=0.0233 | Factor=2257.2366
+[Step 81] img (x_t) stats: Mean: -0.0891 | Std: 1.1519 | MaxAbs: 3.0000 | Norm: 330.6663
 
---- Debug Step 31 ---
-[Step 31] Residual   | Mean: -0.0310-0.0039j | Std: 0.4820 | MaxAbs: 5.4931 | Norm: 97.7436
-[Step 31] Loss Value (Normed): 251.16867
-[Step 31] Adaptive Scale: ScoreNorm=37.4002 | GradNorm=1.7603 | Factor=21.2469
-[Step 31] img_next   | Mean: 0.0309 | Std: 1.3739 | MaxAbs: 13.1007 | Norm: 393.3320
-[Step 26] img_next   | Mean: 0.0192 | Std: 1.3699 | MaxAbs: 12.9758 | Norm: 392.1297
-[Step 21] img_next   | Mean: 0.0305 | Std: 1.3605 | MaxAbs: 12.9537 | Norm: 389.4811
-[Step 16] img_next   | Mean: 0.0191 | Std: 1.3541 | MaxAbs: 12.7900 | Norm: 387.5914
-[Step 11] img_next   | Mean: 0.0300 | Std: 1.3412 | MaxAbs: 12.6989 | Norm: 383.9789
-[Step 6] img_next   | Mean: 0.0193 | Std: 1.3258 | MaxAbs: 12.4028 | Norm: 379.5045
-[Step 1] img_next   | Mean: 0.0290 | Std: 1.3211 | MaxAbs: 12.3909 | Norm: 378.2203
+--- Debug Step t=31 (Loop i=130) ---
+Loss Value: 14.116014
+[Step 31] Adaptive Scale (Reference Only): ScoreNorm=48.3826 | GradNorm=0.0234 | Factor=2070.3563
+[Step 31] img (x_t) stats: Mean: -0.0903 | Std: 1.1556 | MaxAbs: 3.0000 | Norm: 331.7567
 Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/estimated/
 Saved result for SNR -2
 
@@ -482,185 +191,67 @@ Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/estimated/
 Starting Method C Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 [Method C] SNR-based Start: DDIM Step 117/200 (t=586)
-[Step Init] img (x_t)  | Mean: 0.0058 | Std: 0.9245 | MaxAbs: 4.5700 | Norm: 264.6183
+[Step Init] img (x_t)  | Mean: -0.0153 | Std: 1.0127 | MaxAbs: 9.1662 | Norm: 289.8819
 
---- Debug Step 586 ---
-[Step 586] Residual   | Mean: -0.0226-0.0368j | Std: 1.7083 | MaxAbs: 19.2876 | Norm: 345.8358
-[Step 586] Loss Value (Normed): 6273.76953
-[Step 586] Adaptive Scale: ScoreNorm=60.9962 | GradNorm=2.9284 | Factor=20.8295
-[Step 586] img_next   | Mean: 0.0034 | Std: 0.9146 | MaxAbs: 4.5245 | Norm: 261.7631
-[Step 581] img_next   | Mean: -0.0014 | Std: 0.9141 | MaxAbs: 5.1390 | Norm: 261.6353
-[Step 576] img_next   | Mean: -0.0003 | Std: 0.9154 | MaxAbs: 4.6709 | Norm: 262.0064
-[Step 571] img_next   | Mean: -0.0009 | Std: 0.9170 | MaxAbs: 5.0474 | Norm: 262.4464
-[Step 566] img_next   | Mean: -0.0043 | Std: 0.9212 | MaxAbs: 4.9822 | Norm: 263.6716
-[Step 561] img_next   | Mean: -0.0057 | Std: 0.9236 | MaxAbs: 5.0517 | Norm: 264.3576
-[Step 556] img_next   | Mean: -0.0056 | Std: 0.9315 | MaxAbs: 5.2374 | Norm: 266.6005
-[Step 551] img_next   | Mean: -0.0103 | Std: 0.9369 | MaxAbs: 5.2296 | Norm: 268.1570
-[Step 546] img_next   | Mean: -0.0084 | Std: 0.9424 | MaxAbs: 5.3132 | Norm: 269.7470
-[Step 541] img_next   | Mean: -0.0129 | Std: 0.9460 | MaxAbs: 5.7193 | Norm: 270.7780
+--- Debug Step t=586 (Loop i=0) ---
+Loss Value: 21.081078
+[Step 586] Adaptive Scale (Reference Only): ScoreNorm=60.0008 | GradNorm=0.0763 | Factor=786.5955
+[Step 586] img (x_t) stats: Mean: -0.0153 | Std: 1.0127 | MaxAbs: 9.1662 | Norm: 289.8819
 
---- Debug Step 536 ---
-[Step 536] Residual   | Mean: 0.0036-0.0187j | Std: 1.5148 | MaxAbs: 6.8407 | Norm: 306.6038
-[Step 536] Loss Value (Normed): 4931.09961
-[Step 536] Adaptive Scale: ScoreNorm=62.4518 | GradNorm=3.0943 | Factor=20.1831
-[Step 536] img_next   | Mean: -0.0092 | Std: 0.9550 | MaxAbs: 5.7191 | Norm: 273.3349
-[Step 531] img_next   | Mean: -0.0110 | Std: 0.9591 | MaxAbs: 6.0296 | Norm: 274.5382
-[Step 526] img_next   | Mean: -0.0134 | Std: 0.9658 | MaxAbs: 6.1247 | Norm: 276.4546
-[Step 521] img_next   | Mean: -0.0150 | Std: 0.9727 | MaxAbs: 6.2918 | Norm: 278.4203
-[Step 516] img_next   | Mean: -0.0146 | Std: 0.9811 | MaxAbs: 6.5521 | Norm: 280.8508
-[Step 511] img_next   | Mean: -0.0135 | Std: 0.9863 | MaxAbs: 6.5217 | Norm: 282.3148
-[Step 506] img_next   | Mean: -0.0146 | Std: 0.9949 | MaxAbs: 6.6327 | Norm: 284.7874
-[Step 501] img_next   | Mean: -0.0144 | Std: 1.0050 | MaxAbs: 6.8311 | Norm: 287.6852
-[Step 496] img_next   | Mean: -0.0164 | Std: 1.0084 | MaxAbs: 6.7504 | Norm: 288.6494
-[Step 491] img_next   | Mean: -0.0167 | Std: 1.0178 | MaxAbs: 7.0412 | Norm: 291.3529
+--- Debug Step t=536 (Loop i=10) ---
+Loss Value: 21.125252
+[Step 536] Adaptive Scale (Reference Only): ScoreNorm=59.2532 | GradNorm=0.0670 | Factor=884.2463
+[Step 536] img (x_t) stats: Mean: -0.0172 | Std: 1.0140 | MaxAbs: 3.0000 | Norm: 290.2683
 
---- Debug Step 486 ---
-[Step 486] Residual   | Mean: 0.0128-0.0304j | Std: 1.3244 | MaxAbs: 6.0411 | Norm: 268.1291
-[Step 486] Loss Value (Normed): 3771.17529
-[Step 486] Adaptive Scale: ScoreNorm=67.4050 | GradNorm=3.6425 | Factor=18.5049
-[Step 486] img_next   | Mean: -0.0176 | Std: 1.0265 | MaxAbs: 7.0588 | Norm: 293.8313
-[Step 481] img_next   | Mean: -0.0169 | Std: 1.0342 | MaxAbs: 7.2901 | Norm: 296.0374
-[Step 476] img_next   | Mean: -0.0190 | Std: 1.0475 | MaxAbs: 7.4155 | Norm: 299.8723
-[Step 471] img_next   | Mean: -0.0194 | Std: 1.0551 | MaxAbs: 7.5682 | Norm: 302.0291
-[Step 466] img_next   | Mean: -0.0204 | Std: 1.0651 | MaxAbs: 7.6846 | Norm: 304.9104
-[Step 461] img_next   | Mean: -0.0198 | Std: 1.0781 | MaxAbs: 7.8148 | Norm: 308.6164
-[Step 456] img_next   | Mean: -0.0214 | Std: 1.0890 | MaxAbs: 8.0914 | Norm: 311.7375
-[Step 451] img_next   | Mean: -0.0195 | Std: 1.1002 | MaxAbs: 8.2630 | Norm: 314.9320
-[Step 446] img_next   | Mean: -0.0227 | Std: 1.1134 | MaxAbs: 8.5234 | Norm: 318.7253
-[Step 441] img_next   | Mean: -0.0220 | Std: 1.1248 | MaxAbs: 8.7240 | Norm: 322.0004
+--- Debug Step t=486 (Loop i=20) ---
+Loss Value: 21.196846
+[Step 486] Adaptive Scale (Reference Only): ScoreNorm=58.8939 | GradNorm=0.0588 | Factor=1001.2668
+[Step 486] img (x_t) stats: Mean: -0.0188 | Std: 1.0242 | MaxAbs: 3.0000 | Norm: 293.1864
 
---- Debug Step 436 ---
-[Step 436] Residual   | Mean: 0.0022-0.0186j | Std: 1.1151 | MaxAbs: 5.9574 | Norm: 225.7022
-[Step 436] Loss Value (Normed): 2672.14771
-[Step 436] Adaptive Scale: ScoreNorm=82.2236 | GradNorm=1.7618 | Factor=46.6711
-[Step 436] img_next   | Mean: -0.0242 | Std: 1.1419 | MaxAbs: 8.9160 | Norm: 326.8987
-[Step 431] img_next   | Mean: -0.0233 | Std: 1.1548 | MaxAbs: 9.0773 | Norm: 330.6011
-[Step 426] img_next   | Mean: -0.0260 | Std: 1.1683 | MaxAbs: 9.1851 | Norm: 334.4619
-[Step 421] img_next   | Mean: -0.0244 | Std: 1.1874 | MaxAbs: 9.3070 | Norm: 339.9211
-[Step 416] img_next   | Mean: -0.0301 | Std: 1.2039 | MaxAbs: 9.3487 | Norm: 344.6785
-[Step 411] img_next   | Mean: -0.0249 | Std: 1.2232 | MaxAbs: 9.4137 | Norm: 350.1696
-[Step 406] img_next   | Mean: -0.0324 | Std: 1.2398 | MaxAbs: 9.4146 | Norm: 354.9696
-[Step 401] img_next   | Mean: -0.0275 | Std: 1.2569 | MaxAbs: 9.4188 | Norm: 359.8409
-[Step 396] img_next   | Mean: -0.0351 | Std: 1.2747 | MaxAbs: 9.3975 | Norm: 364.9685
-[Step 391] img_next   | Mean: -0.0275 | Std: 1.2910 | MaxAbs: 9.3607 | Norm: 369.5985
+--- Debug Step t=436 (Loop i=30) ---
+Loss Value: 21.244419
+[Step 436] Adaptive Scale (Reference Only): ScoreNorm=58.4986 | GradNorm=0.0528 | Factor=1107.5231
+[Step 436] img (x_t) stats: Mean: -0.0205 | Std: 1.0345 | MaxAbs: 3.0000 | Norm: 296.1547
 
---- Debug Step 386 ---
-[Step 386] Residual   | Mean: 0.0191-0.0195j | Std: 0.9166 | MaxAbs: 5.4334 | Norm: 185.5780
-[Step 386] Loss Value (Normed): 1806.51489
-[Step 386] Adaptive Scale: ScoreNorm=97.4130 | GradNorm=1.6335 | Factor=59.6328
-[Step 386] img_next   | Mean: -0.0368 | Std: 1.3106 | MaxAbs: 9.3187 | Norm: 375.2723
-[Step 381] img_next   | Mean: -0.0284 | Std: 1.3252 | MaxAbs: 9.5759 | Norm: 379.3921
-[Step 376] img_next   | Mean: -0.0387 | Std: 1.3455 | MaxAbs: 9.6646 | Norm: 385.2520
-[Step 371] img_next   | Mean: -0.0295 | Std: 1.3576 | MaxAbs: 9.9973 | Norm: 388.6542
-[Step 366] img_next   | Mean: -0.0397 | Std: 1.3772 | MaxAbs: 10.0431 | Norm: 394.3270
-[Step 361] img_next   | Mean: -0.0309 | Std: 1.3884 | MaxAbs: 10.3583 | Norm: 397.4648
-[Step 356] img_next   | Mean: -0.0407 | Std: 1.4065 | MaxAbs: 10.3569 | Norm: 402.7200
-[Step 351] img_next   | Mean: -0.0320 | Std: 1.4175 | MaxAbs: 10.6591 | Norm: 405.8247
-[Step 346] img_next   | Mean: -0.0407 | Std: 1.4343 | MaxAbs: 10.6087 | Norm: 410.6909
-[Step 341] img_next   | Mean: -0.0322 | Std: 1.4432 | MaxAbs: 10.9001 | Norm: 413.1752
+--- Debug Step t=386 (Loop i=40) ---
+Loss Value: 21.288601
+[Step 386] Adaptive Scale (Reference Only): ScoreNorm=58.0382 | GradNorm=0.0478 | Factor=1214.1563
+[Step 386] img (x_t) stats: Mean: -0.0221 | Std: 1.0447 | MaxAbs: 3.0000 | Norm: 299.0703
 
---- Debug Step 336 ---
-[Step 336] Residual   | Mean: 0.0169-0.0244j | Std: 0.7477 | MaxAbs: 5.4050 | Norm: 151.4323
-[Step 336] Loss Value (Normed): 1202.88916
-[Step 336] Adaptive Scale: ScoreNorm=104.3485 | GradNorm=1.4961 | Factor=69.7475
-[Step 336] img_next   | Mean: -0.0422 | Std: 1.4590 | MaxAbs: 10.8037 | Norm: 417.7517
-[Step 331] img_next   | Mean: -0.0329 | Std: 1.4657 | MaxAbs: 11.0855 | Norm: 419.6181
-[Step 326] img_next   | Mean: -0.0428 | Std: 1.4782 | MaxAbs: 10.9493 | Norm: 423.2664
-[Step 321] img_next   | Mean: -0.0329 | Std: 1.4855 | MaxAbs: 11.2198 | Norm: 425.2723
-[Step 316] img_next   | Mean: -0.0440 | Std: 1.4949 | MaxAbs: 11.0488 | Norm: 428.0503
-[Step 311] img_next   | Mean: -0.0337 | Std: 1.5013 | MaxAbs: 11.3055 | Norm: 429.7965
-[Step 306] img_next   | Mean: -0.0447 | Std: 1.5093 | MaxAbs: 11.1077 | Norm: 432.1820
-[Step 301] img_next   | Mean: -0.0344 | Std: 1.5148 | MaxAbs: 11.3510 | Norm: 433.6657
-[Step 296] img_next   | Mean: -0.0450 | Std: 1.5217 | MaxAbs: 11.1316 | Norm: 435.7262
-[Step 291] img_next   | Mean: -0.0351 | Std: 1.5232 | MaxAbs: 11.3626 | Norm: 436.0919
+--- Debug Step t=336 (Loop i=50) ---
+Loss Value: 21.328278
+[Step 336] Adaptive Scale (Reference Only): ScoreNorm=57.5207 | GradNorm=0.0439 | Factor=1311.2086
+[Step 336] img (x_t) stats: Mean: -0.0237 | Std: 1.0543 | MaxAbs: 3.0000 | Norm: 301.8193
 
---- Debug Step 286 ---
-[Step 286] Residual   | Mean: 0.0155-0.0279j | Std: 0.6337 | MaxAbs: 5.3297 | Norm: 128.4074
-[Step 286] Loss Value (Normed): 864.90576
-[Step 286] Adaptive Scale: ScoreNorm=107.6087 | GradNorm=1.3581 | Factor=79.2326
-[Step 286] img_next   | Mean: -0.0458 | Std: 1.5313 | MaxAbs: 11.1690 | Norm: 438.4790
-[Step 281] img_next   | Mean: -0.0352 | Std: 1.5315 | MaxAbs: 11.5669 | Norm: 438.4406
-[Step 276] img_next   | Mean: -0.0468 | Std: 1.5383 | MaxAbs: 11.4825 | Norm: 440.4756
-[Step 271] img_next   | Mean: -0.0355 | Std: 1.5369 | MaxAbs: 11.8584 | Norm: 440.0147
-[Step 266] img_next   | Mean: -0.0474 | Std: 1.5421 | MaxAbs: 11.7546 | Norm: 441.5934
-[Step 261] img_next   | Mean: -0.0358 | Std: 1.5398 | MaxAbs: 12.1107 | Norm: 440.8452
-[Step 256] img_next   | Mean: -0.0475 | Std: 1.5446 | MaxAbs: 11.9905 | Norm: 442.3104
-[Step 251] img_next   | Mean: -0.0367 | Std: 1.5414 | MaxAbs: 12.3246 | Norm: 441.3056
-[Step 246] img_next   | Mean: -0.0482 | Std: 1.5459 | MaxAbs: 12.1901 | Norm: 442.6762
-[Step 241] img_next   | Mean: -0.0367 | Std: 1.5413 | MaxAbs: 12.5038 | Norm: 441.2657
+--- Debug Step t=286 (Loop i=60) ---
+Loss Value: 21.369175
+[Step 286] Adaptive Scale (Reference Only): ScoreNorm=56.9268 | GradNorm=0.0409 | Factor=1390.3977
+[Step 286] img (x_t) stats: Mean: -0.0251 | Std: 1.0629 | MaxAbs: 3.0000 | Norm: 304.3066
 
---- Debug Step 236 ---
-[Step 236] Residual   | Mean: 0.0116-0.0312j | Std: 0.5605 | MaxAbs: 5.1508 | Norm: 113.6447
-[Step 236] Loss Value (Normed): 677.46533
-[Step 236] Adaptive Scale: ScoreNorm=108.0859 | GradNorm=1.2137 | Factor=89.0515
-[Step 236] img_next   | Mean: -0.0489 | Std: 1.5456 | MaxAbs: 12.3565 | Norm: 442.6062
-[Step 231] img_next   | Mean: -0.0372 | Std: 1.5401 | MaxAbs: 12.6551 | Norm: 440.9203
-[Step 226] img_next   | Mean: -0.0495 | Std: 1.5426 | MaxAbs: 12.4966 | Norm: 441.7357
-[Step 221] img_next   | Mean: -0.0375 | Std: 1.5379 | MaxAbs: 12.7751 | Norm: 440.3124
-[Step 216] img_next   | Mean: -0.0502 | Std: 1.5383 | MaxAbs: 12.6073 | Norm: 440.5172
-[Step 211] img_next   | Mean: -0.0375 | Std: 1.5342 | MaxAbs: 12.8685 | Norm: 439.2369
-[Step 206] img_next   | Mean: -0.0508 | Std: 1.5331 | MaxAbs: 12.6921 | Norm: 439.0396
-[Step 201] img_next   | Mean: -0.0377 | Std: 1.5291 | MaxAbs: 12.9386 | Norm: 437.7875
-[Step 196] img_next   | Mean: -0.0515 | Std: 1.5267 | MaxAbs: 12.7543 | Norm: 437.2093
-[Step 191] img_next   | Mean: -0.0380 | Std: 1.5229 | MaxAbs: 12.9866 | Norm: 436.0213
+--- Debug Step t=236 (Loop i=70) ---
+Loss Value: 21.407898
+[Step 236] Adaptive Scale (Reference Only): ScoreNorm=56.2338 | GradNorm=0.0386 | Factor=1457.1048
+[Step 236] img (x_t) stats: Mean: -0.0264 | Std: 1.0704 | MaxAbs: 3.0000 | Norm: 306.4561
 
---- Debug Step 186 ---
-[Step 186] Residual   | Mean: 0.0152-0.0318j | Std: 0.5150 | MaxAbs: 4.8835 | Norm: 104.4618
-[Step 186] Loss Value (Normed): 572.40515
-[Step 186] Adaptive Scale: ScoreNorm=106.7542 | GradNorm=1.0829 | Factor=98.5790
-[Step 186] img_next   | Mean: -0.0520 | Std: 1.5192 | MaxAbs: 12.7948 | Norm: 435.0693
-[Step 181] img_next   | Mean: -0.0385 | Std: 1.5155 | MaxAbs: 13.0124 | Norm: 433.8900
-[Step 176] img_next   | Mean: -0.0523 | Std: 1.5108 | MaxAbs: 12.8163 | Norm: 432.6811
-[Step 171] img_next   | Mean: -0.0388 | Std: 1.5071 | MaxAbs: 13.0168 | Norm: 431.4986
-[Step 166] img_next   | Mean: -0.0526 | Std: 1.5026 | MaxAbs: 12.8155 | Norm: 430.3161
-[Step 161] img_next   | Mean: -0.0393 | Std: 1.4975 | MaxAbs: 13.0048 | Norm: 428.7422
-[Step 156] img_next   | Mean: -0.0528 | Std: 1.4931 | MaxAbs: 12.7981 | Norm: 427.6175
-[Step 151] img_next   | Mean: -0.0396 | Std: 1.4872 | MaxAbs: 12.9759 | Norm: 425.7968
-[Step 146] img_next   | Mean: -0.0530 | Std: 1.4824 | MaxAbs: 12.7637 | Norm: 424.5687
-[Step 141] img_next   | Mean: -0.0401 | Std: 1.4760 | MaxAbs: 12.9299 | Norm: 422.6109
+--- Debug Step t=186 (Loop i=80) ---
+Loss Value: 21.447830
+[Step 186] Adaptive Scale (Reference Only): ScoreNorm=55.4057 | GradNorm=0.0371 | Factor=1494.8104
+[Step 186] img (x_t) stats: Mean: -0.0276 | Std: 1.0764 | MaxAbs: 3.0000 | Norm: 308.1909
 
---- Debug Step 136 ---
-[Step 136] Residual   | Mean: 0.0205-0.0289j | Std: 0.4831 | MaxAbs: 4.8079 | Norm: 98.0370
-[Step 136] Loss Value (Normed): 504.16019
-[Step 136] Adaptive Scale: ScoreNorm=104.1576 | GradNorm=0.9694 | Factor=107.4408
-[Step 136] img_next   | Mean: -0.0531 | Std: 1.4712 | MaxAbs: 12.7126 | Norm: 421.3512
-[Step 131] img_next   | Mean: -0.0407 | Std: 1.4641 | MaxAbs: 12.8664 | Norm: 419.2232
-[Step 126] img_next   | Mean: -0.0534 | Std: 1.4594 | MaxAbs: 12.6465 | Norm: 417.9847
-[Step 121] img_next   | Mean: -0.0412 | Std: 1.4517 | MaxAbs: 12.7888 | Norm: 415.6637
-[Step 116] img_next   | Mean: -0.0535 | Std: 1.4469 | MaxAbs: 12.5652 | Norm: 414.3997
-[Step 111] img_next   | Mean: -0.0417 | Std: 1.4387 | MaxAbs: 12.6962 | Norm: 411.9422
-[Step 106] img_next   | Mean: -0.0536 | Std: 1.4337 | MaxAbs: 12.4694 | Norm: 410.6400
-[Step 101] img_next   | Mean: -0.0423 | Std: 1.4250 | MaxAbs: 12.5886 | Norm: 408.0391
-[Step 96] img_next   | Mean: -0.0537 | Std: 1.4202 | MaxAbs: 12.3564 | Norm: 406.7613
-[Step 91] img_next   | Mean: -0.0429 | Std: 1.4110 | MaxAbs: 12.4656 | Norm: 404.0268
+--- Debug Step t=136 (Loop i=90) ---
+Loss Value: 21.481825
+[Step 136] Adaptive Scale (Reference Only): ScoreNorm=54.3443 | GradNorm=0.0362 | Factor=1501.0315
+[Step 136] img (x_t) stats: Mean: -0.0285 | Std: 1.0809 | MaxAbs: 3.0000 | Norm: 309.4649
 
---- Debug Step 86 ---
-[Step 86] Residual   | Mean: 0.0211-0.0255j | Std: 0.4429 | MaxAbs: 4.7295 | Norm: 89.8865
-[Step 86] Loss Value (Normed): 423.81622
-[Step 86] Adaptive Scale: ScoreNorm=100.1229 | GradNorm=0.8694 | Factor=115.1579
-[Step 86] img_next   | Mean: -0.0537 | Std: 1.4058 | MaxAbs: 12.5551 | Norm: 402.6463
-[Step 81] img_next   | Mean: -0.0435 | Std: 1.3965 | MaxAbs: 12.7867 | Norm: 399.8838
-[Step 76] img_next   | Mean: -0.0537 | Std: 1.3908 | MaxAbs: 12.9912 | Norm: 398.3656
-[Step 71] img_next   | Mean: -0.0440 | Std: 1.3814 | MaxAbs: 13.2109 | Norm: 395.5845
-[Step 66] img_next   | Mean: -0.0537 | Std: 1.3752 | MaxAbs: 13.4080 | Norm: 393.9112
-[Step 61] img_next   | Mean: -0.0446 | Std: 1.3658 | MaxAbs: 13.6126 | Norm: 391.1165
-[Step 56] img_next   | Mean: -0.0537 | Std: 1.3590 | MaxAbs: 13.7981 | Norm: 389.2690
-[Step 51] img_next   | Mean: -0.0452 | Std: 1.3494 | MaxAbs: 13.9839 | Norm: 386.4456
-[Step 46] img_next   | Mean: -0.0537 | Std: 1.3420 | MaxAbs: 14.1535 | Norm: 384.4011
-[Step 41] img_next   | Mean: -0.0457 | Std: 1.3322 | MaxAbs: 14.3158 | Norm: 381.5251
+--- Debug Step t=86 (Loop i=100) ---
+Loss Value: 21.504417
+[Step 86] Adaptive Scale (Reference Only): ScoreNorm=52.7230 | GradNorm=0.0362 | Factor=1457.9395
+[Step 86] img (x_t) stats: Mean: -0.0292 | Std: 1.0834 | MaxAbs: 3.0000 | Norm: 310.2097
 
---- Debug Step 36 ---
-[Step 36] Residual   | Mean: 0.0204-0.0244j | Std: 0.3983 | MaxAbs: 4.5936 | Norm: 80.8627
-[Step 36] Loss Value (Normed): 342.99268
-[Step 36] Adaptive Scale: ScoreNorm=92.9350 | GradNorm=0.7668 | Factor=121.2022
-[Step 36] img_next   | Mean: -0.0536 | Std: 1.3238 | MaxAbs: 14.4640 | Norm: 379.2155
-[Step 31] img_next   | Mean: -0.0463 | Std: 1.3136 | MaxAbs: 14.5964 | Norm: 376.2117
-[Step 26] img_next   | Mean: -0.0537 | Std: 1.3039 | MaxAbs: 14.7141 | Norm: 373.5079
-[Step 21] img_next   | Mean: -0.0468 | Std: 1.2928 | MaxAbs: 14.8040 | Norm: 370.2570
-[Step 16] img_next   | Mean: -0.0537 | Std: 1.2815 | MaxAbs: 14.8701 | Norm: 367.0923
-[Step 11] img_next   | Mean: -0.0472 | Std: 1.2675 | MaxAbs: 14.8775 | Norm: 363.0412
-[Step 6] img_next   | Mean: -0.0530 | Std: 1.2485 | MaxAbs: 14.7764 | Norm: 357.6670
-[Step 1] img_next   | Mean: -0.0479 | Std: 1.2430 | MaxAbs: 14.8748 | Norm: 356.0205
+--- Debug Step t=36 (Loop i=110) ---
+Loss Value: 21.482361
+[Step 36] Adaptive Scale (Reference Only): ScoreNorm=49.2758 | GradNorm=0.0368 | Factor=1340.3713
+[Step 36] img (x_t) stats: Mean: -0.0297 | Std: 1.0837 | MaxAbs: 3.0000 | Norm: 310.2936
 Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/estimated/
 Saved result for SNR 1
 
@@ -669,155 +260,57 @@ Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/estimated/
 Starting Method C Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 [Method C] SNR-based Start: DDIM Step 97/200 (t=486)
-[Step Init] img (x_t)  | Mean: 0.0039 | Std: 0.8682 | MaxAbs: 3.8106 | Norm: 248.5051
+[Step Init] img (x_t)  | Mean: -0.0001 | Std: 1.0141 | MaxAbs: 10.6910 | Norm: 290.2548
 
---- Debug Step 486 ---
-[Step 486] Residual   | Mean: 0.0181-0.0537j | Std: 1.3840 | MaxAbs: 14.7367 | Norm: 280.3264
-[Step 486] Loss Value (Normed): 8224.63672
-[Step 486] Adaptive Scale: ScoreNorm=58.4801 | GradNorm=44.2051 | Factor=1.3229
-[Step 486] img_next   | Mean: 0.0069 | Std: 0.8689 | MaxAbs: 4.0291 | Norm: 248.7106
-[Step 481] img_next   | Mean: 0.0108 | Std: 0.8709 | MaxAbs: 4.6690 | Norm: 249.2814
-[Step 476] img_next   | Mean: 0.0145 | Std: 0.8729 | MaxAbs: 4.8509 | Norm: 249.8844
-[Step 471] img_next   | Mean: 0.0174 | Std: 0.8777 | MaxAbs: 5.4137 | Norm: 251.2699
-[Step 466] img_next   | Mean: 0.0185 | Std: 0.8847 | MaxAbs: 6.0946 | Norm: 253.2716
-[Step 461] img_next   | Mean: 0.0202 | Std: 0.8941 | MaxAbs: 6.2721 | Norm: 255.9586
-[Step 456] img_next   | Mean: 0.0215 | Std: 0.9026 | MaxAbs: 6.9621 | Norm: 258.4014
-[Step 451] img_next   | Mean: 0.0221 | Std: 0.9089 | MaxAbs: 7.4646 | Norm: 260.2246
-[Step 446] img_next   | Mean: 0.0229 | Std: 0.9192 | MaxAbs: 7.9200 | Norm: 263.1705
-[Step 441] img_next   | Mean: 0.0232 | Std: 0.9261 | MaxAbs: 8.2195 | Norm: 265.1533
+--- Debug Step t=486 (Loop i=0) ---
+Loss Value: 18.086100
+[Step 486] Adaptive Scale (Reference Only): ScoreNorm=56.9161 | GradNorm=0.0598 | Factor=951.3951
+[Step 486] img (x_t) stats: Mean: -0.0001 | Std: 1.0141 | MaxAbs: 10.6910 | Norm: 290.2548
 
---- Debug Step 436 ---
-[Step 436] Residual   | Mean: -0.0050-0.0140j | Std: 1.1318 | MaxAbs: 7.8579 | Norm: 229.0813
-[Step 436] Loss Value (Normed): 5492.47461
-[Step 436] Adaptive Scale: ScoreNorm=57.1712 | GradNorm=25.2484 | Factor=2.2643
-[Step 436] img_next   | Mean: 0.0231 | Std: 0.9345 | MaxAbs: 8.5989 | Norm: 267.5397
-[Step 431] img_next   | Mean: 0.0227 | Std: 0.9410 | MaxAbs: 8.9425 | Norm: 269.4123
-[Step 426] img_next   | Mean: 0.0238 | Std: 0.9462 | MaxAbs: 9.2655 | Norm: 270.9112
-[Step 421] img_next   | Mean: 0.0219 | Std: 0.9585 | MaxAbs: 9.6854 | Norm: 274.4172
-[Step 416] img_next   | Mean: 0.0228 | Std: 0.9636 | MaxAbs: 10.0347 | Norm: 275.8710
-[Step 411] img_next   | Mean: 0.0239 | Std: 0.9746 | MaxAbs: 10.5283 | Norm: 279.0397
-[Step 406] img_next   | Mean: 0.0229 | Std: 0.9839 | MaxAbs: 11.0114 | Norm: 281.6918
-[Step 401] img_next   | Mean: 0.0245 | Std: 0.9938 | MaxAbs: 11.4429 | Norm: 284.5138
-[Step 396] img_next   | Mean: 0.0235 | Std: 1.0011 | MaxAbs: 11.8789 | Norm: 286.5959
-[Step 391] img_next   | Mean: 0.0250 | Std: 1.0111 | MaxAbs: 12.2923 | Norm: 289.4930
+--- Debug Step t=436 (Loop i=10) ---
+Loss Value: 17.784502
+[Step 436] Adaptive Scale (Reference Only): ScoreNorm=55.5479 | GradNorm=0.0502 | Factor=1106.4188
+[Step 436] img (x_t) stats: Mean: -0.0012 | Std: 1.0079 | MaxAbs: 3.0000 | Norm: 288.4645
 
---- Debug Step 386 ---
-[Step 386] Residual   | Mean: -0.0019-0.0146j | Std: 0.9316 | MaxAbs: 6.6539 | Norm: 188.5705
-[Step 386] Loss Value (Normed): 3721.65698
-[Step 386] Adaptive Scale: ScoreNorm=56.7243 | GradNorm=14.8075 | Factor=3.8308
-[Step 386] img_next   | Mean: 0.0251 | Std: 1.0224 | MaxAbs: 12.9483 | Norm: 292.7280
-[Step 381] img_next   | Mean: 0.0258 | Std: 1.0339 | MaxAbs: 13.7061 | Norm: 296.0066
-[Step 376] img_next   | Mean: 0.0270 | Std: 1.0482 | MaxAbs: 14.5722 | Norm: 300.0996
-[Step 371] img_next   | Mean: 0.0268 | Std: 1.0598 | MaxAbs: 15.2109 | Norm: 303.4207
-[Step 366] img_next   | Mean: 0.0282 | Std: 1.0731 | MaxAbs: 16.0605 | Norm: 307.2346
-[Step 361] img_next   | Mean: 0.0288 | Std: 1.0880 | MaxAbs: 16.7431 | Norm: 311.5098
-[Step 356] img_next   | Mean: 0.0290 | Std: 1.0997 | MaxAbs: 17.5109 | Norm: 314.8659
-[Step 351] img_next   | Mean: 0.0303 | Std: 1.1139 | MaxAbs: 18.1236 | Norm: 318.9236
-[Step 346] img_next   | Mean: 0.0303 | Std: 1.1278 | MaxAbs: 18.9035 | Norm: 322.9112
-[Step 341] img_next   | Mean: 0.0309 | Std: 1.1440 | MaxAbs: 19.5283 | Norm: 327.5637
+--- Debug Step t=386 (Loop i=20) ---
+Loss Value: 17.746450
+[Step 386] Adaptive Scale (Reference Only): ScoreNorm=54.9578 | GradNorm=0.0449 | Factor=1224.0440
+[Step 386] img (x_t) stats: Mean: -0.0013 | Std: 1.0194 | MaxAbs: 3.0000 | Norm: 291.7552
 
---- Debug Step 336 ---
-[Step 336] Residual   | Mean: -0.0008-0.0096j | Std: 0.7569 | MaxAbs: 5.1318 | Norm: 153.1926
-[Step 336] Loss Value (Normed): 2456.20337
-[Step 336] Adaptive Scale: ScoreNorm=55.8320 | GradNorm=13.7843 | Factor=4.0504
-[Step 336] img_next   | Mean: 0.0313 | Std: 1.1575 | MaxAbs: 20.2260 | Norm: 331.4116
-[Step 331] img_next   | Mean: 0.0323 | Std: 1.1739 | MaxAbs: 20.7501 | Norm: 336.1019
-[Step 326] img_next   | Mean: 0.0322 | Std: 1.1864 | MaxAbs: 21.4201 | Norm: 339.6949
-[Step 321] img_next   | Mean: 0.0327 | Std: 1.2019 | MaxAbs: 21.9499 | Norm: 344.1294
-[Step 316] img_next   | Mean: 0.0332 | Std: 1.2153 | MaxAbs: 22.5154 | Norm: 347.9664
-[Step 311] img_next   | Mean: 0.0323 | Std: 1.2270 | MaxAbs: 22.9516 | Norm: 351.3061
-[Step 306] img_next   | Mean: 0.0343 | Std: 1.2428 | MaxAbs: 23.4573 | Norm: 355.8355
-[Step 301] img_next   | Mean: 0.0320 | Std: 1.2537 | MaxAbs: 23.8582 | Norm: 358.9352
-[Step 296] img_next   | Mean: 0.0347 | Std: 1.2674 | MaxAbs: 24.3910 | Norm: 362.8865
-[Step 291] img_next   | Mean: 0.0325 | Std: 1.2804 | MaxAbs: 24.8475 | Norm: 366.5924
+--- Debug Step t=336 (Loop i=30) ---
+Loss Value: 17.714083
+[Step 336] Adaptive Scale (Reference Only): ScoreNorm=54.3408 | GradNorm=0.0412 | Factor=1319.5362
+[Step 336] img (x_t) stats: Mean: -0.0014 | Std: 1.0303 | MaxAbs: 3.0000 | Norm: 294.8795
 
---- Debug Step 286 ---
-[Step 286] Residual   | Mean: -0.0060-0.0149j | Std: 0.6173 | MaxAbs: 4.7121 | Norm: 124.9687
-[Step 286] Loss Value (Normed): 1634.52490
-[Step 286] Adaptive Scale: ScoreNorm=56.7331 | GradNorm=14.7162 | Factor=3.8551
-[Step 286] img_next   | Mean: 0.0352 | Std: 1.2916 | MaxAbs: 25.3272 | Norm: 369.8000
-[Step 281] img_next   | Mean: 0.0330 | Std: 1.3031 | MaxAbs: 25.7196 | Norm: 373.0912
-[Step 276] img_next   | Mean: 0.0358 | Std: 1.3155 | MaxAbs: 26.0740 | Norm: 376.6663
-[Step 271] img_next   | Mean: 0.0330 | Std: 1.3245 | MaxAbs: 26.4272 | Norm: 379.2014
-[Step 266] img_next   | Mean: 0.0362 | Std: 1.3378 | MaxAbs: 26.6914 | Norm: 383.0261
-[Step 261] img_next   | Mean: 0.0332 | Std: 1.3457 | MaxAbs: 26.9922 | Norm: 385.2700
-[Step 256] img_next   | Mean: 0.0365 | Std: 1.3589 | MaxAbs: 27.1995 | Norm: 389.0811
-[Step 251] img_next   | Mean: 0.0332 | Std: 1.3651 | MaxAbs: 27.4498 | Norm: 390.8377
-[Step 246] img_next   | Mean: 0.0375 | Std: 1.3783 | MaxAbs: 27.6030 | Norm: 394.6439
-[Step 241] img_next   | Mean: 0.0330 | Std: 1.3839 | MaxAbs: 27.8055 | Norm: 396.2191
+--- Debug Step t=286 (Loop i=40) ---
+Loss Value: 17.684528
+[Step 286] Adaptive Scale (Reference Only): ScoreNorm=53.6651 | GradNorm=0.0380 | Factor=1413.7159
+[Step 286] img (x_t) stats: Mean: -0.0016 | Std: 1.0402 | MaxAbs: 3.0000 | Norm: 297.7132
 
---- Debug Step 236 ---
-[Step 236] Residual   | Mean: -0.0024-0.0111j | Std: 0.5002 | MaxAbs: 4.4304 | Norm: 101.2621
-[Step 236] Loss Value (Normed): 1073.20520
-[Step 236] Adaptive Scale: ScoreNorm=59.0348 | GradNorm=10.2262 | Factor=5.7729
-[Step 236] img_next   | Mean: 0.0384 | Std: 1.3964 | MaxAbs: 27.9105 | Norm: 399.8286
-[Step 231] img_next   | Mean: 0.0332 | Std: 1.4008 | MaxAbs: 28.0616 | Norm: 401.0551
-[Step 226] img_next   | Mean: 0.0390 | Std: 1.4132 | MaxAbs: 28.1298 | Norm: 404.6271
-[Step 221] img_next   | Mean: 0.0335 | Std: 1.4172 | MaxAbs: 28.2430 | Norm: 405.7452
-[Step 216] img_next   | Mean: 0.0398 | Std: 1.4282 | MaxAbs: 28.2771 | Norm: 408.9225
-[Step 211] img_next   | Mean: 0.0342 | Std: 1.4322 | MaxAbs: 28.3564 | Norm: 410.0299
-[Step 206] img_next   | Mean: 0.0403 | Std: 1.4417 | MaxAbs: 28.3581 | Norm: 412.7880
-[Step 201] img_next   | Mean: 0.0346 | Std: 1.4458 | MaxAbs: 28.4104 | Norm: 413.9250
-[Step 196] img_next   | Mean: 0.0409 | Std: 1.4545 | MaxAbs: 28.3800 | Norm: 416.4782
-[Step 191] img_next   | Mean: 0.0352 | Std: 1.4578 | MaxAbs: 28.4071 | Norm: 417.3774
+--- Debug Step t=236 (Loop i=50) ---
+Loss Value: 17.658911
+[Step 236] Adaptive Scale (Reference Only): ScoreNorm=52.9162 | GradNorm=0.0357 | Factor=1483.9790
+[Step 236] img (x_t) stats: Mean: -0.0017 | Std: 1.0487 | MaxAbs: 3.0000 | Norm: 300.1478
 
---- Debug Step 186 ---
-[Step 186] Residual   | Mean: 0.0037-0.0035j | Std: 0.4011 | MaxAbs: 4.2053 | Norm: 81.1792
-[Step 186] Loss Value (Normed): 689.72900
-[Step 186] Adaptive Scale: ScoreNorm=61.9011 | GradNorm=10.9680 | Factor=5.6438
-[Step 186] img_next   | Mean: 0.0416 | Std: 1.4662 | MaxAbs: 28.3600 | Norm: 419.8069
-[Step 181] img_next   | Mean: 0.0359 | Std: 1.4695 | MaxAbs: 28.3672 | Norm: 420.7049
-[Step 176] img_next   | Mean: 0.0420 | Std: 1.4769 | MaxAbs: 28.3063 | Norm: 422.8732
-[Step 171] img_next   | Mean: 0.0366 | Std: 1.4796 | MaxAbs: 28.2952 | Norm: 423.6000
-[Step 166] img_next   | Mean: 0.0423 | Std: 1.4858 | MaxAbs: 28.2133 | Norm: 425.4189
-[Step 161] img_next   | Mean: 0.0373 | Std: 1.4882 | MaxAbs: 28.1908 | Norm: 426.0695
-[Step 156] img_next   | Mean: 0.0428 | Std: 1.4938 | MaxAbs: 28.0947 | Norm: 427.7131
-[Step 151] img_next   | Mean: 0.0378 | Std: 1.4952 | MaxAbs: 28.0567 | Norm: 428.0924
-[Step 146] img_next   | Mean: 0.0432 | Std: 1.5003 | MaxAbs: 27.9525 | Norm: 429.5754
-[Step 141] img_next   | Mean: 0.0382 | Std: 1.5010 | MaxAbs: 27.9033 | Norm: 429.7371
+--- Debug Step t=186 (Loop i=60) ---
+Loss Value: 17.634102
+[Step 186] Adaptive Scale (Reference Only): ScoreNorm=52.0398 | GradNorm=0.0342 | Factor=1522.7167
+[Step 186] img (x_t) stats: Mean: -0.0017 | Std: 1.0555 | MaxAbs: 3.0000 | Norm: 302.0923
 
---- Debug Step 136 ---
-[Step 136] Residual   | Mean: 0.0040-0.0026j | Std: 0.3128 | MaxAbs: 3.6950 | Norm: 63.3071
-[Step 136] Loss Value (Normed): 419.46228
-[Step 136] Adaptive Scale: ScoreNorm=65.2716 | GradNorm=10.1890 | Factor=6.4061
-[Step 136] img_next   | Mean: 0.0435 | Std: 1.5050 | MaxAbs: 27.7892 | Norm: 430.9204
-[Step 131] img_next   | Mean: 0.0386 | Std: 1.5051 | MaxAbs: 27.7322 | Norm: 430.9278
-[Step 126] img_next   | Mean: 0.0439 | Std: 1.5080 | MaxAbs: 27.6092 | Norm: 431.8084
-[Step 121] img_next   | Mean: 0.0389 | Std: 1.5077 | MaxAbs: 27.5426 | Norm: 431.6621
-[Step 116] img_next   | Mean: 0.0442 | Std: 1.5096 | MaxAbs: 27.4122 | Norm: 432.2608
-[Step 111] img_next   | Mean: 0.0393 | Std: 1.5080 | MaxAbs: 27.3342 | Norm: 431.7681
-[Step 106] img_next   | Mean: 0.0444 | Std: 1.5092 | MaxAbs: 27.1980 | Norm: 432.1481
-[Step 101] img_next   | Mean: 0.0397 | Std: 1.5066 | MaxAbs: 27.1148 | Norm: 431.3551
-[Step 96] img_next   | Mean: 0.0444 | Std: 1.5070 | MaxAbs: 26.9694 | Norm: 431.5056
-[Step 91] img_next   | Mean: 0.0400 | Std: 1.5033 | MaxAbs: 26.8785 | Norm: 430.4073
+--- Debug Step t=136 (Loop i=70) ---
+Loss Value: 17.600294
+[Step 136] Adaptive Scale (Reference Only): ScoreNorm=50.9551 | GradNorm=0.0334 | Factor=1525.9875
+[Step 136] img (x_t) stats: Mean: -0.0018 | Std: 1.0603 | MaxAbs: 3.0000 | Norm: 303.4662
 
---- Debug Step 86 ---
-[Step 86] Residual   | Mean: 0.0036-0.0041j | Std: 0.2382 | MaxAbs: 2.9370 | Norm: 48.2294
-[Step 86] Loss Value (Normed): 243.45111
-[Step 86] Adaptive Scale: ScoreNorm=68.0139 | GradNorm=9.3684 | Factor=7.2600
-[Step 86] img_next   | Mean: 0.0445 | Std: 1.5027 | MaxAbs: 26.7243 | Norm: 430.2897
-[Step 81] img_next   | Mean: 0.0403 | Std: 1.4981 | MaxAbs: 26.6218 | Norm: 428.9353
-[Step 76] img_next   | Mean: 0.0444 | Std: 1.4965 | MaxAbs: 26.5305 | Norm: 428.4976
-[Step 71] img_next   | Mean: 0.0405 | Std: 1.4910 | MaxAbs: 26.4083 | Norm: 426.8916
-[Step 66] img_next   | Mean: 0.0442 | Std: 1.4883 | MaxAbs: 26.3376 | Norm: 426.1582
-[Step 61] img_next   | Mean: 0.0407 | Std: 1.4818 | MaxAbs: 26.2043 | Norm: 424.2696
-[Step 56] img_next   | Mean: 0.0440 | Std: 1.4780 | MaxAbs: 26.1224 | Norm: 423.2208
-[Step 51] img_next   | Mean: 0.0408 | Std: 1.4705 | MaxAbs: 25.9757 | Norm: 421.0392
-[Step 46] img_next   | Mean: 0.0438 | Std: 1.4656 | MaxAbs: 25.8799 | Norm: 419.6519
-[Step 41] img_next   | Mean: 0.0408 | Std: 1.4569 | MaxAbs: 25.7128 | Norm: 417.1601
+--- Debug Step t=86 (Loop i=80) ---
+Loss Value: 17.546051
+[Step 86] Adaptive Scale (Reference Only): ScoreNorm=49.3904 | GradNorm=0.0329 | Factor=1501.6979
+[Step 86] img (x_t) stats: Mean: -0.0017 | Std: 1.0628 | MaxAbs: 3.0000 | Norm: 304.1828
 
---- Debug Step 36 ---
-[Step 36] Residual   | Mean: 0.0014-0.0045j | Std: 0.1735 | MaxAbs: 2.0735 | Norm: 35.1237
-[Step 36] Loss Value (Normed): 129.11859
-[Step 36] Adaptive Scale: ScoreNorm=65.1243 | GradNorm=8.5910 | Factor=7.5805
-[Step 36] img_next   | Mean: 0.0435 | Std: 1.4507 | MaxAbs: 25.6022 | Norm: 415.3894
-[Step 31] img_next   | Mean: 0.0408 | Std: 1.4408 | MaxAbs: 25.4128 | Norm: 412.5308
-[Step 26] img_next   | Mean: 0.0432 | Std: 1.4328 | MaxAbs: 25.2696 | Norm: 410.2755
-[Step 21] img_next   | Mean: 0.0407 | Std: 1.4212 | MaxAbs: 25.0400 | Norm: 406.9265
-[Step 16] img_next   | Mean: 0.0429 | Std: 1.4106 | MaxAbs: 24.8450 | Norm: 403.9322
-[Step 11] img_next   | Mean: 0.0405 | Std: 1.3955 | MaxAbs: 24.5249 | Norm: 399.5798
-[Step 6] img_next   | Mean: 0.0425 | Std: 1.3768 | MaxAbs: 24.1296 | Norm: 394.2459
-[Step 1] img_next   | Mean: 0.0402 | Std: 1.3692 | MaxAbs: 23.9428 | Norm: 392.0662
+--- Debug Step t=36 (Loop i=90) ---
+Loss Value: 17.442059
+[Step 36] Adaptive Scale (Reference Only): ScoreNorm=46.2422 | GradNorm=0.0335 | Factor=1381.2891
+[Step 36] img (x_t) stats: Mean: -0.0016 | Std: 1.0623 | MaxAbs: 3.0000 | Norm: 304.0531
 Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/estimated/
 Saved result for SNR 4
 
@@ -826,124 +319,47 @@ Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/estimated/
 Starting Method C Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 [Method C] SNR-based Start: DDIM Step 76/200 (t=381)
-[Step Init] img (x_t)  | Mean: 0.0229 | Std: 0.8289 | MaxAbs: 4.4373 | Norm: 237.3293
+[Step Init] img (x_t)  | Mean: -0.0039 | Std: 1.0258 | MaxAbs: 13.2013 | Norm: 293.6136
 
---- Debug Step 381 ---
-[Step 381] Residual   | Mean: -0.0290+0.0390j | Std: 1.1269 | MaxAbs: 7.8837 | Norm: 228.2776
-[Step 381] Loss Value (Normed): 10882.16504
-[Step 381] Adaptive Scale: ScoreNorm=58.4104 | GradNorm=18.9250 | Factor=3.0864
-[Step 381] img_next   | Mean: 0.0256 | Std: 0.8438 | MaxAbs: 5.4553 | Norm: 241.6050
-[Step 376] img_next   | Mean: 0.0302 | Std: 0.8606 | MaxAbs: 5.6675 | Norm: 246.4803
-[Step 371] img_next   | Mean: 0.0342 | Std: 0.8755 | MaxAbs: 5.8730 | Norm: 250.7849
-[Step 366] img_next   | Mean: 0.0375 | Std: 0.8911 | MaxAbs: 6.2258 | Norm: 255.2629
-[Step 361] img_next   | Mean: 0.0397 | Std: 0.9092 | MaxAbs: 6.6045 | Norm: 260.4645
-[Step 356] img_next   | Mean: 0.0423 | Std: 0.9237 | MaxAbs: 7.1105 | Norm: 264.6588
-[Step 351] img_next   | Mean: 0.0430 | Std: 0.9390 | MaxAbs: 7.3066 | Norm: 269.0416
-[Step 346] img_next   | Mean: 0.0451 | Std: 0.9540 | MaxAbs: 7.7127 | Norm: 273.3542
-[Step 341] img_next   | Mean: 0.0456 | Std: 0.9662 | MaxAbs: 7.8847 | Norm: 276.8537
-[Step 336] img_next   | Mean: 0.0471 | Std: 0.9808 | MaxAbs: 8.0828 | Norm: 281.0289
+--- Debug Step t=381 (Loop i=0) ---
+Loss Value: 15.162371
+[Step 381] Adaptive Scale (Reference Only): ScoreNorm=55.7712 | GradNorm=0.0444 | Factor=1255.7646
+[Step 381] img (x_t) stats: Mean: -0.0039 | Std: 1.0258 | MaxAbs: 13.2013 | Norm: 293.6136
 
---- Debug Step 331 ---
-[Step 331] Residual   | Mean: -0.0160+0.0022j | Std: 0.7968 | MaxAbs: 6.1967 | Norm: 161.2823
-[Step 331] Loss Value (Normed): 5432.03369
-[Step 331] Adaptive Scale: ScoreNorm=61.6892 | GradNorm=5.8971 | Factor=10.4610
-[Step 331] img_next   | Mean: 0.0469 | Std: 0.9932 | MaxAbs: 8.3425 | Norm: 284.5797
-[Step 326] img_next   | Mean: 0.0486 | Std: 1.0094 | MaxAbs: 8.7587 | Norm: 289.2501
-[Step 321] img_next   | Mean: 0.0491 | Std: 1.0213 | MaxAbs: 9.0659 | Norm: 292.6514
-[Step 316] img_next   | Mean: 0.0507 | Std: 1.0358 | MaxAbs: 9.5923 | Norm: 296.8198
-[Step 311] img_next   | Mean: 0.0507 | Std: 1.0507 | MaxAbs: 9.5492 | Norm: 301.0841
-[Step 306] img_next   | Mean: 0.0528 | Std: 1.0651 | MaxAbs: 10.0410 | Norm: 305.2221
-[Step 301] img_next   | Mean: 0.0523 | Std: 1.0821 | MaxAbs: 10.2047 | Norm: 310.0818
-[Step 296] img_next   | Mean: 0.0537 | Std: 1.0940 | MaxAbs: 10.4934 | Norm: 313.4957
-[Step 291] img_next   | Mean: 0.0538 | Std: 1.1124 | MaxAbs: 10.5479 | Norm: 318.7526
-[Step 286] img_next   | Mean: 0.0549 | Std: 1.1244 | MaxAbs: 10.6621 | Norm: 322.1919
+--- Debug Step t=331 (Loop i=10) ---
+Loss Value: 14.954224
+[Step 331] Adaptive Scale (Reference Only): ScoreNorm=54.1434 | GradNorm=0.0410 | Factor=1319.5493
+[Step 331] img (x_t) stats: Mean: -0.0026 | Std: 1.0161 | MaxAbs: 3.0000 | Norm: 290.8171
 
---- Debug Step 281 ---
-[Step 281] Residual   | Mean: -0.0110-0.0016j | Std: 0.6019 | MaxAbs: 5.0823 | Norm: 121.8364
-[Step 281] Loss Value (Normed): 3099.86597
-[Step 281] Adaptive Scale: ScoreNorm=74.4839 | GradNorm=4.9847 | Factor=14.9426
-[Step 281] img_next   | Mean: 0.0554 | Std: 1.1439 | MaxAbs: 10.9113 | Norm: 327.7919
-[Step 276] img_next   | Mean: 0.0562 | Std: 1.1561 | MaxAbs: 11.1286 | Norm: 331.2961
-[Step 271] img_next   | Mean: 0.0566 | Std: 1.1783 | MaxAbs: 11.5464 | Norm: 337.6318
-[Step 266] img_next   | Mean: 0.0568 | Std: 1.1885 | MaxAbs: 11.7467 | Norm: 340.5529
-[Step 261] img_next   | Mean: 0.0574 | Std: 1.2115 | MaxAbs: 12.1454 | Norm: 347.1365
-[Step 256] img_next   | Mean: 0.0579 | Std: 1.2225 | MaxAbs: 12.2515 | Norm: 350.3021
-[Step 251] img_next   | Mean: 0.0584 | Std: 1.2459 | MaxAbs: 12.8822 | Norm: 356.9947
-[Step 246] img_next   | Mean: 0.0597 | Std: 1.2558 | MaxAbs: 13.5462 | Norm: 359.8243
-[Step 241] img_next   | Mean: 0.0596 | Std: 1.2804 | MaxAbs: 14.4126 | Norm: 366.8665
-[Step 236] img_next   | Mean: 0.0613 | Std: 1.2904 | MaxAbs: 15.0419 | Norm: 369.7354
+--- Debug Step t=281 (Loop i=20) ---
+Loss Value: 14.934393
+[Step 281] Adaptive Scale (Reference Only): ScoreNorm=53.4284 | GradNorm=0.0377 | Factor=1416.6636
+[Step 281] img (x_t) stats: Mean: -0.0020 | Std: 1.0243 | MaxAbs: 3.0000 | Norm: 293.1714
 
---- Debug Step 231 ---
-[Step 231] Residual   | Mean: -0.0134+0.0015j | Std: 0.4623 | MaxAbs: 4.2799 | Norm: 93.6056
-[Step 231] Loss Value (Normed): 1829.75415
-[Step 231] Adaptive Scale: ScoreNorm=89.8367 | GradNorm=3.7080 | Factor=24.2279
-[Step 231] img_next   | Mean: 0.0609 | Std: 1.3127 | MaxAbs: 15.8319 | Norm: 376.1116
-[Step 226] img_next   | Mean: 0.0628 | Std: 1.3226 | MaxAbs: 16.3584 | Norm: 378.9844
-[Step 221] img_next   | Mean: 0.0620 | Std: 1.3426 | MaxAbs: 17.0557 | Norm: 384.6732
-[Step 216] img_next   | Mean: 0.0647 | Std: 1.3515 | MaxAbs: 17.4810 | Norm: 387.2601
-[Step 211] img_next   | Mean: 0.0631 | Std: 1.3698 | MaxAbs: 18.0591 | Norm: 392.4712
-[Step 206] img_next   | Mean: 0.0671 | Std: 1.3775 | MaxAbs: 18.3716 | Norm: 394.7294
-[Step 201] img_next   | Mean: 0.0640 | Std: 1.3923 | MaxAbs: 18.8250 | Norm: 398.9196
-[Step 196] img_next   | Mean: 0.0693 | Std: 1.3990 | MaxAbs: 19.0421 | Norm: 400.9201
-[Step 191] img_next   | Mean: 0.0650 | Std: 1.4122 | MaxAbs: 19.3825 | Norm: 404.6069
-[Step 186] img_next   | Mean: 0.0716 | Std: 1.4165 | MaxAbs: 19.5147 | Norm: 405.9280
+--- Debug Step t=231 (Loop i=30) ---
+Loss Value: 14.914410
+[Step 231] Adaptive Scale (Reference Only): ScoreNorm=52.6490 | GradNorm=0.0353 | Factor=1490.9515
+[Step 231] img (x_t) stats: Mean: -0.0015 | Std: 1.0313 | MaxAbs: 3.0000 | Norm: 295.1648
 
---- Debug Step 181 ---
-[Step 181] Residual   | Mean: -0.0077+0.0069j | Std: 0.3607 | MaxAbs: 4.0651 | Norm: 73.0354
-[Step 181] Loss Value (Normed): 1113.92444
-[Step 181] Adaptive Scale: ScoreNorm=95.5940 | GradNorm=3.3023 | Factor=28.9477
-[Step 181] img_next   | Mean: 0.0652 | Std: 1.4284 | MaxAbs: 19.7559 | Norm: 409.2666
-[Step 176] img_next   | Mean: 0.0737 | Std: 1.4315 | MaxAbs: 19.8242 | Norm: 410.2583
-[Step 171] img_next   | Mean: 0.0656 | Std: 1.4413 | MaxAbs: 19.9869 | Norm: 412.9359
-[Step 166] img_next   | Mean: 0.0753 | Std: 1.4436 | MaxAbs: 20.0153 | Norm: 413.7375
-[Step 161] img_next   | Mean: 0.0660 | Std: 1.4518 | MaxAbs: 20.2454 | Norm: 415.9566
-[Step 156] img_next   | Mean: 0.0763 | Std: 1.4525 | MaxAbs: 20.3490 | Norm: 416.3080
-[Step 151] img_next   | Mean: 0.0663 | Std: 1.4596 | MaxAbs: 20.5142 | Norm: 418.1780
-[Step 146] img_next   | Mean: 0.0771 | Std: 1.4594 | MaxAbs: 20.5650 | Norm: 418.2733
-[Step 141] img_next   | Mean: 0.0670 | Std: 1.4649 | MaxAbs: 20.6794 | Norm: 419.7092
-[Step 136] img_next   | Mean: 0.0775 | Std: 1.4636 | MaxAbs: 20.6881 | Norm: 419.5043
+--- Debug Step t=181 (Loop i=40) ---
+Loss Value: 14.883300
+[Step 181] Adaptive Scale (Reference Only): ScoreNorm=51.7609 | GradNorm=0.0335 | Factor=1546.2578
+[Step 181] img (x_t) stats: Mean: -0.0009 | Std: 1.0367 | MaxAbs: 3.0000 | Norm: 296.7086
 
---- Debug Step 131 ---
-[Step 131] Residual   | Mean: -0.0059+0.0082j | Std: 0.2985 | MaxAbs: 3.8773 | Norm: 60.4503
-[Step 131] Loss Value (Normed): 763.10779
-[Step 131] Adaptive Scale: ScoreNorm=94.8652 | GradNorm=3.0027 | Factor=31.5932
-[Step 131] img_next   | Mean: 0.0676 | Std: 1.4676 | MaxAbs: 20.7616 | Norm: 420.4995
-[Step 126] img_next   | Mean: 0.0778 | Std: 1.4653 | MaxAbs: 20.7396 | Norm: 419.9932
-[Step 121] img_next   | Mean: 0.0681 | Std: 1.4681 | MaxAbs: 20.7765 | Norm: 420.6339
-[Step 116] img_next   | Mean: 0.0780 | Std: 1.4648 | MaxAbs: 20.7283 | Norm: 419.8305
-[Step 111] img_next   | Mean: 0.0686 | Std: 1.4663 | MaxAbs: 20.7373 | Norm: 420.1224
-[Step 106] img_next   | Mean: 0.0782 | Std: 1.4618 | MaxAbs: 20.6657 | Norm: 418.9912
-[Step 101] img_next   | Mean: 0.0691 | Std: 1.4625 | MaxAbs: 20.6495 | Norm: 419.0482
-[Step 96] img_next   | Mean: 0.0781 | Std: 1.4566 | MaxAbs: 20.5606 | Norm: 417.5119
-[Step 91] img_next   | Mean: 0.0695 | Std: 1.4565 | MaxAbs: 20.5211 | Norm: 417.3505
-[Step 86] img_next   | Mean: 0.0779 | Std: 1.4496 | MaxAbs: 20.4161 | Norm: 415.4867
+--- Debug Step t=131 (Loop i=50) ---
+Loss Value: 14.836071
+[Step 131] Adaptive Scale (Reference Only): ScoreNorm=50.6652 | GradNorm=0.0322 | Factor=1571.9478
+[Step 131] img (x_t) stats: Mean: -0.0004 | Std: 1.0402 | MaxAbs: 3.0000 | Norm: 297.7252
 
---- Debug Step 81 ---
-[Step 81] Residual   | Mean: -0.0045+0.0075j | Std: 0.2548 | MaxAbs: 3.6124 | Norm: 51.5905
-[Step 81] Loss Value (Normed): 555.81165
-[Step 81] Adaptive Scale: ScoreNorm=89.4691 | GradNorm=2.6884 | Factor=33.2800
-[Step 81] img_next   | Mean: 0.0699 | Std: 1.4487 | MaxAbs: 20.3579 | Norm: 415.1168
-[Step 76] img_next   | Mean: 0.0775 | Std: 1.4408 | MaxAbs: 20.2392 | Norm: 412.9895
-[Step 71] img_next   | Mean: 0.0701 | Std: 1.4391 | MaxAbs: 20.1586 | Norm: 412.3682
-[Step 66] img_next   | Mean: 0.0772 | Std: 1.4304 | MaxAbs: 20.0272 | Norm: 409.9965
-[Step 61] img_next   | Mean: 0.0702 | Std: 1.4279 | MaxAbs: 19.9302 | Norm: 409.1755
-[Step 56] img_next   | Mean: 0.0767 | Std: 1.4185 | MaxAbs: 19.7829 | Norm: 406.5847
-[Step 51] img_next   | Mean: 0.0702 | Std: 1.4152 | MaxAbs: 19.6642 | Norm: 405.5626
-[Step 46] img_next   | Mean: 0.0761 | Std: 1.4050 | MaxAbs: 19.5015 | Norm: 402.7220
-[Step 41] img_next   | Mean: 0.0700 | Std: 1.4009 | MaxAbs: 19.3600 | Norm: 401.4669
-[Step 36] img_next   | Mean: 0.0756 | Std: 1.3898 | MaxAbs: 19.1749 | Norm: 398.3797
+--- Debug Step t=81 (Loop i=60) ---
+Loss Value: 14.759656
+[Step 81] Adaptive Scale (Reference Only): ScoreNorm=49.0789 | GradNorm=0.0317 | Factor=1549.9704
+[Step 81] img (x_t) stats: Mean: 0.0001 | Std: 1.0416 | MaxAbs: 3.0000 | Norm: 298.1287
 
---- Debug Step 31 ---
-[Step 31] Residual   | Mean: -0.0036+0.0064j | Std: 0.2102 | MaxAbs: 3.2824 | Norm: 42.5734
-[Step 31] Loss Value (Normed): 378.49884
-[Step 31] Adaptive Scale: ScoreNorm=77.2956 | GradNorm=2.1960 | Factor=35.1977
-[Step 31] img_next   | Mean: 0.0698 | Std: 1.3845 | MaxAbs: 19.0043 | Norm: 396.7811
-[Step 26] img_next   | Mean: 0.0749 | Std: 1.3725 | MaxAbs: 18.7893 | Norm: 393.4036
-[Step 21] img_next   | Mean: 0.0696 | Std: 1.3654 | MaxAbs: 18.5765 | Norm: 391.3094
-[Step 16] img_next   | Mean: 0.0743 | Std: 1.3517 | MaxAbs: 18.3072 | Norm: 387.4503
-[Step 11] img_next   | Mean: 0.0693 | Std: 1.3409 | MaxAbs: 18.0038 | Norm: 384.3047
-[Step 6] img_next   | Mean: 0.0734 | Std: 1.3210 | MaxAbs: 17.5517 | Norm: 378.6631
-[Step 1] img_next   | Mean: 0.0693 | Std: 1.3161 | MaxAbs: 17.3967 | Norm: 377.2141
+--- Debug Step t=31 (Loop i=70) ---
+Loss Value: 14.597592
+[Step 31] Adaptive Scale (Reference Only): ScoreNorm=45.6372 | GradNorm=0.0320 | Factor=1425.1677
+[Step 31] img (x_t) stats: Mean: 0.0007 | Std: 1.0401 | MaxAbs: 3.0000 | Norm: 297.6952
 Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/estimated/
 Saved result for SNR 7
 
@@ -952,94 +368,37 @@ Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/estimated/
 Starting Method C Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 [Method C] SNR-based Start: DDIM Step 56/200 (t=281)
-[Step Init] img (x_t)  | Mean: 0.0530 | Std: 0.8278 | MaxAbs: 10.8500 | Norm: 237.4146
+[Step Init] img (x_t)  | Mean: 0.0365 | Std: 1.0030 | MaxAbs: 12.3741 | Norm: 287.2774
 
---- Debug Step 281 ---
-[Step 281] Residual   | Mean: -0.0274-0.0081j | Std: 0.9675 | MaxAbs: 10.9547 | Norm: 195.8933
-[Step 281] Loss Value (Normed): 15989.23828
-[Step 281] Adaptive Scale: ScoreNorm=56.1013 | GradNorm=36.8074 | Factor=1.5242
-[Step 281] img_next   | Mean: 0.0565 | Std: 0.8455 | MaxAbs: 11.4300 | Norm: 242.5442
-[Step 276] img_next   | Mean: 0.0600 | Std: 0.8660 | MaxAbs: 12.0733 | Norm: 248.4633
-[Step 271] img_next   | Mean: 0.0626 | Std: 0.8884 | MaxAbs: 12.9903 | Norm: 254.8926
-[Step 266] img_next   | Mean: 0.0640 | Std: 0.9088 | MaxAbs: 13.6341 | Norm: 260.7516
-[Step 261] img_next   | Mean: 0.0650 | Std: 0.9271 | MaxAbs: 14.5902 | Norm: 266.0095
-[Step 256] img_next   | Mean: 0.0658 | Std: 0.9454 | MaxAbs: 15.3794 | Norm: 271.2363
-[Step 251] img_next   | Mean: 0.0667 | Std: 0.9642 | MaxAbs: 16.5161 | Norm: 276.6166
-[Step 246] img_next   | Mean: 0.0673 | Std: 0.9819 | MaxAbs: 17.3550 | Norm: 281.6912
-[Step 241] img_next   | Mean: 0.0679 | Std: 1.0004 | MaxAbs: 18.6084 | Norm: 286.9896
-[Step 236] img_next   | Mean: 0.0687 | Std: 1.0185 | MaxAbs: 19.5777 | Norm: 292.1628
+--- Debug Step t=281 (Loop i=0) ---
+Loss Value: 14.773211
+[Step 281] Adaptive Scale (Reference Only): ScoreNorm=52.8413 | GradNorm=0.0540 | Factor=978.6891
+[Step 281] img (x_t) stats: Mean: 0.0365 | Std: 1.0030 | MaxAbs: 12.3741 | Norm: 287.2774
 
---- Debug Step 231 ---
-[Step 231] Residual   | Mean: -0.0148-0.0084j | Std: 0.5910 | MaxAbs: 6.8088 | Norm: 119.6521
-[Step 231] Loss Value (Normed): 5965.26172
-[Step 231] Adaptive Scale: ScoreNorm=56.8133 | GradNorm=14.0987 | Factor=4.0297
-[Step 231] img_next   | Mean: 0.0698 | Std: 1.0388 | MaxAbs: 20.7307 | Norm: 298.0023
-[Step 226] img_next   | Mean: 0.0704 | Std: 1.0566 | MaxAbs: 21.6732 | Norm: 303.0879
-[Step 221] img_next   | Mean: 0.0715 | Std: 1.0778 | MaxAbs: 22.6677 | Norm: 309.1620
-[Step 216] img_next   | Mean: 0.0725 | Std: 1.0969 | MaxAbs: 23.4573 | Norm: 314.6335
-[Step 211] img_next   | Mean: 0.0734 | Std: 1.1184 | MaxAbs: 24.1655 | Norm: 320.7823
-[Step 206] img_next   | Mean: 0.0742 | Std: 1.1382 | MaxAbs: 24.7197 | Norm: 326.4741
-[Step 201] img_next   | Mean: 0.0758 | Std: 1.1596 | MaxAbs: 25.1332 | Norm: 332.6084
-[Step 196] img_next   | Mean: 0.0761 | Std: 1.1791 | MaxAbs: 25.4833 | Norm: 338.1875
-[Step 191] img_next   | Mean: 0.0778 | Std: 1.1991 | MaxAbs: 25.6900 | Norm: 343.9263
-[Step 186] img_next   | Mean: 0.0779 | Std: 1.2190 | MaxAbs: 25.8860 | Norm: 349.6118
+--- Debug Step t=231 (Loop i=10) ---
+Loss Value: 14.322557
+[Step 231] Adaptive Scale (Reference Only): ScoreNorm=50.7901 | GradNorm=0.0475 | Factor=1069.7448
+[Step 231] img (x_t) stats: Mean: 0.0389 | Std: 0.9855 | MaxAbs: 3.0000 | Norm: 282.2718
 
---- Debug Step 181 ---
-[Step 181] Residual   | Mean: -0.0135-0.0130j | Std: 0.4387 | MaxAbs: 4.7055 | Norm: 88.8669
-[Step 181] Loss Value (Normed): 3290.55518
-[Step 181] Adaptive Scale: ScoreNorm=57.5160 | GradNorm=10.4723 | Factor=5.4922
-[Step 181] img_next   | Mean: 0.0796 | Std: 1.2370 | MaxAbs: 25.9865 | Norm: 354.7902
-[Step 176] img_next   | Mean: 0.0790 | Std: 1.2535 | MaxAbs: 26.0753 | Norm: 359.4723
-[Step 171] img_next   | Mean: 0.0809 | Std: 1.2696 | MaxAbs: 26.1288 | Norm: 364.1151
-[Step 166] img_next   | Mean: 0.0797 | Std: 1.2823 | MaxAbs: 26.1286 | Norm: 367.7236
-[Step 161] img_next   | Mean: 0.0815 | Std: 1.2951 | MaxAbs: 26.1635 | Norm: 371.3993
-[Step 156] img_next   | Mean: 0.0799 | Std: 1.3045 | MaxAbs: 26.0984 | Norm: 374.0534
-[Step 151] img_next   | Mean: 0.0818 | Std: 1.3150 | MaxAbs: 26.1225 | Norm: 377.0945
-[Step 146] img_next   | Mean: 0.0800 | Std: 1.3216 | MaxAbs: 26.0139 | Norm: 378.9649
-[Step 141] img_next   | Mean: 0.0818 | Std: 1.3305 | MaxAbs: 26.0279 | Norm: 381.5150
-[Step 136] img_next   | Mean: 0.0801 | Std: 1.3348 | MaxAbs: 25.8791 | Norm: 382.7290
+--- Debug Step t=181 (Loop i=20) ---
+Loss Value: 14.208767
+[Step 181] Adaptive Scale (Reference Only): ScoreNorm=49.5822 | GradNorm=0.0441 | Factor=1123.6586
+[Step 181] img (x_t) stats: Mean: 0.0408 | Std: 0.9868 | MaxAbs: 3.0000 | Norm: 282.6808
 
---- Debug Step 131 ---
-[Step 131] Residual   | Mean: -0.0098-0.0181j | Std: 0.3584 | MaxAbs: 3.9997 | Norm: 72.6465
-[Step 131] Loss Value (Normed): 2198.96582
-[Step 131] Adaptive Scale: ScoreNorm=57.7240 | GradNorm=8.4337 | Factor=6.8444
-[Step 131] img_next   | Mean: 0.0818 | Std: 1.3419 | MaxAbs: 25.8784 | Norm: 384.7843
-[Step 126] img_next   | Mean: 0.0801 | Std: 1.3450 | MaxAbs: 25.6988 | Norm: 385.6503
-[Step 121] img_next   | Mean: 0.0818 | Std: 1.3501 | MaxAbs: 25.6930 | Norm: 387.1322
-[Step 116] img_next   | Mean: 0.0803 | Std: 1.3526 | MaxAbs: 25.4891 | Norm: 387.8214
-[Step 111] img_next   | Mean: 0.0817 | Std: 1.3562 | MaxAbs: 25.4642 | Norm: 388.8556
-[Step 106] img_next   | Mean: 0.0804 | Std: 1.3580 | MaxAbs: 25.2499 | Norm: 389.3698
-[Step 101] img_next   | Mean: 0.0816 | Std: 1.3603 | MaxAbs: 25.2106 | Norm: 390.0372
-[Step 96] img_next   | Mean: 0.0806 | Std: 1.3616 | MaxAbs: 24.9747 | Norm: 390.3815
-[Step 91] img_next   | Mean: 0.0817 | Std: 1.3627 | MaxAbs: 24.9238 | Norm: 390.7341
-[Step 86] img_next   | Mean: 0.0809 | Std: 1.3636 | MaxAbs: 24.6797 | Norm: 390.9633
+--- Debug Step t=131 (Loop i=30) ---
+Loss Value: 14.095844
+[Step 131] Adaptive Scale (Reference Only): ScoreNorm=48.1561 | GradNorm=0.0418 | Factor=1151.4831
+[Step 131] img (x_t) stats: Mean: 0.0424 | Std: 0.9869 | MaxAbs: 3.0000 | Norm: 282.7275
 
---- Debug Step 81 ---
-[Step 81] Residual   | Mean: -0.0082-0.0176j | Std: 0.3016 | MaxAbs: 3.2422 | Norm: 61.1624
-[Step 81] Loss Value (Normed): 1558.68237
-[Step 81] Adaptive Scale: ScoreNorm=57.9516 | GradNorm=7.1757 | Factor=8.0761
-[Step 81] img_next   | Mean: 0.0817 | Std: 1.3636 | MaxAbs: 24.6138 | Norm: 390.9864
-[Step 76] img_next   | Mean: 0.0813 | Std: 1.3642 | MaxAbs: 24.3516 | Norm: 391.1507
-[Step 71] img_next   | Mean: 0.0818 | Std: 1.3633 | MaxAbs: 24.2710 | Norm: 390.9058
-[Step 66] img_next   | Mean: 0.0817 | Std: 1.3637 | MaxAbs: 23.9934 | Norm: 390.9996
-[Step 61] img_next   | Mean: 0.0820 | Std: 1.3619 | MaxAbs: 23.8950 | Norm: 390.5163
-[Step 56] img_next   | Mean: 0.0822 | Std: 1.3619 | MaxAbs: 23.6033 | Norm: 390.4920
-[Step 51] img_next   | Mean: 0.0823 | Std: 1.3595 | MaxAbs: 23.4816 | Norm: 389.8106
-[Step 46] img_next   | Mean: 0.0826 | Std: 1.3587 | MaxAbs: 23.1745 | Norm: 389.6109
-[Step 41] img_next   | Mean: 0.0825 | Std: 1.3557 | MaxAbs: 23.0200 | Norm: 388.7284
-[Step 36] img_next   | Mean: 0.0830 | Std: 1.3540 | MaxAbs: 22.6896 | Norm: 388.2715
+--- Debug Step t=81 (Loop i=40) ---
+Loss Value: 13.949312
+[Step 81] Adaptive Scale (Reference Only): ScoreNorm=46.1761 | GradNorm=0.0404 | Factor=1141.9502
+[Step 81] img (x_t) stats: Mean: 0.0437 | Std: 0.9855 | MaxAbs: 3.0000 | Norm: 282.3497
 
---- Debug Step 31 ---
-[Step 31] Residual   | Mean: -0.0071-0.0161j | Std: 0.2530 | MaxAbs: 2.3476 | Norm: 51.3295
-[Step 31] Loss Value (Normed): 1097.79932
-[Step 31] Adaptive Scale: ScoreNorm=56.6387 | GradNorm=5.6488 | Factor=10.0268
-[Step 31] img_next   | Mean: 0.0827 | Std: 1.3500 | MaxAbs: 22.4994 | Norm: 387.1084
-[Step 26] img_next   | Mean: 0.0834 | Std: 1.3471 | MaxAbs: 22.1276 | Norm: 386.2966
-[Step 21] img_next   | Mean: 0.0830 | Std: 1.3415 | MaxAbs: 21.8811 | Norm: 384.7014
-[Step 16] img_next   | Mean: 0.0838 | Std: 1.3365 | MaxAbs: 21.4311 | Norm: 383.2760
-[Step 11] img_next   | Mean: 0.0832 | Std: 1.3277 | MaxAbs: 21.0664 | Norm: 380.7510
-[Step 6] img_next   | Mean: 0.0842 | Std: 1.3153 | MaxAbs: 20.3415 | Norm: 377.2321
-[Step 1] img_next   | Mean: 0.0833 | Std: 1.3127 | MaxAbs: 20.1881 | Norm: 376.4616
+--- Debug Step t=31 (Loop i=50) ---
+Loss Value: 13.683206
+[Step 31] Adaptive Scale (Reference Only): ScoreNorm=42.0487 | GradNorm=0.0404 | Factor=1040.6114
+[Step 31] img (x_t) stats: Mean: 0.0447 | Std: 0.9822 | MaxAbs: 3.0000 | Norm: 281.3979
 Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/estimated/
 Saved result for SNR 10
 
@@ -1048,66 +407,27 @@ Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/estimated/
 Starting Method C Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 [Method C] SNR-based Start: DDIM Step 38/200 (t=191)
-[Step Init] img (x_t)  | Mean: 0.0049 | Std: 0.8220 | MaxAbs: 7.2219 | Norm: 235.2834
+[Step Init] img (x_t)  | Mean: -0.0583 | Std: 1.0261 | MaxAbs: 16.9105 | Norm: 294.1649
 
---- Debug Step 191 ---
-[Step 191] Residual   | Mean: -0.0077-0.0007j | Std: 0.6690 | MaxAbs: 3.5288 | Norm: 135.4034
-[Step 191] Loss Value (Normed): 15242.20801
-[Step 191] Adaptive Scale: ScoreNorm=57.9053 | GradNorm=38.1977 | Factor=1.5159
-[Step 191] img_next   | Mean: 0.0039 | Std: 0.8473 | MaxAbs: 7.3593 | Norm: 242.5188
-[Step 186] img_next   | Mean: 0.0028 | Std: 0.8711 | MaxAbs: 7.0866 | Norm: 249.3274
-[Step 181] img_next   | Mean: 0.0021 | Std: 0.8978 | MaxAbs: 7.5747 | Norm: 256.9662
-[Step 176] img_next   | Mean: 0.0011 | Std: 0.9204 | MaxAbs: 8.1606 | Norm: 263.4268
-[Step 171] img_next   | Mean: 0.0004 | Std: 0.9438 | MaxAbs: 8.5145 | Norm: 270.1319
-[Step 166] img_next   | Mean: -0.0012 | Std: 0.9630 | MaxAbs: 8.8195 | Norm: 275.6162
-[Step 161] img_next   | Mean: -0.0028 | Std: 0.9864 | MaxAbs: 9.5312 | Norm: 282.3153
-[Step 156] img_next   | Mean: -0.0049 | Std: 1.0033 | MaxAbs: 10.2492 | Norm: 287.1502
-[Step 151] img_next   | Mean: -0.0065 | Std: 1.0253 | MaxAbs: 11.0062 | Norm: 293.4515
-[Step 146] img_next   | Mean: -0.0089 | Std: 1.0410 | MaxAbs: 11.6208 | Norm: 297.9749
+--- Debug Step t=191 (Loop i=0) ---
+Loss Value: 13.635127
+[Step 191] Adaptive Scale (Reference Only): ScoreNorm=53.0850 | GradNorm=0.0540 | Factor=983.3528
+[Step 191] img (x_t) stats: Mean: -0.0583 | Std: 1.0261 | MaxAbs: 16.9105 | Norm: 294.1649
 
---- Debug Step 141 ---
-[Step 141] Residual   | Mean: -0.0112-0.0048j | Std: 0.3388 | MaxAbs: 2.9013 | Norm: 68.6194
-[Step 141] Loss Value (Normed): 3914.55640
-[Step 141] Adaptive Scale: ScoreNorm=68.3511 | GradNorm=11.6684 | Factor=5.8578
-[Step 141] img_next   | Mean: -0.0105 | Std: 1.0633 | MaxAbs: 12.3391 | Norm: 304.3378
-[Step 136] img_next   | Mean: -0.0132 | Std: 1.0769 | MaxAbs: 12.8001 | Norm: 308.2521
-[Step 131] img_next   | Mean: -0.0144 | Std: 1.0958 | MaxAbs: 13.2548 | Norm: 313.6651
-[Step 126] img_next   | Mean: -0.0160 | Std: 1.1063 | MaxAbs: 13.5139 | Norm: 316.6672
-[Step 121] img_next   | Mean: -0.0164 | Std: 1.1185 | MaxAbs: 13.7280 | Norm: 320.1558
-[Step 116] img_next   | Mean: -0.0172 | Std: 1.1238 | MaxAbs: 13.8337 | Norm: 321.6892
-[Step 111] img_next   | Mean: -0.0183 | Std: 1.1329 | MaxAbs: 13.8955 | Norm: 324.2953
-[Step 106] img_next   | Mean: -0.0187 | Std: 1.1376 | MaxAbs: 13.8959 | Norm: 325.6324
-[Step 101] img_next   | Mean: -0.0201 | Std: 1.1443 | MaxAbs: 13.8609 | Norm: 327.5698
-[Step 96] img_next   | Mean: -0.0203 | Std: 1.1482 | MaxAbs: 13.8026 | Norm: 328.6901
+--- Debug Step t=141 (Loop i=10) ---
+Loss Value: 13.445134
+[Step 141] Adaptive Scale (Reference Only): ScoreNorm=49.7368 | GradNorm=0.0484 | Factor=1028.2494
+[Step 141] img (x_t) stats: Mean: -0.0582 | Std: 0.9924 | MaxAbs: 3.0000 | Norm: 284.5400
 
---- Debug Step 91 ---
-[Step 91] Residual   | Mean: -0.0163-0.0031j | Std: 0.2583 | MaxAbs: 2.8128 | Norm: 52.3808
-[Step 91] Loss Value (Normed): 2281.04492
-[Step 91] Adaptive Scale: ScoreNorm=80.9373 | GradNorm=9.2944 | Factor=8.7081
-[Step 91] img_next   | Mean: -0.0221 | Std: 1.1534 | MaxAbs: 13.7089 | Norm: 330.1804
-[Step 86] img_next   | Mean: -0.0222 | Std: 1.1569 | MaxAbs: 13.6206 | Norm: 331.1809
-[Step 81] img_next   | Mean: -0.0243 | Std: 1.1608 | MaxAbs: 13.4938 | Norm: 332.3209
-[Step 76] img_next   | Mean: -0.0243 | Std: 1.1640 | MaxAbs: 13.3911 | Norm: 333.2201
-[Step 71] img_next   | Mean: -0.0265 | Std: 1.1672 | MaxAbs: 13.2463 | Norm: 334.1646
-[Step 66] img_next   | Mean: -0.0265 | Std: 1.1702 | MaxAbs: 13.1348 | Norm: 335.0136
-[Step 61] img_next   | Mean: -0.0288 | Std: 1.1729 | MaxAbs: 12.9754 | Norm: 335.8162
-[Step 56] img_next   | Mean: -0.0289 | Std: 1.1756 | MaxAbs: 12.8558 | Norm: 336.5708
-[Step 51] img_next   | Mean: -0.0312 | Std: 1.1780 | MaxAbs: 12.6855 | Norm: 337.2722
-[Step 46] img_next   | Mean: -0.0313 | Std: 1.1805 | MaxAbs: 12.5576 | Norm: 338.0040
+--- Debug Step t=91 (Loop i=20) ---
+Loss Value: 13.094088
+[Step 91] Adaptive Scale (Reference Only): ScoreNorm=47.1126 | GradNorm=0.0456 | Factor=1033.3430
+[Step 91] img (x_t) stats: Mean: -0.0601 | Std: 0.9870 | MaxAbs: 3.0000 | Norm: 283.0234
 
---- Debug Step 41 ---
-[Step 41] Residual   | Mean: -0.0153-0.0023j | Std: 0.2138 | MaxAbs: 2.7425 | Norm: 43.3874
-[Step 41] Loss Value (Normed): 1565.00342
-[Step 41] Adaptive Scale: ScoreNorm=77.7501 | GradNorm=8.2497 | Factor=9.4246
-[Step 41] img_next   | Mean: -0.0336 | Std: 1.1824 | MaxAbs: 12.5624 | Norm: 338.5639
-[Step 36] img_next   | Mean: -0.0339 | Std: 1.1848 | MaxAbs: 12.5030 | Norm: 339.2452
-[Step 31] img_next   | Mean: -0.0361 | Std: 1.1860 | MaxAbs: 12.6335 | Norm: 339.6199
-[Step 26] img_next   | Mean: -0.0364 | Std: 1.1879 | MaxAbs: 12.7291 | Norm: 340.1563
-[Step 21] img_next   | Mean: -0.0386 | Std: 1.1880 | MaxAbs: 12.8434 | Norm: 340.1992
-[Step 16] img_next   | Mean: -0.0390 | Std: 1.1886 | MaxAbs: 12.9076 | Norm: 340.3750
-[Step 11] img_next   | Mean: -0.0410 | Std: 1.1861 | MaxAbs: 12.9694 | Norm: 339.6760
-[Step 6] img_next   | Mean: -0.0412 | Std: 1.1814 | MaxAbs: 12.9275 | Norm: 338.3284
-[Step 1] img_next   | Mean: -0.0430 | Std: 1.1832 | MaxAbs: 13.0183 | Norm: 338.8655
+--- Debug Step t=41 (Loop i=30) ---
+Loss Value: 12.658426
+[Step 41] Adaptive Scale (Reference Only): ScoreNorm=42.5484 | GradNorm=0.0441 | Factor=964.0340
+[Step 41] img (x_t) stats: Mean: -0.0614 | Std: 0.9802 | MaxAbs: 3.0000 | Norm: 281.1104
 Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/estimated/
 Saved result for SNR 13
 
@@ -1116,47 +436,22 @@ Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/estimated/
 Starting Method C Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 [Method C] SNR-based Start: DDIM Step 24/200 (t=121)
-[Step Init] img (x_t)  | Mean: -0.0166 | Std: 0.8570 | MaxAbs: 9.6678 | Norm: 245.3270
+[Step Init] img (x_t)  | Mean: -0.0243 | Std: 1.0057 | MaxAbs: 13.6212 | Norm: 287.9404
 
---- Debug Step 121 ---
-[Step 121] Residual   | Mean: 0.0066+0.0084j | Std: 0.4873 | MaxAbs: 3.0028 | Norm: 98.6397
-[Step 121] Loss Value (Normed): 16139.59375
-[Step 121] Adaptive Scale: ScoreNorm=57.9387 | GradNorm=42.7727 | Factor=1.3546
-[Step 121] img_next   | Mean: -0.0168 | Std: 0.8760 | MaxAbs: 9.8956 | Norm: 250.7839
-[Step 116] img_next   | Mean: -0.0175 | Std: 0.9004 | MaxAbs: 10.5547 | Norm: 257.7499
-[Step 111] img_next   | Mean: -0.0189 | Std: 0.9234 | MaxAbs: 11.4375 | Norm: 264.3513
-[Step 106] img_next   | Mean: -0.0203 | Std: 0.9453 | MaxAbs: 12.3627 | Norm: 270.6179
-[Step 101] img_next   | Mean: -0.0217 | Std: 0.9606 | MaxAbs: 13.1326 | Norm: 275.0101
-[Step 96] img_next   | Mean: -0.0227 | Std: 0.9750 | MaxAbs: 13.7518 | Norm: 279.1448
-[Step 91] img_next   | Mean: -0.0241 | Std: 0.9853 | MaxAbs: 14.0987 | Norm: 282.0858
-[Step 86] img_next   | Mean: -0.0246 | Std: 0.9967 | MaxAbs: 14.4737 | Norm: 285.3490
-[Step 81] img_next   | Mean: -0.0262 | Std: 1.0044 | MaxAbs: 14.4866 | Norm: 287.5826
-[Step 76] img_next   | Mean: -0.0263 | Std: 1.0134 | MaxAbs: 14.6851 | Norm: 290.1549
+--- Debug Step t=121 (Loop i=0) ---
+Loss Value: 13.744752
+[Step 121] Adaptive Scale (Reference Only): ScoreNorm=50.1340 | GradNorm=0.0731 | Factor=685.6007
+[Step 121] img (x_t) stats: Mean: -0.0243 | Std: 1.0057 | MaxAbs: 13.6212 | Norm: 287.9404
 
---- Debug Step 71 ---
-[Step 71] Residual   | Mean: -0.0032+0.0074j | Std: 0.1857 | MaxAbs: 1.7850 | Norm: 37.6199
-[Step 71] Loss Value (Normed): 2347.60547
-[Step 71] Adaptive Scale: ScoreNorm=66.4493 | GradNorm=14.3594 | Factor=4.6276
-[Step 71] img_next   | Mean: -0.0279 | Std: 1.0189 | MaxAbs: 14.4474 | Norm: 291.7353
-[Step 66] img_next   | Mean: -0.0277 | Std: 1.0263 | MaxAbs: 14.5606 | Norm: 293.8392
-[Step 61] img_next   | Mean: -0.0291 | Std: 1.0300 | MaxAbs: 14.1934 | Norm: 294.9050
-[Step 56] img_next   | Mean: -0.0289 | Std: 1.0355 | MaxAbs: 14.2606 | Norm: 296.4884
-[Step 51] img_next   | Mean: -0.0300 | Std: 1.0379 | MaxAbs: 13.8207 | Norm: 297.1875
-[Step 46] img_next   | Mean: -0.0298 | Std: 1.0419 | MaxAbs: 13.8714 | Norm: 298.3311
-[Step 41] img_next   | Mean: -0.0307 | Std: 1.0430 | MaxAbs: 13.4285 | Norm: 298.6616
-[Step 36] img_next   | Mean: -0.0304 | Std: 1.0456 | MaxAbs: 13.4425 | Norm: 299.4010
-[Step 31] img_next   | Mean: -0.0311 | Std: 1.0457 | MaxAbs: 13.0243 | Norm: 299.4181
-[Step 26] img_next   | Mean: -0.0309 | Std: 1.0467 | MaxAbs: 13.0019 | Norm: 299.7010
+--- Debug Step t=71 (Loop i=10) ---
+Loss Value: 13.707792
+[Step 71] Adaptive Scale (Reference Only): ScoreNorm=44.9196 | GradNorm=0.0720 | Factor=623.6036
+[Step 71] img (x_t) stats: Mean: -0.0249 | Std: 0.9745 | MaxAbs: 3.0000 | Norm: 279.0063
 
---- Debug Step 21 ---
-[Step 21] Residual   | Mean: -0.0017+0.0046j | Std: 0.1117 | MaxAbs: 1.1996 | Norm: 22.6320
-[Step 21] Loss Value (Normed): 849.64050
-[Step 21] Adaptive Scale: ScoreNorm=61.7113 | GradNorm=7.8476 | Factor=7.8637
-[Step 21] img_next   | Mean: -0.0314 | Std: 1.0454 | MaxAbs: 12.6165 | Norm: 299.3375
-[Step 16] img_next   | Mean: -0.0312 | Std: 1.0446 | MaxAbs: 12.5412 | Norm: 299.1168
-[Step 11] img_next   | Mean: -0.0315 | Std: 1.0417 | MaxAbs: 12.2020 | Norm: 298.2950
-[Step 6] img_next   | Mean: -0.0314 | Std: 1.0375 | MaxAbs: 12.0441 | Norm: 297.0913
-[Step 1] img_next   | Mean: -0.0315 | Std: 1.0367 | MaxAbs: 11.7948 | Norm: 296.8588
+--- Debug Step t=21 (Loop i=20) ---
+Loss Value: 13.022203
+[Step 21] Adaptive Scale (Reference Only): ScoreNorm=36.2543 | GradNorm=0.0710 | Factor=510.4597
+[Step 21] img (x_t) stats: Mean: -0.0249 | Std: 0.9634 | MaxAbs: 3.0000 | Norm: 275.8262
 Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/estimated/
 Saved result for SNR 16
 
@@ -1165,32 +460,17 @@ Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/estimated/
 Starting Method C Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 [Method C] SNR-based Start: DDIM Step 14/200 (t=71)
-[Step Init] img (x_t)  | Mean: -0.0147 | Std: 0.9263 | MaxAbs: 9.2006 | Norm: 265.1405
+[Step Init] img (x_t)  | Mean: -0.0016 | Std: 1.0025 | MaxAbs: 10.7923 | Norm: 286.9445
 
---- Debug Step 71 ---
-[Step 71] Residual   | Mean: 0.0091+0.0034j | Std: 0.3550 | MaxAbs: 1.9127 | Norm: 71.8742
-[Step 71] Loss Value (Normed): 17097.60156
-[Step 71] Adaptive Scale: ScoreNorm=54.1145 | GradNorm=57.1038 | Factor=0.9477
-[Step 71] img_next   | Mean: -0.0147 | Std: 0.9428 | MaxAbs: 9.4850 | Norm: 269.8619
-[Step 66] img_next   | Mean: -0.0155 | Std: 0.9644 | MaxAbs: 9.8472 | Norm: 276.0668
-[Step 61] img_next   | Mean: -0.0171 | Std: 0.9827 | MaxAbs: 10.3205 | Norm: 281.2994
-[Step 56] img_next   | Mean: -0.0191 | Std: 0.9995 | MaxAbs: 10.7366 | Norm: 286.1308
-[Step 51] img_next   | Mean: -0.0206 | Std: 1.0055 | MaxAbs: 10.9201 | Norm: 287.8453
-[Step 46] img_next   | Mean: -0.0217 | Std: 1.0135 | MaxAbs: 10.9894 | Norm: 290.1314
-[Step 41] img_next   | Mean: -0.0225 | Std: 1.0144 | MaxAbs: 11.0690 | Norm: 290.4123
-[Step 36] img_next   | Mean: -0.0233 | Std: 1.0187 | MaxAbs: 11.0891 | Norm: 291.6512
-[Step 31] img_next   | Mean: -0.0237 | Std: 1.0179 | MaxAbs: 11.1037 | Norm: 291.4255
-[Step 26] img_next   | Mean: -0.0243 | Std: 1.0190 | MaxAbs: 11.0772 | Norm: 291.7252
+--- Debug Step t=71 (Loop i=0) ---
+Loss Value: 15.206638
+[Step 71] Adaptive Scale (Reference Only): ScoreNorm=46.9162 | GradNorm=0.1099 | Factor=426.9960
+[Step 71] img (x_t) stats: Mean: -0.0016 | Std: 1.0025 | MaxAbs: 10.7923 | Norm: 286.9445
 
---- Debug Step 21 ---
-[Step 21] Residual   | Mean: 0.0051+0.0020j | Std: 0.1036 | MaxAbs: 0.9014 | Norm: 20.9888
-[Step 21] Loss Value (Normed): 1458.02063
-[Step 21] Adaptive Scale: ScoreNorm=45.4503 | GradNorm=23.0990 | Factor=1.9676
-[Step 21] img_next   | Mean: -0.0245 | Std: 1.0169 | MaxAbs: 11.0373 | Norm: 291.1393
-[Step 16] img_next   | Mean: -0.0249 | Std: 1.0147 | MaxAbs: 10.9629 | Norm: 290.5043
-[Step 11] img_next   | Mean: -0.0251 | Std: 1.0113 | MaxAbs: 10.8558 | Norm: 289.5498
-[Step 6] img_next   | Mean: -0.0253 | Std: 1.0048 | MaxAbs: 10.6995 | Norm: 287.6890
-[Step 1] img_next   | Mean: -0.0253 | Std: 1.0047 | MaxAbs: 10.6406 | Norm: 287.6502
+--- Debug Step t=21 (Loop i=10) ---
+Loss Value: 17.249926
+[Step 21] Adaptive Scale (Reference Only): ScoreNorm=37.0358 | GradNorm=0.1238 | Factor=299.1064
+[Step 21] img (x_t) stats: Mean: -0.0009 | Std: 0.9696 | MaxAbs: 3.0000 | Norm: 277.5211
 Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/estimated/
 Saved result for SNR 19
 
@@ -1199,20 +479,12 @@ Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/estimated/
 Starting Method C Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 [Method C] SNR-based Start: DDIM Step 7/200 (t=36)
-[Step Init] img (x_t)  | Mean: 0.0285 | Std: 0.9459 | MaxAbs: 8.8466 | Norm: 270.8661
+[Step Init] img (x_t)  | Mean: -0.0023 | Std: 1.0098 | MaxAbs: 10.8804 | Norm: 289.0129
 
---- Debug Step 36 ---
-[Step 36] Residual   | Mean: -0.0042+0.0022j | Std: 0.2412 | MaxAbs: 2.1738 | Norm: 48.8144
-[Step 36] Loss Value (Normed): 15735.62500
-[Step 36] Adaptive Scale: ScoreNorm=50.6037 | GradNorm=138.6904 | Factor=0.3649
-[Step 36] img_next   | Mean: 0.0292 | Std: 0.9589 | MaxAbs: 8.9683 | Norm: 274.5881
-[Step 31] img_next   | Mean: 0.0296 | Std: 0.9760 | MaxAbs: 9.1575 | Norm: 279.4642
-[Step 26] img_next   | Mean: 0.0301 | Std: 0.9853 | MaxAbs: 9.3293 | Norm: 282.1262
-[Step 21] img_next   | Mean: 0.0303 | Std: 0.9933 | MaxAbs: 9.4702 | Norm: 284.4312
-[Step 16] img_next   | Mean: 0.0307 | Std: 0.9922 | MaxAbs: 9.5245 | Norm: 284.1092
-[Step 11] img_next   | Mean: 0.0306 | Std: 0.9945 | MaxAbs: 9.6251 | Norm: 284.7749
-[Step 6] img_next   | Mean: 0.0309 | Std: 0.9911 | MaxAbs: 9.6316 | Norm: 283.8079
-[Step 1] img_next   | Mean: 0.0309 | Std: 0.9918 | MaxAbs: 9.7109 | Norm: 284.0110
+--- Debug Step t=36 (Loop i=0) ---
+Loss Value: 7.934505
+[Step 36] Adaptive Scale (Reference Only): ScoreNorm=42.5879 | GradNorm=0.1024 | Factor=415.8569
+[Step 36] img (x_t) stats: Mean: -0.0023 | Std: 1.0098 | MaxAbs: 10.8804 | Norm: 289.0129
 Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/estimated/
 Saved result for SNR 22
 
@@ -1221,16 +493,11 @@ Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/nosample/estimated/
 Starting Method C Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 [Method C] SNR-based Start: DDIM Step 4/200 (t=21)
-[Step Init] img (x_t)  | Mean: -0.0044 | Std: 0.9853 | MaxAbs: 13.3553 | Norm: 282.0238
+[Step Init] img (x_t)  | Mean: 0.0196 | Std: 1.0016 | MaxAbs: 9.6745 | Norm: 286.7313
 
---- Debug Step 21 ---
-[Step 21] Residual   | Mean: 0.0032-0.0014j | Std: 0.1752 | MaxAbs: 1.0480 | Norm: 35.4631
-[Step 21] Loss Value (Normed): 16570.76758
-[Step 21] Adaptive Scale: ScoreNorm=42.5123 | GradNorm=138.1134 | Factor=0.3078
-[Step 21] img_next   | Mean: -0.0040 | Std: 0.9967 | MaxAbs: 13.3420 | Norm: 285.2764
-[Step 16] img_next   | Mean: -0.0037 | Std: 1.0088 | MaxAbs: 13.6438 | Norm: 288.7423
-[Step 11] img_next   | Mean: -0.0041 | Std: 1.0066 | MaxAbs: 13.8028 | Norm: 288.1052
-[Step 6] img_next   | Mean: -0.0038 | Std: 1.0088 | MaxAbs: 13.7163 | Norm: 288.7344
-[Step 1] img_next   | Mean: -0.0039 | Std: 1.0055 | MaxAbs: 13.7921 | Norm: 287.7927
+--- Debug Step t=21 (Loop i=0) ---
+Loss Value: 10.079442
+[Step 21] Adaptive Scale (Reference Only): ScoreNorm=37.8060 | GradNorm=0.1538 | Factor=245.8673
+[Step 21] img (x_t) stats: Mean: 0.0196 | Std: 1.0016 | MaxAbs: 9.6745 | Norm: 286.7313
 Saved images to outputs/MIMO_MethodC_LS/t=2_r=2/estimated/
 Saved result for SNR 25

@@ -108,10 +108,6 @@ def latent_to_mimo_streams(z_real, t_antennas):
     # Padding if necessary (not handled here, assuming dimensions match or truncate)
     total_elements = z_flat.shape[1]
     
-    # img2img_bench logic:
-    # q_view = q_real_data.view(batch_size, t, -1) 
-    # l = q_view.shape[2] // 2 
-    
     # We need to ensure total_elements is divisible by (t * 2) for complex
     L_complex = total_elements // (t_antennas * 2)
     cutoff = L_complex * t_antennas * 2
@@ -134,8 +130,6 @@ def mimo_streams_to_latent(s, original_shape):
     z_flat = z_view.view(s.shape[0], -1)
     
     # Reshape to original
-    # If padding was done, we might need to pad back? 
-    # For now assume size fits exactly or we filled with zeros
     target_size = np.prod(original_shape[1:])
     current_size = z_flat.shape[1]
     
@@ -206,11 +200,7 @@ if __name__ == "__main__":
     
     # ----------------------------------------------------------------
     # 1. Map Latent to MIMO Streams (Matrix Form)
-    #    s_0: (Batch, t, L) Complex
     # ----------------------------------------------------------------
-    # Ensure latent variance (signal power) is 1 per symbol
-    # z_norm has var=1. 
-    # In img2img_bench: q_real_data = z_norm / sqrt(2) -> Complex q has var 1
     s_0_real = z_norm / np.sqrt(2.0)
     s_0, latent_shape = latent_to_mimo_streams(s_0_real, t_mimo)
     s_0 = s_0.to(device)
@@ -224,7 +214,6 @@ if __name__ == "__main__":
     t_vec = torch.arange(t_mimo, device=device)
     N_vec = torch.arange(N_pilot, device=device)
     tt, NN = torch.meshgrid(t_vec, N_vec, indexing='ij')
-    # Orthogonal Pilot Matrix P (t x N)
     P = torch.sqrt(torch.tensor(P_power/(N_pilot*t_mimo))) * torch.exp(1j*2*torch.pi*tt*NN/N_pilot)
     P = P.to(device) # (t, N)
 
@@ -241,48 +230,33 @@ if __name__ == "__main__":
         H = torch.complex(H_real, H_imag)
 
         # B. Pilot Transmission & Estimation
-        # V: Pilot Noise (Batch, r, N)
         V_real = torch.randn(batch_size, r_mimo, N_pilot, device=device) * np.sqrt(noise_variance/2)
         V_imag = torch.randn(batch_size, r_mimo, N_pilot, device=device) * np.sqrt(noise_variance/2)
         V = torch.complex(V_real, V_imag)
         
-        # Received Pilot S = H*P + V
-        # H:(B,r,t), P:(t,N) -> (B,r,N)
         S_pilot = torch.matmul(H, P) + V
         
         if Perfect_Estimate:
             H_hat = H
             sigma_e2 = 0.0
         else:
-            # LS Estimation: H_hat = S * P^H * (P * P^H)^-1
-            # P_pseudo_inv = P^H (since P is orthogonal and scaled) roughly
             P_herm = P.mH
             inv_PP = torch.inverse(torch.matmul(P, P_herm))
             H_hat = torch.matmul(S_pilot, torch.matmul(P_herm, inv_PP))
-            
-            # Theoretical Estimation Error Variance (per element)
-            # sigma_e2 approx noise_var / P_pilot_power
-            # For LS with orthogonal pilots:
-            sigma_e2 = noise_variance / (P_power/t_mimo) # Rough approx for scalar scaling
+            sigma_e2 = noise_variance / (P_power/t_mimo)
 
         # C. Data Transmission
-        # W: Data Noise (Batch, r, L)
         W_real = torch.randn(batch_size, r_mimo, L_len, device=device) * sigma_n
         W_imag = torch.randn(batch_size, r_mimo, L_len, device=device) * sigma_n
         W = torch.complex(W_real, W_imag)
         
-        # Y = H * s_0 + W  (Batch, r, L)
         Y = torch.matmul(H, s_0) + W
         
         # D. MMSE Initialization (Baseline)
-        # W_mmse = (H^H H + noise I)^-1 H^H
         eff_noise = sigma_e2 + noise_variance
         
-        # (Batch, t, r)
         H_hat_H = H_hat.mH
-        # (Batch, t, t)
         Gram = torch.matmul(H_hat_H, H_hat) 
-        # Regularization
         Reg = eff_noise * torch.eye(t_mimo, device=device).unsqueeze(0)
         
         inv_mat = torch.inverse(Gram + Reg)
@@ -291,46 +265,40 @@ if __name__ == "__main__":
         # Equalization
         s_mmse = torch.matmul(W_mmse, Y) # (B, t, L)
         
-        # Save MMSE Result
-        # Remap to Latent -> Denorm -> Decode
+        # Save MMSE Result (Scaling back for display)
         z_init_real = mimo_streams_to_latent(s_mmse, latent_shape)
-        # Note: s_0 was z_norm/sqrt(2). So z_init is s_mmse * sqrt(2) approx?
-        # Check scale: The channel model assumes power 1. z_norm has power 1. s_0 has power 1 (due to split?). 
-        # Actually in img2img: q_real_data = z_norm / sqrt(2*var) -> q has var 0.5?
-        # Let's align with input scaling:
-        z_init = z_init_real * np.sqrt(2.0)
         
-        z_nosample = z_init * (torch.sqrt(z_var) + eps) + z_mean
+        # z_init_mmse: 生の信号スケール (信号電力は減衰している可能性がある)
+        z_init_mmse = z_init_real * np.sqrt(2.0)
+        
+        # 単純復号 (No-Sample)
+        z_nosample = z_init_mmse * (torch.sqrt(z_var) + eps) + z_mean
         rec_nosample = model.decode_first_stage(z_nosample)
         save_img_individually(rec_nosample, f"{opt.nosample_outdir}/mmse_snr{snr}.png")
         
         # E. Prepare for Method C (DPS)
         
         # Sigma_inv Construction
-        # In observation domain Y, Noise Covariance is roughly diagonal (Thermal + Estimation Error)
-        # We use a scalar approximation for stability in DPS
-        # High SNR -> Small Variance -> Large Sigma_inv -> Strong Guidance
         eff_var_scalar = noise_variance + sigma_e2
         Sigma_inv = 1.0 / eff_var_scalar
         
-        # Wrap H_hat for matrix multiplication in ddim.py
-        # This allows ddim.py (which uses *) to do matrix mult (@)
         H_hat_wrapper = MatrixOperator(H_hat)
         
         # Define Mapper Wrappers for Sampler
-        # The sampler works in "z" (Real) space. 
-        # mapper: z -> s (Complex, B, t, L)
-        # inv_mapper: s -> z (Real)
         def forward_mapper(z):
-            # z is unscaled latent (standard normal approx)
-            # convert to signal power scale
             return latent_to_mimo_streams(z / np.sqrt(2.0), t_mimo)
         
         def backward_mapper(s, shape):
             z = mimo_streams_to_latent(s, shape)
             return z * np.sqrt(2.0)
 
-        # Conditioning
+        # [Fix 1] 入力信号の正規化 (Normalization)
+        # MMSE出力はノイズ除去過程で振幅が小さくなっている(Shrinkage)ため、
+        # 拡散モデルの入力仕様 (Mean 0, Var 1) に合わせて正規化する。
+        # これにより拡散モデルが「薄い画像」ではなく「ノイズの乗った画像」として正しく認識できるようにする。
+        actual_std = z_init_mmse.std(dim=(1, 2, 3), keepdim=True)
+        z_init_normalized = z_init_mmse / (actual_std + 1e-8)
+        
         cond = model.get_learned_conditioning(batch_size * [""])
         
         print(f"Starting Method C Sampling... Steps={opt.ddim_steps}, Zeta={opt.dps_scale}")
@@ -342,10 +310,10 @@ if __name__ == "__main__":
             conditioning=cond,
             
             # Method C Arguments
-            y=Y,                 # (B, r, L)
-            H_hat=H_hat_wrapper, # Wrapped Matrix Operator
+            y=Y,                 
+            H_hat=H_hat_wrapper, 
             Sigma_inv=torch.tensor(Sigma_inv, device=device),
-            z_init=z_init,       # MMSE start
+            z_init=z_init_normalized, # [Fix 1] 正規化済みの初期値を渡す
             zeta=opt.dps_scale,
             
             mapper=forward_mapper,
