@@ -73,14 +73,6 @@ def compute_metric(x, y, metric='ssim', lpips_model=None, device=None):
 def parse_filename_info(filename, is_sent=False):
     """
     Parses filenames based on output from bench_MMSE.py and mimo_dps_proposed.py.
-    
-    Expected Sent formats: 
-      - "original_0.png", "original_1.png"
-    
-    Expected Recv formats:
-      - "bench_snr-5_0.png"      (Benchmark Standard Diffusion)
-      - "mmse_snr10_1.png"       (Linear MMSE / NoSample)
-      - "proposed_snr25_0.png"   (Proposed Method)
     """
     name_no_ext = os.path.splitext(filename)[0]
     
@@ -106,7 +98,7 @@ def calculate_snr_vs_metric(sent_path, received_path, metric='ssim', resize=(256
     dic_num = {}
 
     if not os.path.isdir(received_path):
-        print(f"  [Skipped] Directory not found: {received_path}")
+        # Only print warning if we expect it to exist
         return [], []
 
     print(f"  Processing: {received_path} ...")
@@ -179,41 +171,55 @@ def calculate_snr_vs_metric(sent_path, received_path, metric='ssim', resize=(256
     
     return x_vals, y_vals
 
-def plot_results(results, metric_name, t, r, mode):
-    # colors = ['black', 'blue', 'red', 'green', 'orange', 'purple']
-    
+def get_style(method_key, mode_key):
+    """
+    Returns (color, linestyle, marker) based on method and mode.
+    """
+    # 1. Determine Color by Method
+    if "proposed" in method_key:
+        color = 'red'
+        marker = 'o'
+    elif "mmse_bench" in method_key:
+        color = 'blue'
+        marker = 's'
+    elif "mmse_linear" in method_key:
+        color = 'black'
+        marker = 'x'
+    else:
+        color = 'gray'
+        marker = '.'
+
+    # 2. Determine Line Style by Mode
+    if mode_key == "perfect":
+        linestyle = '-'  # Solid for Perfect
+    elif mode_key == "estimated":
+        linestyle = '--' # Dashed for Estimated
+    else:
+        linestyle = '-.'
+
+    return color, linestyle, marker
+
+def plot_results(results, metric_name, t, r):
+    """
+    results: list of tuples (x_vals, y_vals, label, method_key, mode_key)
+    """
     plt.figure(figsize=(10, 6))
     
-    for i, (x_vals, y_vals, label) in enumerate(results):
+    for x_vals, y_vals, label, method_key, mode_key in results:
         if not x_vals: continue
         
-        # Style definition based on label content
-        if "Linear" in label or "NoSample" in label:
-            c = 'black'
-            l = '--'
-            m = 'x'
-        elif "Standard" in label or "Benchmark" in label:
-            c = 'blue'
-            l = '-'
-            m = 's'
-        elif "Proposed" in label:
-            c = 'red'
-            l = '-'
-            m = 'o'
-        else:
-            c = None # Auto
-            l = '-'
-            m = '.'
-
+        c, l, m = get_style(method_key, mode_key)
+        
         plt.plot(x_vals, y_vals, marker=m, linestyle=l, label=label, color=c, markersize=6, linewidth=2)
     
     plt.xlabel("SNR (dB)", fontsize=12)
     plt.ylabel(f"{metric_name.upper()}", fontsize=12)
-    plt.title(f"MIMO ({t}x{r}) - {mode.capitalize()} CSI - {metric_name.upper()}", fontsize=14)
+    plt.title(f"MIMO ({t}x{r}) Evaluation - {metric_name.upper()}", fontsize=14)
     plt.grid(True, linestyle='--', alpha=0.6)
     plt.legend()
     
-    out_filename = f"eval_mimo_t{t}_r{r}_{mode}_{metric_name}.png"
+    # Filename includes all plotted info implicitly, but we keep it simple
+    out_filename = f"eval_mimo_t{t}_r{r}_{metric_name}.png"
     plt.tight_layout()
     plt.savefig(out_filename, bbox_inches='tight')
     print(f"\n[Plot Saved] {out_filename}")
@@ -221,39 +227,53 @@ def plot_results(results, metric_name, t, r, mode):
 def main():
     parser = argparse.ArgumentParser(description="Evaluate MIMO Diffusion Methods (MMSE vs Proposed)")
     
-    # Configuration matches your scripts
+    # Configuration
     parser.add_argument("--t", type=int, default=2, help="Transmit antennas")
     parser.add_argument("--r", type=int, default=2, help="Receive antennas")
-    parser.add_argument("--mode", type=str, choices=["estimated", "perfect"], default="estimated", help="CSI Estimation mode")
     
+    # Selection Arguments
+    parser.add_argument("--modes", nargs='+', default=["estimated", "perfect"], 
+                        choices=["estimated", "perfect"], 
+                        help="CSI Estimation modes to include (space separated)")
+    
+    parser.add_argument("--targets", nargs='+', default=["proposed", "mmse_bench", "mmse_linear"], 
+                        choices=["proposed", "mmse_bench", "mmse_linear"],
+                        help="Methods to plot (space separated)")
+
     parser.add_argument("--sent", "-s", default="./sentimg", help="Directory containing original images (original_X.png)")
     parser.add_argument("--metric", "-m", choices=["ssim","mse","psnr","lpips","all"], default="lpips", help="Metric to use")
     parser.add_argument("--resize", type=int, default=256, help="Image resize dimension (square)")
     
     args = parser.parse_args()
-    # python eval_dps.py --mode estimated -m all
+    # python eval_dps.py -m all
     # ==========================================
-    # Define Paths based on Generation Scripts
+    # Define Paths Dynamically
     # ==========================================
     
-    # 1. MMSE Benchmark Path (from bench_MMSE.py)
-    # Output: outputs/MIMO_Benchmark_MMSE/t={t}_r={r}/{mode}
+    # Base paths structure
     base_benchmark = f"outputs/MIMO_Benchmark_MMSE/t={args.t}_r={args.r}"
-    
-    path_mmse_bench = os.path.join(base_benchmark, args.mode)
-    path_mmse_linear = os.path.join(base_benchmark, "nosample", args.mode)
-
-    # 2. Proposed Path (from mimo_dps_proposed.py)
-    # Output: outputs/MIMO_Proposed_LS/t={t}_r={r}/{mode}
     base_proposed = f"outputs/MIMO_Proposed_LS/t={args.t}_r={args.r}"
-    path_proposed = os.path.join(base_proposed, args.mode)
     
-    # Define Targets to evaluate: (Path, Label)
-    targets = [
-        (path_mmse_linear, "MMSE (Linear/NoSample)"),
-        (path_mmse_bench,  "MMSE + Standard Diffusion"),
-        (path_proposed,    "Proposed (DPS)"),
-    ]
+    # Construct the list of paths to evaluate
+    # List of tuples: (path, label, method_key, mode_key)
+    eval_targets = []
+
+    for mode in args.modes:
+        for target in args.targets:
+            if target == "proposed":
+                path = os.path.join(base_proposed, mode)
+                label = f"Proposed ({mode.capitalize()})"
+                eval_targets.append((path, label, "proposed", mode))
+            
+            elif target == "mmse_bench":
+                path = os.path.join(base_benchmark, mode)
+                label = f"MMSE Standard ({mode.capitalize()})"
+                eval_targets.append((path, label, "mmse_bench", mode))
+            
+            elif target == "mmse_linear":
+                path = os.path.join(base_benchmark, "nosample", mode)
+                label = f"MMSE Linear ({mode.capitalize()})"
+                eval_targets.append((path, label, "mmse_linear", mode))
 
     metrics_to_run = ["ssim", "psnr", "lpips"] if args.metric == "all" else [args.metric]
 
@@ -275,7 +295,7 @@ def main():
         
         plot_data = []
         
-        for path, label in targets:
+        for path, label, method_key, mode_key in eval_targets:
             if os.path.exists(path):
                 x, y = calculate_snr_vs_metric(
                     args.sent, path, 
@@ -284,12 +304,12 @@ def main():
                     lpips_model=lpips_model, device=device
                 )
                 if x:
-                    plot_data.append((x, y, label))
+                    plot_data.append((x, y, label, method_key, mode_key))
             else:
-                print(f"  [Warning] Path not found: {path}")
+                print(f"  [Skipping] Path not found: {path}")
 
         if plot_data:
-            plot_results(plot_data, metric, args.t, args.r, args.mode)
+            plot_results(plot_data, metric, args.t, args.r)
         else:
             print("No valid data found to plot. Please check directory paths and file naming.")
 

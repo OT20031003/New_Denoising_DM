@@ -1,6 +1,7 @@
 import argparse, os, sys, glob
 import torch
 import numpy as np
+import random
 from omegaconf import OmegaConf
 from PIL import Image
 from tqdm import tqdm, trange
@@ -16,6 +17,13 @@ import lpips
 # ==========================================
 #  Helper Functions
 # ==========================================
+
+def seed_everything(seed):
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.backends.cudnn.deterministic = True
 
 def load_images_as_tensors(dir_path, image_size=(256, 256)):
     """
@@ -158,9 +166,12 @@ if __name__ == "__main__":
     
     parser.add_argument("--ddim_steps", type=int, default=200, help="number of ddim sampling steps")
     parser.add_argument("--scale", type=float, default=5.0, help="unconditional guidance scale")
-    # DPSのスケール引数はここでは使いません
+    parser.add_argument("--seed", type=int, default=42, help="random seed for reproducibility")
     
     opt = parser.parse_args()
+
+    # Seed Setting
+    seed_everything(opt.seed)
 
     # ディレクトリのsuffix設定
     suffix = "perfect" if Perfect_Estimate else "estimated"
@@ -168,6 +179,7 @@ if __name__ == "__main__":
     opt.nosample_outdir = os.path.join(opt.nosample_outdir, suffix)
 
     print(f"Output Directory: {opt.outdir}")
+    print(f"Random Seed: {opt.seed}")
     os.makedirs(opt.outdir, exist_ok=True)
     os.makedirs(opt.sentimgdir, exist_ok=True)
     os.makedirs(opt.nosample_outdir, exist_ok=True)
@@ -293,16 +305,20 @@ if __name__ == "__main__":
         z_input_for_sampler = z_mmse_scaled / (actual_std + 1e-8)
         
         # ノイズレベルの推定と補正
-        # MMSE後の残留ノイズ増幅率
-        # Noise Covariance after MMSE approx W * W^H * noise_var
-        # (簡易計算) noise_amplification = mean(diag(W W^H))
-        noise_amplification = torch.mean(torch.diagonal(torch.matmul(W_mmse, W_mmse.mH).real, dim1=1, dim2=2), dim=1)
+        # [Modified] mimo_dps_proposedと同じノイズ推定ロジックを適用
+        # MMSEフィルタ後のノイズ共分散の対角成分(平均)を推定: eff_noise * (W_mmse @ W_mmse^H)
+        W_W_H = torch.matmul(W_mmse, W_mmse.mH)
         
-        current_noise_power = noise_variance * noise_amplification
+        # Proposedと同じくスカラ平均を使用 (Batch, Antenna込み)
+        noise_power_factor = W_W_H.diagonal(dim1=-2, dim2=-1).real.mean()
+        
+        # ノイズ分散 + 推定誤差分散 を考慮 (eff_noise使用)
+        post_mmse_noise_var = eff_noise * noise_power_factor
         
         # 正規化したため、分散情報もスケーリングする
+        # サンプラーは入力信号分散が1であることを期待しているため、相対的なノイズ分散を渡す
         actual_var_flat = (actual_std.flatten()) ** 2
-        effective_noise_variance = current_noise_power / actual_var_flat
+        effective_noise_variance = post_mmse_noise_var / actual_var_flat
         
         cond = model.get_learned_conditioning(batch_size * [""])
         

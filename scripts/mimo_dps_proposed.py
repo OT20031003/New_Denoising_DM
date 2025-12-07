@@ -1,6 +1,7 @@
 import argparse, os, sys, glob
 import torch
 import numpy as np
+import random
 from omegaconf import OmegaConf
 from PIL import Image
 from tqdm import tqdm, trange
@@ -23,6 +24,13 @@ class MatrixOperator:
 
     def __mul__(self, other):
         return torch.matmul(self.tensor, other)
+
+def seed_everything(seed):
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.backends.cudnn.deterministic = True
 
 def load_images_as_tensors(dir_path, image_size=(256, 256)):
     transform = transforms.Compose([
@@ -134,9 +142,13 @@ if __name__ == "__main__":
     
     parser.add_argument("--ddim_steps", type=int, default=200)
     parser.add_argument("--scale", type=float, default=5.0)
-    parser.add_argument("--dps_scale", type=float, default=0.1) 
+    parser.add_argument("--dps_scale", type=float, default=0.1)
+    parser.add_argument("--seed", type=int, default=42, help="random seed for reproducibility")
     
     opt = parser.parse_args()
+
+    # Seed Setting
+    seed_everything(opt.seed)
 
     # Directory Setup
     suffix = "perfect" if Perfect_Estimate else "estimated"
