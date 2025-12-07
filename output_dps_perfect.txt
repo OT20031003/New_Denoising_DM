@@ -23,12 +23,12 @@ Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/perfect/
 [Info] Low SNR (-5dB): Reducing Zeta to 0.0100
 Starting Proposed Sampling... Steps=200, Zeta=0.010000000000000002
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.132750
-[Proposed] Start: DDIM Step 22/200 (t=111) | Target Alpha: 0.8828
-[Step Init] img (x_t)  | Mean: -0.0490 | Std: 1.0039 | MaxAbs: 6.8123 | Norm: 287.6671
-[Step 111] Loss: 5.50035 | ScoreNorm: 52.2632 | GradNorm: 0.0032 | Mean: -0.0490 | Std: 1.0039 | MaxAbs: 6.8123 | Norm: 287.6671
-[Step 61] Loss: 5.32731 | ScoreNorm: 43.1264 | GradNorm: 0.0033 | Mean: -0.0500 | Std: 0.9616 | MaxAbs: 3.0000 | Norm: 275.5909
-[Step 11] Loss: 5.11423 | ScoreNorm: 25.1116 | GradNorm: 0.0035 | Mean: -0.0517 | Std: 0.9284 | MaxAbs: 3.0000 | Norm: 266.1353
+[Proposed] Using provided initial_noise_variance: 0.122074
+[Proposed] Start: DDIM Step 20/200 (t=101) | Target Alpha: 0.8912
+[Step Init] img (x_t)  | Mean: -0.0136 | Std: 1.0034 | MaxAbs: 6.2923 | Norm: 287.2119
+[Step 101] Loss: 5.66398 | ScoreNorm: 53.0131 | GradNorm: 0.0031 | Mean: -0.0136 | Std: 1.0034 | MaxAbs: 6.2923 | Norm: 287.2119
+[Step 51] Loss: 5.48039 | ScoreNorm: 42.9340 | GradNorm: 0.0032 | Mean: -0.0140 | Std: 0.9603 | MaxAbs: 3.0000 | Norm: 274.8811
+[Step 1] Loss: 5.26838 | ScoreNorm: 15.0796 | GradNorm: 0.0036 | Mean: -0.0148 | Std: 0.9194 | MaxAbs: 3.0000 | Norm: 263.1684
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/perfect/
 Saved result for SNR -5
 
@@ -37,12 +37,12 @@ Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/perfect/
 [Info] Low SNR (-2dB): Reducing Zeta to 0.0100
 Starting Proposed Sampling... Steps=200, Zeta=0.010000000000000002
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.157636
-[Proposed] Start: DDIM Step 25/200 (t=126) | Target Alpha: 0.8638
-[Step Init] img (x_t)  | Mean: -0.0333 | Std: 1.0063 | MaxAbs: 9.1450 | Norm: 288.1650
-[Step 126] Loss: 5.10811 | ScoreNorm: 50.7597 | GradNorm: 0.0049 | Mean: -0.0333 | Std: 1.0063 | MaxAbs: 9.1450 | Norm: 288.1650
-[Step 76] Loss: 4.93221 | ScoreNorm: 42.5972 | GradNorm: 0.0047 | Mean: -0.0337 | Std: 0.9678 | MaxAbs: 3.0000 | Norm: 277.1753
-[Step 26] Loss: 4.69567 | ScoreNorm: 30.5026 | GradNorm: 0.0046 | Mean: -0.0346 | Std: 0.9441 | MaxAbs: 3.0000 | Norm: 270.3981
+[Proposed] Using provided initial_noise_variance: 0.160118
+[Proposed] Start: DDIM Step 25/200 (t=126) | Target Alpha: 0.8620
+[Step Init] img (x_t)  | Mean: 0.0169 | Std: 1.0058 | MaxAbs: 6.5865 | Norm: 287.9203
+[Step 126] Loss: 5.02183 | ScoreNorm: 50.1856 | GradNorm: 0.0048 | Mean: 0.0169 | Std: 1.0058 | MaxAbs: 6.5865 | Norm: 287.9203
+[Step 76] Loss: 4.83297 | ScoreNorm: 42.2177 | GradNorm: 0.0046 | Mean: 0.0167 | Std: 0.9685 | MaxAbs: 3.0000 | Norm: 277.2359
+[Step 26] Loss: 4.60667 | ScoreNorm: 30.3699 | GradNorm: 0.0045 | Mean: 0.0169 | Std: 0.9451 | MaxAbs: 3.0000 | Norm: 270.5323
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/perfect/
 Saved result for SNR -2
 
@@ -51,12 +51,12 @@ Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/perfect/
 [Info] Low SNR (1dB): Reducing Zeta to 0.0100
 Starting Proposed Sampling... Steps=200, Zeta=0.010000000000000002
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.180176
-[Proposed] Start: DDIM Step 27/200 (t=136) | Target Alpha: 0.8473
-[Step Init] img (x_t)  | Mean: 0.0334 | Std: 1.0080 | MaxAbs: 8.1598 | Norm: 288.6631
-[Step 136] Loss: 4.83927 | ScoreNorm: 50.8857 | GradNorm: 0.0096 | Mean: 0.0334 | Std: 1.0080 | MaxAbs: 8.1598 | Norm: 288.6631
-[Step 86] Loss: 4.52145 | ScoreNorm: 43.1469 | GradNorm: 0.0084 | Mean: 0.0338 | Std: 0.9756 | MaxAbs: 3.0000 | Norm: 279.3868
-[Step 36] Loss: 4.17439 | ScoreNorm: 32.9191 | GradNorm: 0.0075 | Mean: 0.0344 | Std: 0.9572 | MaxAbs: 3.0000 | Norm: 274.1459
+[Proposed] Using provided initial_noise_variance: 0.176479
+[Proposed] Start: DDIM Step 27/200 (t=136) | Target Alpha: 0.8500
+[Step Init] img (x_t)  | Mean: 0.0544 | Std: 1.0062 | MaxAbs: 8.6504 | Norm: 288.4240
+[Step 136] Loss: 4.94747 | ScoreNorm: 49.4315 | GradNorm: 0.0090 | Mean: 0.0544 | Std: 1.0062 | MaxAbs: 8.6504 | Norm: 288.4240
+[Step 86] Loss: 4.68976 | ScoreNorm: 41.7559 | GradNorm: 0.0080 | Mean: 0.0535 | Std: 0.9743 | MaxAbs: 3.0000 | Norm: 279.2858
+[Step 36] Loss: 4.40037 | ScoreNorm: 31.8523 | GradNorm: 0.0072 | Mean: 0.0545 | Std: 0.9588 | MaxAbs: 3.0000 | Norm: 274.8756
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/perfect/
 Saved result for SNR 1
 
@@ -65,12 +65,12 @@ Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/perfect/
 [Info] Low SNR (4dB): Reducing Zeta to 0.0100
 Starting Proposed Sampling... Steps=200, Zeta=0.010000000000000002
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.174906
-[Proposed] Start: DDIM Step 26/200 (t=131) | Target Alpha: 0.8511
-[Step Init] img (x_t)  | Mean: -0.0049 | Std: 1.0059 | MaxAbs: 10.8335 | Norm: 287.9205
-[Step 131] Loss: 4.94646 | ScoreNorm: 50.8884 | GradNorm: 0.0147 | Mean: -0.0049 | Std: 1.0059 | MaxAbs: 10.8335 | Norm: 287.9205
-[Step 81] Loss: 4.61184 | ScoreNorm: 42.9116 | GradNorm: 0.0131 | Mean: -0.0055 | Std: 0.9755 | MaxAbs: 3.0000 | Norm: 279.2187
-[Step 31] Loss: 4.20638 | ScoreNorm: 31.9295 | GradNorm: 0.0116 | Mean: -0.0058 | Std: 0.9595 | MaxAbs: 3.0000 | Norm: 274.6182
+[Proposed] Using provided initial_noise_variance: 0.166795
+[Proposed] Start: DDIM Step 26/200 (t=131) | Target Alpha: 0.8570
+[Step Init] img (x_t)  | Mean: -0.0081 | Std: 1.0085 | MaxAbs: 7.9232 | Norm: 288.6633
+[Step 131] Loss: 5.53852 | ScoreNorm: 50.1229 | GradNorm: 0.0167 | Mean: -0.0081 | Std: 1.0085 | MaxAbs: 7.9232 | Norm: 288.6633
+[Step 81] Loss: 5.23011 | ScoreNorm: 42.5213 | GradNorm: 0.0149 | Mean: -0.0088 | Std: 0.9806 | MaxAbs: 3.0000 | Norm: 280.6615
+[Step 31] Loss: 4.88503 | ScoreNorm: 31.8356 | GradNorm: 0.0136 | Mean: -0.0093 | Std: 0.9653 | MaxAbs: 3.0000 | Norm: 276.3024
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/perfect/
 Saved result for SNR 4
 
@@ -78,12 +78,12 @@ Saved result for SNR 4
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/perfect/
 Starting Proposed Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.155611
-[Proposed] Start: DDIM Step 24/200 (t=121) | Target Alpha: 0.8653
-[Step Init] img (x_t)  | Mean: -0.0092 | Std: 1.0035 | MaxAbs: 10.7072 | Norm: 287.2152
-[Step 121] Loss: 6.00863 | ScoreNorm: 51.3928 | GradNorm: 0.0249 | Mean: -0.0092 | Std: 1.0035 | MaxAbs: 10.7072 | Norm: 287.2152
-[Step 71] Loss: 5.62889 | ScoreNorm: 43.2163 | GradNorm: 0.0228 | Mean: -0.0098 | Std: 0.9726 | MaxAbs: 3.0000 | Norm: 278.3874
-[Step 21] Loss: 5.04228 | ScoreNorm: 30.5512 | GradNorm: 0.0206 | Mean: -0.0100 | Std: 0.9580 | MaxAbs: 3.0000 | Norm: 274.2136
+[Proposed] Using provided initial_noise_variance: 0.146359
+[Proposed] Start: DDIM Step 23/200 (t=116) | Target Alpha: 0.8723
+[Step Init] img (x_t)  | Mean: -0.0034 | Std: 1.0025 | MaxAbs: 8.2331 | Norm: 286.9205
+[Step 116] Loss: 6.37220 | ScoreNorm: 50.3797 | GradNorm: 0.0312 | Mean: -0.0034 | Std: 1.0025 | MaxAbs: 8.2331 | Norm: 286.9205
+[Step 66] Loss: 6.01365 | ScoreNorm: 42.6148 | GradNorm: 0.0291 | Mean: -0.0047 | Std: 0.9778 | MaxAbs: 3.0000 | Norm: 279.8698
+[Step 16] Loss: 5.38149 | ScoreNorm: 28.5001 | GradNorm: 0.0269 | Mean: -0.0051 | Std: 0.9642 | MaxAbs: 3.0000 | Norm: 275.9828
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/perfect/
 Saved result for SNR 7
 
@@ -91,12 +91,12 @@ Saved result for SNR 7
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/perfect/
 Starting Proposed Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.120717
-[Proposed] Start: DDIM Step 20/200 (t=101) | Target Alpha: 0.8923
-[Step Init] img (x_t)  | Mean: -0.0006 | Std: 1.0027 | MaxAbs: 10.6304 | Norm: 286.9881
-[Step 101] Loss: 7.32686 | ScoreNorm: 50.0398 | GradNorm: 0.0450 | Mean: -0.0006 | Std: 1.0027 | MaxAbs: 10.6304 | Norm: 286.9881
-[Step 51] Loss: 7.07631 | ScoreNorm: 42.2741 | GradNorm: 0.0454 | Mean: -0.0009 | Std: 0.9769 | MaxAbs: 3.0000 | Norm: 279.6133
-[Step 1] Loss: 5.76766 | ScoreNorm: 16.2112 | GradNorm: 0.0438 | Mean: -0.0006 | Std: 0.9625 | MaxAbs: 3.0000 | Norm: 275.4862
+[Proposed] Using provided initial_noise_variance: 0.134846
+[Proposed] Start: DDIM Step 22/200 (t=111) | Target Alpha: 0.8812
+[Step Init] img (x_t)  | Mean: -0.0036 | Std: 1.0009 | MaxAbs: 10.0616 | Norm: 286.4860
+[Step 111] Loss: 7.24024 | ScoreNorm: 50.9391 | GradNorm: 0.0412 | Mean: -0.0036 | Std: 1.0009 | MaxAbs: 10.0616 | Norm: 286.4860
+[Step 61] Loss: 6.89820 | ScoreNorm: 43.9839 | GradNorm: 0.0402 | Mean: -0.0046 | Std: 0.9767 | MaxAbs: 3.0000 | Norm: 279.5510
+[Step 11] Loss: 5.78644 | ScoreNorm: 28.7836 | GradNorm: 0.0377 | Mean: -0.0048 | Std: 0.9640 | MaxAbs: 3.0000 | Norm: 275.9141
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/perfect/
 Saved result for SNR 10
 
@@ -104,11 +104,11 @@ Saved result for SNR 10
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/perfect/
 Starting Proposed Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.081317
-[Proposed] Start: DDIM Step 15/200 (t=76) | Target Alpha: 0.9248
-[Step Init] img (x_t)  | Mean: -0.0036 | Std: 1.0003 | MaxAbs: 9.2964 | Norm: 286.3045
-[Step 76] Loss: 8.36600 | ScoreNorm: 48.0667 | GradNorm: 0.0634 | Mean: -0.0036 | Std: 1.0003 | MaxAbs: 9.2964 | Norm: 286.3045
-[Step 26] Loss: 8.09797 | ScoreNorm: 38.8351 | GradNorm: 0.0669 | Mean: -0.0046 | Std: 0.9750 | MaxAbs: 3.0000 | Norm: 279.0673
+[Proposed] Using provided initial_noise_variance: 0.102155
+[Proposed] Start: DDIM Step 18/200 (t=91) | Target Alpha: 0.9073
+[Step Init] img (x_t)  | Mean: -0.0385 | Std: 1.0035 | MaxAbs: 11.3770 | Norm: 287.4378
+[Step 91] Loss: 10.35831 | ScoreNorm: 48.7717 | GradNorm: 0.0635 | Mean: -0.0385 | Std: 1.0035 | MaxAbs: 11.3770 | Norm: 287.4378
+[Step 41] Loss: 10.23891 | ScoreNorm: 40.0372 | GradNorm: 0.0650 | Mean: -0.0397 | Std: 0.9760 | MaxAbs: 3.0000 | Norm: 279.5672
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/perfect/
 Saved result for SNR 13
 
@@ -116,11 +116,11 @@ Saved result for SNR 13
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/perfect/
 Starting Proposed Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.082320
-[Proposed] Start: DDIM Step 15/200 (t=76) | Target Alpha: 0.9239
-[Step Init] img (x_t)  | Mean: -0.0188 | Std: 1.0045 | MaxAbs: 8.7291 | Norm: 287.5490
-[Step 76] Loss: 16.41290 | ScoreNorm: 47.5691 | GradNorm: 0.1168 | Mean: -0.0188 | Std: 1.0045 | MaxAbs: 8.7291 | Norm: 287.5490
-[Step 26] Loss: 15.70664 | ScoreNorm: 36.5851 | GradNorm: 0.1181 | Mean: -0.0185 | Std: 0.9711 | MaxAbs: 3.0000 | Norm: 277.9913
+[Proposed] Using provided initial_noise_variance: 0.067888
+[Proposed] Start: DDIM Step 13/200 (t=66) | Target Alpha: 0.9364
+[Step Init] img (x_t)  | Mean: 0.0040 | Std: 1.0002 | MaxAbs: 8.8201 | Norm: 286.2759
+[Step 66] Loss: 9.97422 | ScoreNorm: 45.6345 | GradNorm: 0.0850 | Mean: 0.0040 | Std: 1.0002 | MaxAbs: 8.8201 | Norm: 286.2759
+[Step 16] Loss: 9.59762 | ScoreNorm: 33.4502 | GradNorm: 0.0894 | Mean: 0.0033 | Std: 0.9750 | MaxAbs: 3.0000 | Norm: 279.0749
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/perfect/
 Saved result for SNR 16
 
@@ -128,10 +128,11 @@ Saved result for SNR 16
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/perfect/
 Starting Proposed Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.041337
-[Proposed] Start: DDIM Step 8/200 (t=41) | Target Alpha: 0.9603
-[Step Init] img (x_t)  | Mean: 0.0022 | Std: 0.9999 | MaxAbs: 9.5866 | Norm: 286.1991
-[Step 41] Loss: 11.52328 | ScoreNorm: 42.9610 | GradNorm: 0.1481 | Mean: 0.0022 | Std: 0.9999 | MaxAbs: 9.5866 | Norm: 286.1991
+[Proposed] Using provided initial_noise_variance: 0.053542
+[Proposed] Start: DDIM Step 10/200 (t=51) | Target Alpha: 0.9492
+[Step Init] img (x_t)  | Mean: -0.0195 | Std: 1.0015 | MaxAbs: 10.0856 | Norm: 286.6933
+[Step 51] Loss: 16.37516 | ScoreNorm: 43.9652 | GradNorm: 0.1613 | Mean: -0.0195 | Std: 1.0015 | MaxAbs: 10.0856 | Norm: 286.6933
+[Step 1] Loss: 17.45005 | ScoreNorm: 18.5898 | GradNorm: 0.1910 | Mean: -0.0205 | Std: 0.9709 | MaxAbs: 3.0000 | Norm: 277.9578
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/perfect/
 Saved result for SNR 19
 
@@ -139,10 +140,10 @@ Saved result for SNR 19
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/perfect/
 Starting Proposed Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.024865
-[Proposed] Start: DDIM Step 5/200 (t=26) | Target Alpha: 0.9757
-[Step Init] img (x_t)  | Mean: 0.0029 | Std: 0.9999 | MaxAbs: 9.8352 | Norm: 286.1958
-[Step 26] Loss: 11.41456 | ScoreNorm: 40.2673 | GradNorm: 0.2012 | Mean: 0.0029 | Std: 0.9999 | MaxAbs: 9.8352 | Norm: 286.1958
+[Proposed] Using provided initial_noise_variance: 0.035671
+[Proposed] Start: DDIM Step 7/200 (t=36) | Target Alpha: 0.9656
+[Step Init] img (x_t)  | Mean: -0.0007 | Std: 0.9999 | MaxAbs: 9.9767 | Norm: 286.1943
+[Step 36] Loss: 16.14737 | ScoreNorm: 41.5678 | GradNorm: 0.2477 | Mean: -0.0007 | Std: 0.9999 | MaxAbs: 9.9767 | Norm: 286.1943
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/perfect/
 Saved result for SNR 22
 
@@ -150,9 +151,9 @@ Saved result for SNR 22
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/perfect/
 Starting Proposed Sampling... Steps=200, Zeta=0.1
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.026044
-[Proposed] Start: DDIM Step 5/200 (t=26) | Target Alpha: 0.9746
-[Step Init] img (x_t)  | Mean: -0.0006 | Std: 1.0000 | MaxAbs: 9.9197 | Norm: 286.2256
-[Step 26] Loss: 22.16941 | ScoreNorm: 38.0924 | GradNorm: 0.4297 | Mean: -0.0006 | Std: 1.0000 | MaxAbs: 9.9197 | Norm: 286.2256
+[Proposed] Using provided initial_noise_variance: 0.018095
+[Proposed] Start: DDIM Step 4/200 (t=21) | Target Alpha: 0.9822
+[Step Init] img (x_t)  | Mean: 0.0024 | Std: 0.9999 | MaxAbs: 9.8502 | Norm: 286.1992
+[Step 21] Loss: 16.51548 | ScoreNorm: 37.8737 | GradNorm: 0.3611 | Mean: 0.0024 | Std: 0.9999 | MaxAbs: 9.8502 | Norm: 286.1992
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/perfect/
 Saved result for SNR 25

@@ -154,8 +154,8 @@ if __name__ == "__main__":
     N_pilot = 2 # パイロット長
     
     P_power = 1.0 
-    Perfect_Estimate = False
-    # python -m scripts.bench_MMSE > output_bench_MMSE_estimate.txt
+    Perfect_Estimate = True
+    # python -m scripts.bench_MMSE > output_bench_MMSE_perfect.txt
     # ベンチマーク用のディレクトリ設定
     base_experiment_name = f"MIMO_Benchmark_MMSE/t={t_mimo}_r={r_mimo}"
     

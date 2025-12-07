@@ -1,4 +1,5 @@
 Output Directory: outputs/MIMO_Benchmark_MMSE/t=2_r=2/perfect
+Random Seed: 42
 Loading model from models/ldm/text2img-large/model.ckpt
 autoencoder.py
 LatentDiffusion: Running in eps-prediction mode
@@ -24,9 +25,9 @@ MIMO Streams: 2x1024 complex symbols
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/nosample/perfect/
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.5117, 0.6223, 0.5848, 0.5945, 0.5904, 0.5616, 0.6084, 0.5487, 0.5801,
-        0.6359, 0.5815, 0.5184, 0.5199, 0.5423, 0.6415, 0.5961, 0.5638, 0.5967,
-        0.6272, 0.5403], device='cuda:0')
+ddim.py, alpha_bar_u = tensor([0.5730, 0.6023, 0.6051, 0.6324, 0.4231, 0.6187, 0.7069, 0.6727, 0.5430,
+        0.6133, 0.5837, 0.5088, 0.4873, 0.7306, 0.3837, 0.4835, 0.5914, 0.5137,
+        0.6273, 0.4842], device='cuda:0')
 ddim.py start_timesteps after clamp S = 200 : tensor([200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200,
         200, 200, 200, 200, 200, 200], device='cuda:0')
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/perfect/
@@ -36,9 +37,9 @@ Saved result for SNR -5
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/nosample/perfect/
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.6597, 0.6694, 0.5454, 0.6595, 0.5866, 0.5702, 0.6186, 0.5740, 0.6234,
-        0.7260, 0.6669, 0.5795, 0.5928, 0.6210, 0.5708, 0.6177, 0.6404, 0.5715,
-        0.6453, 0.5882], device='cuda:0')
+ddim.py, alpha_bar_u = tensor([0.7640, 0.6473, 0.5657, 0.7023, 0.6122, 0.6581, 0.7023, 0.5710, 0.6237,
+        0.6286, 0.6363, 0.7138, 0.6744, 0.5626, 0.5360, 0.6987, 0.7226, 0.6815,
+        0.6927, 0.6650], device='cuda:0')
 ddim.py start_timesteps after clamp S = 200 : tensor([200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200,
         200, 200, 200, 200, 200, 200], device='cuda:0')
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/perfect/
@@ -48,9 +49,9 @@ Saved result for SNR -2
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/nosample/perfect/
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.6918, 0.7703, 0.7309, 0.7219, 0.6896, 0.6089, 0.7755, 0.7234, 0.6014,
-        0.6630, 0.7029, 0.6861, 0.6725, 0.6107, 0.6127, 0.7269, 0.7028, 0.7094,
-        0.7537, 0.6794], device='cuda:0')
+ddim.py, alpha_bar_u = tensor([0.7731, 0.7458, 0.6689, 0.6596, 0.6703, 0.6833, 0.6739, 0.7144, 0.6655,
+        0.7299, 0.7560, 0.6237, 0.7413, 0.6224, 0.7754, 0.7691, 0.7531, 0.7309,
+        0.6818, 0.7004], device='cuda:0')
 ddim.py start_timesteps after clamp S = 200 : tensor([200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200,
         200, 200, 200, 200, 200, 200], device='cuda:0')
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/perfect/
@@ -60,9 +61,9 @@ Saved result for SNR 1
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/nosample/perfect/
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.7405, 0.9033, 0.7804, 0.7004, 0.6736, 0.7291, 0.8378, 0.8040, 0.7298,
-        0.7310, 0.7000, 0.7073, 0.7131, 0.6639, 0.8195, 0.7794, 0.7811, 0.6524,
-        0.8028, 0.7541], device='cuda:0')
+ddim.py, alpha_bar_u = tensor([0.8036, 0.8103, 0.6550, 0.7941, 0.7998, 0.7919, 0.7440, 0.7217, 0.7562,
+        0.7727, 0.7684, 0.7349, 0.7741, 0.7389, 0.7846, 0.7734, 0.7940, 0.7110,
+        0.7836, 0.6976], device='cuda:0')
 ddim.py start_timesteps after clamp S = 200 : tensor([200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200,
         200, 200, 200, 200, 200, 200], device='cuda:0')
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/perfect/
@@ -72,9 +73,9 @@ Saved result for SNR 4
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/nosample/perfect/
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.8612, 0.7337, 0.7797, 0.8407, 0.8247, 0.7603, 0.8008, 0.7941, 0.8356,
-        0.8393, 0.8239, 0.8425, 0.7409, 0.8540, 0.8981, 0.7588, 0.7943, 0.8601,
-        0.7841, 0.7699], device='cuda:0')
+ddim.py, alpha_bar_u = tensor([0.6983, 0.7520, 0.8335, 0.8331, 0.8325, 0.8426, 0.7956, 0.8369, 0.6930,
+        0.7593, 0.8352, 0.8485, 0.7816, 0.7994, 0.7885, 0.8274, 0.8584, 0.8481,
+        0.8154, 0.8539], device='cuda:0')
 ddim.py start_timesteps after clamp S = 200 : tensor([200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200,
         200, 200, 200, 200, 200, 200], device='cuda:0')
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/perfect/
@@ -84,9 +85,9 @@ Saved result for SNR 7
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/nosample/perfect/
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.8838, 0.7226, 0.9227, 0.7814, 0.7982, 0.8324, 0.8534, 0.7939, 0.8597,
-        0.8543, 0.8444, 0.8813, 0.9387, 0.8699, 0.8657, 0.8736, 0.8174, 0.8547,
-        0.8857, 0.7810], device='cuda:0')
+ddim.py, alpha_bar_u = tensor([0.8188, 0.8575, 0.8312, 0.8780, 0.8787, 0.8614, 0.8545, 0.8680, 0.8605,
+        0.7366, 0.8806, 0.8641, 0.8486, 0.8585, 0.8170, 0.8111, 0.8514, 0.8280,
+        0.8709, 0.8693], device='cuda:0')
 ddim.py start_timesteps after clamp S = 200 : tensor([200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200,
         200, 200, 200, 200, 200, 200], device='cuda:0')
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/perfect/
@@ -96,9 +97,9 @@ Saved result for SNR 10
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/nosample/perfect/
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.7986, 0.9303, 0.9814, 0.9188, 0.8579, 0.8763, 0.8342, 0.8568, 0.8030,
-        0.9525, 0.9474, 0.9700, 0.8971, 0.9388, 0.8809, 0.9509, 0.9644, 0.8780,
-        0.8304, 0.8334], device='cuda:0')
+ddim.py, alpha_bar_u = tensor([0.9081, 0.8817, 0.9010, 0.8829, 0.8970, 0.9008, 0.9076, 0.8870, 0.9023,
+        0.8953, 0.9103, 0.9068, 0.8617, 0.9100, 0.9070, 0.8392, 0.8913, 0.8988,
+        0.8983, 0.8246], device='cuda:0')
 ddim.py start_timesteps after clamp S = 200 : tensor([200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200,
         200, 200, 200, 200, 200, 200], device='cuda:0')
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/perfect/
@@ -108,9 +109,9 @@ Saved result for SNR 13
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/nosample/perfect/
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.9069, 0.8786, 0.8972, 0.8613, 0.8832, 0.8380, 0.9023, 0.9744, 0.9369,
-        0.9413, 0.8638, 0.9667, 0.8972, 0.9828, 0.9233, 0.8438, 0.9750, 0.9443,
-        0.9766, 0.9340], device='cuda:0')
+ddim.py, alpha_bar_u = tensor([0.9130, 0.9196, 0.9180, 0.9138, 0.9129, 0.9277, 0.9208, 0.9234, 0.9253,
+        0.9271, 0.9264, 0.9210, 0.9265, 0.9185, 0.9193, 0.9205, 0.9179, 0.9271,
+        0.9236, 0.9259], device='cuda:0')
 ddim.py start_timesteps after clamp S = 200 : tensor([200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200,
         200, 200, 200, 200, 200, 200], device='cuda:0')
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/perfect/
@@ -120,9 +121,9 @@ Saved result for SNR 16
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/nosample/perfect/
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.9809, 0.9748, 0.9033, 0.9861, 0.9647, 0.9018, 0.9425, 0.9496, 0.9740,
-        0.9779, 0.9800, 0.9696, 0.9853, 0.9443, 0.9868, 0.9122, 0.9392, 0.9739,
-        0.9883, 0.8177], device='cuda:0')
+ddim.py, alpha_bar_u = tensor([0.9519, 0.9523, 0.9508, 0.9502, 0.9510, 0.9516, 0.9505, 0.9436, 0.9508,
+        0.9517, 0.9511, 0.9516, 0.9508, 0.9503, 0.9505, 0.9526, 0.9342, 0.9405,
+        0.9524, 0.9501], device='cuda:0')
 ddim.py start_timesteps after clamp S = 200 : tensor([200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200,
         200, 200, 200, 200, 200, 200], device='cuda:0')
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/perfect/
@@ -132,9 +133,9 @@ Saved result for SNR 19
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/nosample/perfect/
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.9901, 0.8609, 0.9625, 0.8496, 0.9644, 0.9386, 0.9481, 0.9755, 0.8469,
-        0.9948, 0.9244, 0.9567, 0.9153, 0.9054, 0.9915, 0.9900, 0.9890, 0.9879,
-        0.9797, 0.9880], device='cuda:0')
+ddim.py, alpha_bar_u = tensor([0.9574, 0.9577, 0.9642, 0.9643, 0.9645, 0.9647, 0.9620, 0.9647, 0.9628,
+        0.9626, 0.9642, 0.9649, 0.9641, 0.9647, 0.9645, 0.9651, 0.9646, 0.9645,
+        0.9644, 0.9625], device='cuda:0')
 ddim.py start_timesteps after clamp S = 200 : tensor([200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200,
         200, 200, 200, 200, 200, 200], device='cuda:0')
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/perfect/
@@ -144,9 +145,9 @@ Saved result for SNR 22
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/nosample/perfect/
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
 ddim.py alphas_cumprod = torch.Size([1000])
-ddim.py, alpha_bar_u = tensor([0.9713, 0.9804, 0.9801, 0.9326, 0.9155, 0.9044, 0.9933, 0.9947, 0.9914,
-        0.9032, 0.9978, 0.9946, 0.9970, 0.9942, 0.9941, 0.9935, 0.9553, 0.9974,
-        0.9935, 0.9956], device='cuda:0')
+ddim.py, alpha_bar_u = tensor([0.9752, 0.9758, 0.9757, 0.9756, 0.9754, 0.9757, 0.9758, 0.9754, 0.9737,
+        0.9754, 0.9745, 0.9755, 0.9757, 0.9711, 0.9737, 0.9756, 0.9748, 0.9756,
+        0.9755, 0.9751], device='cuda:0')
 ddim.py start_timesteps after clamp S = 200 : tensor([200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200,
         200, 200, 200, 200, 200, 200], device='cuda:0')
 20 images are saved in outputs/MIMO_Benchmark_MMSE/t=2_r=2/perfect/
