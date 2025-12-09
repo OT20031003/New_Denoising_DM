@@ -252,7 +252,7 @@ def main():
     parser.add_argument("--resize", type=int, default=256, help="Image resize dimension (square)")
     
     args = parser.parse_args()
-    
+    # python eval_dps_gcr.py -m all --modes estimated
     # ==========================================
     # Define Paths Dynamically
     # ==========================================
@@ -263,7 +263,7 @@ def main():
     base_gcr = f"outputs/MIMO_GCR/t={args.t}_r={args.r}"
     
     # [Updated Path] GCR Anchor (TwoStage) output directory based on mimo_dps_gcr_anchor.py
-    base_gcr_anchor = f"outputs/MIMO_GCR_TwoStage/t={args.t}_r={args.r}"
+    base_gcr_anchor = f"outputs/MIMO_Burst_Reset/t={args.t}_r={args.r}"
     
     # Construct the list of paths to evaluate
     # List of tuples: (path, label, method_key, mode_key)

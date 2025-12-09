@@ -1,0 +1,163 @@
+Loading model from models/ldm/text2img-large/model.ckpt
+autoencoder.py
+LatentDiffusion: Running in eps-prediction mode
+DiffusionWrapper has 872.30 M params.
+ldm.modules/diffusionmodules/util.py ; make_schedule = linear
+ldm/modules/diffusionmodules/model.py, Enocoder; in_channels = 3, ch_mult = [1, 2, 4, 4]
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+making attention of type 'vanilla' with 512 in_channels
+ldm/models/autoencoder.py, AutoencoderKL init, created
+Working with z of shape (1, 4, 32, 32) = 4096 dimensions.
+making attention of type 'vanilla' with 512 in_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+Saved images to ./sentimg/
+MIMO Streams: 2x1024 complex symbols
+
+======== SNR = -5 dB ========
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/nosample/estimated/
+[Info] Low SNR (-5dB): Reducing Zeta to 0.0300
+Starting Burst-Reset Sampling... Steps=200, Burst=50, H_LR=20.00
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+--> [Phase 1] Starting Burst Calibration (50 iters)...
+    Initial H Error: 28.7253
+    Post-Burst H Error: 21.2657 (Delta: -7.4596)
+--> [Phase 2] Resetting Latent with Improved H (No Additive Noise)...
+Saved trajectory plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/trajectory_snr-5.png
+Saved channel plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/channel_plot_snr-5.png
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/estimated/
+Saved result for SNR -5
+
+======== SNR = -2 dB ========
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/nosample/estimated/
+[Info] Low SNR (-2dB): Reducing Zeta to 0.0300
+Starting Burst-Reset Sampling... Steps=200, Burst=50, H_LR=18.00
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+--> [Phase 1] Starting Burst Calibration (50 iters)...
+    Initial H Error: 22.9596
+    Post-Burst H Error: 17.1614 (Delta: -5.7982)
+--> [Phase 2] Resetting Latent with Improved H (No Additive Noise)...
+Saved trajectory plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/trajectory_snr-2.png
+Saved channel plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/channel_plot_snr-2.png
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/estimated/
+Saved result for SNR -2
+
+======== SNR = 1 dB ========
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/nosample/estimated/
+[Info] Low SNR (1dB): Reducing Zeta to 0.0300
+Starting Burst-Reset Sampling... Steps=200, Burst=50, H_LR=16.01
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+--> [Phase 1] Starting Burst Calibration (50 iters)...
+    Initial H Error: 16.5523
+    Post-Burst H Error: 13.3574 (Delta: -3.1950)
+--> [Phase 2] Resetting Latent with Improved H (No Additive Noise)...
+Saved trajectory plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/trajectory_snr1.png
+Saved channel plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/channel_plot_snr1.png
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/estimated/
+Saved result for SNR 1
+
+======== SNR = 4 dB ========
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/nosample/estimated/
+[Info] Low SNR (4dB): Reducing Zeta to 0.0300
+Starting Burst-Reset Sampling... Steps=200, Burst=50, H_LR=14.02
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+--> [Phase 1] Starting Burst Calibration (50 iters)...
+    Initial H Error: 11.2585
+    Post-Burst H Error: 10.6489 (Delta: -0.6097)
+--> [Phase 2] Resetting Latent with Improved H (No Additive Noise)...
+Saved trajectory plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/trajectory_snr4.png
+Saved channel plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/channel_plot_snr4.png
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/estimated/
+Saved result for SNR 4
+
+======== SNR = 7 dB ========
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/nosample/estimated/
+Starting Burst-Reset Sampling... Steps=200, Burst=50, H_LR=12.02
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+--> [Phase 1] Starting Burst Calibration (50 iters)...
+    Initial H Error: 8.3531
+    Post-Burst H Error: 7.7282 (Delta: -0.6249)
+--> [Phase 2] Resetting Latent with Improved H (No Additive Noise)...
+Saved trajectory plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/trajectory_snr7.png
+Saved channel plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/channel_plot_snr7.png
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/estimated/
+Saved result for SNR 7
+
+======== SNR = 10 dB ========
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/nosample/estimated/
+Starting Burst-Reset Sampling... Steps=200, Burst=50, H_LR=10.03
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+--> [Phase 1] Starting Burst Calibration (50 iters)...
+    Initial H Error: 5.3461
+    Post-Burst H Error: 5.7741 (Delta: 0.4280)
+--> [Phase 2] Resetting Latent with Improved H (No Additive Noise)...
+Saved trajectory plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/trajectory_snr10.png
+Saved channel plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/channel_plot_snr10.png
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/estimated/
+Saved result for SNR 10
+
+======== SNR = 13 dB ========
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/nosample/estimated/
+Starting Burst-Reset Sampling... Steps=200, Burst=50, H_LR=8.03
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+--> [Phase 1] Starting Burst Calibration (50 iters)...
+    Initial H Error: 4.2273
+    Post-Burst H Error: 4.3083 (Delta: 0.0810)
+--> [Phase 2] Resetting Latent with Improved H (No Additive Noise)...
+Saved trajectory plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/trajectory_snr13.png
+Saved channel plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/channel_plot_snr13.png
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/estimated/
+Saved result for SNR 13
+
+======== SNR = 16 dB ========
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/nosample/estimated/
+Starting Burst-Reset Sampling... Steps=200, Burst=50, H_LR=6.04
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+--> [Phase 1] Starting Burst Calibration (50 iters)...
+    Initial H Error: 2.9219
+    Post-Burst H Error: 2.9319 (Delta: 0.0101)
+--> [Phase 2] Resetting Latent with Improved H (No Additive Noise)...
+Saved trajectory plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/trajectory_snr16.png
+Saved channel plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/channel_plot_snr16.png
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/estimated/
+Saved result for SNR 16
+
+======== SNR = 19 dB ========
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/nosample/estimated/
+Starting Burst-Reset Sampling... Steps=200, Burst=50, H_LR=4.04
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+--> [Phase 1] Starting Burst Calibration (50 iters)...
+    Initial H Error: 1.9289
+    Post-Burst H Error: 2.0403 (Delta: 0.1114)
+--> [Phase 2] Resetting Latent with Improved H (No Additive Noise)...
+Saved trajectory plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/trajectory_snr19.png
+Saved channel plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/channel_plot_snr19.png
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/estimated/
+Saved result for SNR 19
+
+======== SNR = 22 dB ========
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/nosample/estimated/
+Starting Burst-Reset Sampling... Steps=200, Burst=50, H_LR=2.05
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+--> [Phase 1] Starting Burst Calibration (50 iters)...
+    Initial H Error: 1.4104
+    Post-Burst H Error: 1.4079 (Delta: -0.0025)
+--> [Phase 2] Resetting Latent with Improved H (No Additive Noise)...
+Saved trajectory plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/trajectory_snr22.png
+Saved channel plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/channel_plot_snr22.png
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/estimated/
+Saved result for SNR 22
+
+======== SNR = 25 dB ========
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/nosample/estimated/
+Starting Burst-Reset Sampling... Steps=200, Burst=50, H_LR=0.05
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+--> [Phase 1] Starting Burst Calibration (50 iters)...
+    Initial H Error: 1.0330
+    Post-Burst H Error: 0.9683 (Delta: -0.0647)
+--> [Phase 2] Resetting Latent with Improved H (No Additive Noise)...
+Saved trajectory plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/trajectory_snr25.png
+Saved channel plot to outputs/MIMO_Burst_Reset/t=2_r=2/channel_plots/estimated/channel_plot_snr25.png
+Saved images to outputs/MIMO_Burst_Reset/t=2_r=2/estimated/
+Saved result for SNR 25
