@@ -328,9 +328,9 @@ class AutoencoderKL(pl.LightningModule):
     def encode(self, x):
         #print(f"ldm/models/autoencoder.py, AutoencoderKL, encoder kidou")
         h = self.encoder(x)
-        print(f"autoencoder.py, h = {h.shape}")
+        #print(f"autoencoder.py, h = {h.shape}")
         moments = self.quant_conv(h)
-        print(f"autoencoder.py , moments = {moments.shape}")
+        #print(f"autoencoder.py , moments = {moments.shape}")
         posterior = DiagonalGaussianDistribution(moments)
         return posterior
 

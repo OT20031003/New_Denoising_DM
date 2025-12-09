@@ -9,8 +9,8 @@ from einops import rearrange
 from torchvision.utils import make_grid
 from torchvision import transforms
 from ldm.util import instantiate_from_config
-from ldm.models.diffusion.ddim import DDIMSampler
-from ldm.models.diffusion.plms import PLMSSampler
+# DDIMSamplerは修正したddim.pyからインポートされる前提
+from ldm.models.diffusion.ddim import DDIMSampler 
 from torchvision import utils as vutil
 import lpips
 import matplotlib.pyplot as plt
@@ -19,49 +19,121 @@ import matplotlib.pyplot as plt
 #  Helper Classes & Functions
 # ==========================================
 
-class MatrixOperator:
-    def __init__(self, tensor):
-        self.tensor = tensor
-
-    def __mul__(self, other):
-        return torch.matmul(self.tensor, other)
+def get_adaptive_h_lr(current_snr, snr_min=-5, snr_max=25, lr_max=20.0, lr_min=1.0):
+    """
+    SNRに応じて学習率を線形補間する関数
+    """
+    if current_snr <= snr_min:
+        return lr_max
+    if current_snr >= snr_max:
+        return lr_min
+    
+    slope = (lr_min - lr_max) / (snr_max - snr_min)
+    lr = lr_max + (current_snr - snr_min) * slope
+    return lr
 
 def plot_channel_evolution(H_true, H_init, H_final, save_path):
     """
-    チャネル推定の可視化。
-    Proposed(Standard DPS)では H_init と H_final は完全に一致しますが、
-    GCRとの比較用ベースラインとして保存します。
+    初期値(LS)と最終値(GCR)の点のみをプロットする既存関数
     """
-    # バッチの先頭[0]を取得し、CPUへ移動・平坦化
     h_gt = H_true[0].detach().cpu().numpy().flatten()
     h_ls = H_init[0].detach().cpu().numpy().flatten()
-    h_final = H_final[0].detach().cpu().numpy().flatten()
+    h_gcr = H_final[0].detach().cpu().numpy().flatten()
 
-    plt.figure(figsize=(6, 6))
+    plt.figure(figsize=(8, 8))
     
-    # 1. Ground Truth (x, Red)
-    plt.scatter(h_gt.real, h_gt.imag, c='red', marker='x', s=120, linewidths=2, label='Ground Truth')
-    
-    # 2. Initial LS Estimate (^, Blue)
-    plt.scatter(h_ls.real, h_ls.imag, c='blue', marker='^', s=100, label='Initial LS')
-    
-    # 3. Final Estimate (o, Green) - ProposedではLSと同じ場所に重なる
-    plt.scatter(h_final.real, h_final.imag, c='none', edgecolors='green', marker='o', s=120, linewidths=2, label='Final Estimate')
+    # 凡例用のダミー
+    plt.scatter([], [], c='red', marker='x', s=100, linewidths=2, label='Ground Truth')
+    plt.scatter([], [], c='blue', marker='^', s=80, label='Initial LS')
+    plt.scatter([], [], c='none', edgecolors='green', marker='o', s=120, linewidths=2, label='Final Anchor-GCR')
 
-    # レイアウト調整
+    num_elements = len(h_gt)
+    for i in range(num_elements):
+        plt.scatter(h_gt[i].real, h_gt[i].imag, c='red', marker='x', s=100, linewidths=2)
+        plt.text(h_gt[i].real, h_gt[i].imag, f" {i}", fontsize=12, color='red', fontweight='bold', ha='left', va='bottom')
+
+        plt.scatter(h_ls[i].real, h_ls[i].imag, c='blue', marker='^', s=80)
+        plt.text(h_ls[i].real, h_ls[i].imag, f" {i}", fontsize=10, color='blue', ha='right', va='top')
+
+        plt.scatter(h_gcr[i].real, h_gcr[i].imag, c='none', edgecolors='green', marker='o', s=120, linewidths=2)
+        plt.text(h_gcr[i].real, h_gcr[i].imag, f" {i}", fontsize=10, color='green', ha='left', va='top')
+
+        plt.plot([h_ls[i].real, h_gcr[i].real], [h_ls[i].imag, h_gcr[i].imag], 
+                 color='gray', linestyle=':', alpha=0.5)
+
     plt.axhline(0, color='black', linewidth=0.5, alpha=0.5)
     plt.axvline(0, color='black', linewidth=0.5, alpha=0.5)
     plt.grid(True, linestyle='--', alpha=0.7)
-    plt.legend()
-    plt.title("Channel Estimation (Proposed: Fixed)")
+    plt.legend(loc='upper right')
+    plt.title(f"Channel Estimation Evolution (Batch[0])\nMethod: Dynamic Anchor")
     plt.xlabel("Real Part")
     plt.ylabel("Imaginary Part")
     
-    # 保存
     plt.tight_layout()
     plt.savefig(save_path, dpi=300)
     plt.close()
     print(f"Saved channel plot to {save_path}")
+
+def plot_channel_trajectory(H_history, H_true, H_init, save_path, split_index=None):
+    """
+    Hの推移を軌跡としてプロットする関数 (Batch[0]のみ)
+    split_index: Phase 1 と Phase 2 の境目のインデックス
+    """
+    # H_history: list of Tensor(B, r, t) -> Convert to (Steps, r*t)
+    steps = len(H_history)
+    
+    # Batch 0 を取り出し、CPU numpyへ
+    traj = torch.stack(H_history).cpu().numpy()[:, 0, :, :].reshape(steps, -1)
+    
+    h_gt = H_true[0].detach().cpu().numpy().flatten()
+    h_ls = H_init[0].detach().cpu().numpy().flatten()
+    
+    plt.figure(figsize=(10, 10))
+    
+    num_elements = traj.shape[1]
+    
+    for i in range(num_elements):
+        # 軌跡のプロット
+        if split_index is not None and split_index < steps:
+            # Phase 1: Orange
+            plt.plot(traj[:split_index+1, i].real, traj[:split_index+1, i].imag, 
+                     color='orange', linewidth=2.0, alpha=0.8, label='Phase 1' if i==0 else "")
+            # Phase 2: Green (Freezeしていれば点になるはず)
+            plt.plot(traj[split_index:, i].real, traj[split_index:, i].imag, 
+                     color='green', linewidth=2.0, alpha=0.8, label='Phase 2' if i==0 else "")
+            
+            # Phase切り替え地点
+            plt.scatter(traj[split_index, i].real, traj[split_index, i].imag, 
+                        c='orange', marker='s', s=40, zorder=3)
+        else:
+            plt.plot(traj[:, i].real, traj[:, i].imag, color='gray', linewidth=1, alpha=0.5)
+
+        # --- 特殊点と番号のプロット (ここを修正) ---
+        
+        # 1. Initial LS (Start) - Blue
+        plt.scatter(h_ls[i].real, h_ls[i].imag, c='blue', marker='^', s=60, zorder=4, label='Initial LS' if i==0 else "")
+        plt.text(h_ls[i].real, h_ls[i].imag, f"{i}", fontsize=10, color='blue', ha='right', va='top', fontweight='bold')
+
+        # 2. Final Est (End) - Green
+        plt.scatter(traj[-1, i].real, traj[-1, i].imag, c='green', marker='o', s=80, zorder=4, label='Final Est' if i==0 else "")
+        plt.text(traj[-1, i].real, traj[-1, i].imag, f"{i}", fontsize=10, color='green', ha='left', va='bottom', fontweight='bold')
+
+        # 3. Ground Truth - Red
+        plt.scatter(h_gt[i].real, h_gt[i].imag, c='red', marker='x', s=100, linewidths=2, zorder=5, label='Ground Truth' if i==0 else "")
+        plt.text(h_gt[i].real, h_gt[i].imag, f"{i}", fontsize=12, color='red', fontweight='bold', ha='left', va='top')
+
+    plt.axhline(0, color='black', linewidth=0.5, alpha=0.5)
+    plt.axvline(0, color='black', linewidth=0.5, alpha=0.5)
+    plt.grid(True, linestyle='--', alpha=0.7)
+    plt.title("Channel Estimation Trajectory\nOrange: Phase 1 (Train), Green: Phase 2 (Freeze)")
+    plt.xlabel("Real Part")
+    plt.ylabel("Imaginary Part")
+    plt.legend(loc='upper right')
+    
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=300)
+    plt.close()
+    print(f"Saved trajectory plot to {save_path}")
 
 def seed_everything(seed):
     torch.manual_seed(seed)
@@ -168,10 +240,9 @@ if __name__ == "__main__":
     N_pilot = 2 
     
     P_power = 1.0 
-    Perfect_Estimate = False
+    Perfect_Estimate = False 
     
-    # Use consistent naming for symmetric experiments
-    base_experiment_name = f"MIMO_Proposed_LS/t={t_mimo}_r={r_mimo}"
+    base_experiment_name = f"MIMO_GCR_TwoStage/t={t_mimo}_r={r_mimo}"
     
     parser.add_argument("--input_path", type=str, default="input_img")
     parser.add_argument("--outdir", type=str, default=f"outputs/{base_experiment_name}")
@@ -181,6 +252,13 @@ if __name__ == "__main__":
     parser.add_argument("--ddim_steps", type=int, default=200)
     parser.add_argument("--scale", type=float, default=5.0)
     parser.add_argument("--dps_scale", type=float, default=0.3)
+    
+    # Adaptive Learning Rate Settings
+    parser.add_argument("--h_lr_max", type=float, default=20.0)
+    parser.add_argument("--h_lr_min", type=float, default=0.05)
+    
+    parser.add_argument("--calib_ratio", type=float, default=0.3, help="Ratio of steps for Phase 1 (H estimation)")
+    
     parser.add_argument("--seed", type=int, default=42, help="random seed for reproducibility")
     
     opt = parser.parse_args()
@@ -191,12 +269,8 @@ if __name__ == "__main__":
     # Directory Setup
     suffix = "perfect" if Perfect_Estimate else "estimated"
     base_out_path = f"outputs/{base_experiment_name}"
-
-    # Image output
     opt.outdir = os.path.join(opt.outdir, suffix)
     opt.nosample_outdir = os.path.join(opt.nosample_outdir, suffix)
-    
-    # Channel Plot output (Matched to GCR structure)
     channel_outdir = os.path.join(base_out_path, "channel_plots", suffix)
 
     os.makedirs(opt.outdir, exist_ok=True)
@@ -228,9 +302,7 @@ if __name__ == "__main__":
     eps = 1e-7
     z_norm = (z - z_mean) / (torch.sqrt(z_var) + eps)
     
-    # ----------------------------------------------------------------
     # 1. Map Latent to MIMO Streams
-    # ----------------------------------------------------------------
     s_0_real = z_norm / np.sqrt(2.0)
     s_0, latent_shape = latent_to_mimo_streams(s_0_real, t_mimo)
     s_0 = s_0.to(device)
@@ -238,9 +310,7 @@ if __name__ == "__main__":
     L_len = s_0.shape[2]
     print(f"MIMO Streams: {t_mimo}x{L_len} complex symbols")
 
-    # ----------------------------------------------------------------
     # 2. Pilot Signal Setup
-    # ----------------------------------------------------------------
     t_vec = torch.arange(t_mimo, device=device)
     N_vec = torch.arange(N_pilot, device=device)
     tt, NN = torch.meshgrid(t_vec, N_vec, indexing='ij')
@@ -248,7 +318,10 @@ if __name__ == "__main__":
     P = P.to(device) 
 
     # Simulation Loop
-    for snr in range(-5, 26, 3): 
+    min_snr_sim = -5
+    max_snr_sim = 25
+    
+    for snr in range(min_snr_sim, max_snr_sim + 1, 3): 
         print(f"\n======== SNR = {snr} dB ========")
         
         noise_variance = t_mimo / (10**(snr/10))
@@ -267,7 +340,7 @@ if __name__ == "__main__":
         S_pilot = torch.matmul(H, P) + V
         
         if Perfect_Estimate:
-            H_hat = H
+            H_hat = H 
             sigma_e2 = 0.0
         else:
             P_herm = P.mH
@@ -290,10 +363,9 @@ if __name__ == "__main__":
         Reg = eff_noise * torch.eye(t_mimo, device=device).unsqueeze(0)
         
         inv_mat = torch.inverse(Gram + Reg)
-        W_mmse = torch.matmul(inv_mat, H_hat_H) # (B, t, r)
+        W_mmse = torch.matmul(inv_mat, H_hat_H) 
         
-        # Equalization
-        s_mmse = torch.matmul(W_mmse, Y) # (B, t, L)
+        s_mmse = torch.matmul(W_mmse, Y) 
         
         # Save MMSE Result
         z_init_real = mimo_streams_to_latent(s_mmse, latent_shape)
@@ -303,20 +375,13 @@ if __name__ == "__main__":
         rec_nosample = model.decode_first_stage(z_nosample)
         save_img_individually(rec_nosample, f"{opt.nosample_outdir}/mmse_snr{snr}.png")
         
-        # E. Prepare for Proposed Method (DPS)
-        
-        # [Match GCR] Calculate Post-MMSE Noise Variance for timestep
-        W_W_H = torch.matmul(W_mmse, W_mmse.mH) # (B, t, t)
+        # E. Prepare for GCR-Anchor Sampling
+        W_W_H = torch.matmul(W_mmse, W_mmse.mH) 
         noise_power_factor = W_W_H.diagonal(dim1=-2, dim2=-1).real.mean()
         post_mmse_noise_var = eff_noise * noise_power_factor
         
-        # [Match GCR] Guidance Variance
         eff_var_scalar = noise_variance + sigma_e2
         Sigma_inv = 1.0 / eff_var_scalar
-        
-        # H_hat for Proposed (Fixed)
-        # Note: In proposed, we usually pass H_hat directly or wrapped. 
-        # Here we pass it as a tensor to match the updated method signature.
         
         def forward_mapper(z):
             return latent_to_mimo_streams(z / np.sqrt(2.0), t_mimo)
@@ -325,23 +390,27 @@ if __name__ == "__main__":
             z = mimo_streams_to_latent(s, shape)
             return z * np.sqrt(2.0)
 
-        # Normalization
         actual_std = z_init_mmse.std(dim=(1, 2, 3), keepdim=True)
         z_init_normalized = z_init_mmse / (actual_std + 1e-8)
         
         cond = model.get_learned_conditioning(batch_size * [""])
 
-        # [Match GCR] Adaptive Guidance Scale
+        # Adaptive Settings based on SNR
         current_zeta = opt.dps_scale
         if snr < 5:
             current_zeta *= 0.1
             print(f"[Info] Low SNR ({snr}dB): Reducing Zeta to {current_zeta:.4f}")
         
-        print(f"Starting Proposed Sampling... Steps={opt.ddim_steps}, Zeta={current_zeta}")
+        adaptive_h_lr = get_adaptive_h_lr(
+            snr, 
+            snr_min=min_snr_sim, snr_max=max_snr_sim,
+            lr_max=opt.h_lr_max, lr_min=opt.h_lr_min
+        )
+
+        print(f"Starting GCR-Anchor Sampling (Two-Stage)... Steps={opt.ddim_steps}, Zeta={current_zeta}, H_LR={adaptive_h_lr:.2f}")
         
-        # Call Proposed Sampling
-        # Returns tuple (img, H_final) to be symmetric with GCR
-        samples, H_final_est = sampler.proposed_dps_sampling(
+        # 戻り値に H_history を追加
+        samples, H_final_est, H_history = sampler.gcr_dps_anchor_sampling(
             S=opt.ddim_steps,
             batch_size=batch_size,
             shape=z.shape[1:4], 
@@ -352,26 +421,36 @@ if __name__ == "__main__":
             Sigma_inv=torch.tensor(Sigma_inv, device=device),
             z_init=z_init_normalized, 
             zeta=current_zeta,
+            h_lr=adaptive_h_lr, 
             
             mapper=forward_mapper,
             inv_mapper=backward_mapper,
             
             initial_noise_variance=post_mmse_noise_var,
             
+            # 評価用データ
+            H_true=H,  
+            z_gt=z,    
+            
+            # Phase 1の割合
+            calib_ratio=opt.calib_ratio,
+
             eta=0.0,
-            verbose=False
+            verbose=True 
         )
         
-        # --- [Match GCR] Plot Channel Evolution ---
-        # Proposed法ではチャネル更新を行わないため、H_hat(Initial)とH_final_estは同じ値になりますが、
-        # GCRの結果と比較するための「ベースライン（初期推定値）」の可視化として保存します。
+        # 1. 軌跡のプロット (Phase 1と2の色分け付き)
+        s_calib = int(opt.ddim_steps * opt.calib_ratio)
+        traj_plot_path = os.path.join(channel_outdir, f"trajectory_snr{snr}.png")
+        plot_channel_trajectory(H_history, H, H_hat, traj_plot_path, split_index=s_calib)
+
+        # 2. 始点・終点のプロット
         plot_path = os.path.join(channel_outdir, f"channel_plot_snr{snr}.png")
         plot_channel_evolution(H, H_hat, H_final_est, plot_path)
-        # ------------------------------------
-        
-        # Denormalize & Decode
+
+        # 3. 画像の保存
         z_restored = samples * (torch.sqrt(z_var) + eps) + z_mean
         rec_proposed = model.decode_first_stage(z_restored)
         
-        save_img_individually(rec_proposed, f"{opt.outdir}/proposed_snr{snr}.png")
+        save_img_individually(rec_proposed, f"{opt.outdir}/gcr_anchor_snr{snr}.png")
         print(f"Saved result for SNR {snr}")

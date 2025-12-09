@@ -1,0 +1,170 @@
+Loading model from models/ldm/text2img-large/model.ckpt
+autoencoder.py
+LatentDiffusion: Running in eps-prediction mode
+DiffusionWrapper has 872.30 M params.
+ldm.modules/diffusionmodules/util.py ; make_schedule = linear
+ldm/modules/diffusionmodules/model.py, Enocoder; in_channels = 3, ch_mult = [1, 2, 4, 4]
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+making attention of type 'vanilla' with 512 in_channels
+ldm/models/autoencoder.py, AutoencoderKL init, created
+Working with z of shape (1, 4, 32, 32) = 4096 dimensions.
+making attention of type 'vanilla' with 512 in_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
+Saved images to ./sentimg/
+MIMO Streams: 2x1024 complex symbols
+
+======== SNR = -5 dB ========
+Saved images to outputs/MIMO_GCR/t=2_r=2/nosample/estimated/
+[Info] Low SNR (-5dB): Reducing Zeta to 0.0300
+Starting GCR Sampling... Steps=200, Zeta=0.03, H_LR=20.00
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Step 136] h_grad_norm: 0.362393 | H_diff_from_init: 0.000000
+[Step 131] h_grad_norm: 0.207203 | H_diff_from_init: 20.000000
+[Step 126] h_grad_norm: 0.441203 | H_diff_from_init: 14.711627
+[Step 121] h_grad_norm: 0.247423 | H_diff_from_init: 20.943653
+[Step 116] h_grad_norm: 0.462059 | H_diff_from_init: 17.755568
+[Step 36] h_grad_norm: 0.531803 | H_diff_from_init: 21.657095
+Saved channel plot to outputs/MIMO_GCR/t=2_r=2/channel_plots/estimated/channel_plot_snr-5.png
+Saved images to outputs/MIMO_GCR/t=2_r=2/estimated/
+Saved result for SNR -5
+
+======== SNR = -2 dB ========
+Saved images to outputs/MIMO_GCR/t=2_r=2/nosample/estimated/
+[Info] Low SNR (-2dB): Reducing Zeta to 0.0300
+Starting GCR Sampling... Steps=200, Zeta=0.03, H_LR=18.01
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Step 126] h_grad_norm: 0.715167 | H_diff_from_init: 0.000000
+[Step 121] h_grad_norm: 0.435088 | H_diff_from_init: 18.010000
+[Step 116] h_grad_norm: 0.796603 | H_diff_from_init: 10.898225
+[Step 111] h_grad_norm: 0.482659 | H_diff_from_init: 18.986231
+[Step 106] h_grad_norm: 0.828385 | H_diff_from_init: 13.532462
+[Step 26] h_grad_norm: 0.945027 | H_diff_from_init: 18.037165
+Saved channel plot to outputs/MIMO_GCR/t=2_r=2/channel_plots/estimated/channel_plot_snr-2.png
+Saved images to outputs/MIMO_GCR/t=2_r=2/estimated/
+Saved result for SNR -2
+
+======== SNR = 1 dB ========
+Saved images to outputs/MIMO_GCR/t=2_r=2/nosample/estimated/
+[Info] Low SNR (1dB): Reducing Zeta to 0.0300
+Starting GCR Sampling... Steps=200, Zeta=0.03, H_LR=16.02
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Step 136] h_grad_norm: 0.950750 | H_diff_from_init: 0.000000
+[Step 131] h_grad_norm: 1.200203 | H_diff_from_init: 16.020000
+[Step 126] h_grad_norm: 1.109872 | H_diff_from_init: 6.737683
+[Step 121] h_grad_norm: 1.312665 | H_diff_from_init: 15.725195
+[Step 116] h_grad_norm: 1.176051 | H_diff_from_init: 8.917516
+[Step 36] h_grad_norm: 1.302480 | H_diff_from_init: 11.187160
+Saved channel plot to outputs/MIMO_GCR/t=2_r=2/channel_plots/estimated/channel_plot_snr1.png
+Saved images to outputs/MIMO_GCR/t=2_r=2/estimated/
+Saved result for SNR 1
+
+======== SNR = 4 dB ========
+Saved images to outputs/MIMO_GCR/t=2_r=2/nosample/estimated/
+[Info] Low SNR (4dB): Reducing Zeta to 0.0300
+Starting GCR Sampling... Steps=200, Zeta=0.03, H_LR=14.03
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Step 136] h_grad_norm: 1.464575 | H_diff_from_init: 0.000000
+[Step 131] h_grad_norm: 3.065040 | H_diff_from_init: 14.030000
+[Step 126] h_grad_norm: 1.935260 | H_diff_from_init: 4.816747
+[Step 121] h_grad_norm: 3.633484 | H_diff_from_init: 12.932789
+[Step 116] h_grad_norm: 2.271368 | H_diff_from_init: 6.610915
+[Step 36] h_grad_norm: 2.454678 | H_diff_from_init: 8.438844
+Saved channel plot to outputs/MIMO_GCR/t=2_r=2/channel_plots/estimated/channel_plot_snr4.png
+Saved images to outputs/MIMO_GCR/t=2_r=2/estimated/
+Saved result for SNR 4
+
+======== SNR = 7 dB ========
+Saved images to outputs/MIMO_GCR/t=2_r=2/nosample/estimated/
+Starting GCR Sampling... Steps=200, Zeta=0.3, H_LR=12.04
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Step 136] h_grad_norm: 1.912508 | H_diff_from_init: 0.000000
+[Step 131] h_grad_norm: 5.383003 | H_diff_from_init: 12.040000
+[Step 126] h_grad_norm: 2.575562 | H_diff_from_init: 3.620685
+[Step 121] h_grad_norm: 6.068571 | H_diff_from_init: 11.105271
+[Step 116] h_grad_norm: 2.879820 | H_diff_from_init: 4.506870
+[Step 36] h_grad_norm: 2.987092 | H_diff_from_init: 5.382230
+Saved channel plot to outputs/MIMO_GCR/t=2_r=2/channel_plots/estimated/channel_plot_snr7.png
+Saved images to outputs/MIMO_GCR/t=2_r=2/estimated/
+Saved result for SNR 7
+
+======== SNR = 10 dB ========
+Saved images to outputs/MIMO_GCR/t=2_r=2/nosample/estimated/
+Starting GCR Sampling... Steps=200, Zeta=0.3, H_LR=10.05
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Step 121] h_grad_norm: 3.561166 | H_diff_from_init: 0.000000
+[Step 116] h_grad_norm: 8.392515 | H_diff_from_init: 10.050000
+[Step 111] h_grad_norm: 4.115973 | H_diff_from_init: 2.637969
+[Step 106] h_grad_norm: 8.872614 | H_diff_from_init: 9.559349
+[Step 101] h_grad_norm: 4.337732 | H_diff_from_init: 3.308932
+[Step 21] h_grad_norm: 4.628421 | H_diff_from_init: 4.785098
+Saved channel plot to outputs/MIMO_GCR/t=2_r=2/channel_plots/estimated/channel_plot_snr10.png
+Saved images to outputs/MIMO_GCR/t=2_r=2/estimated/
+Saved result for SNR 10
+
+======== SNR = 13 dB ========
+Saved images to outputs/MIMO_GCR/t=2_r=2/nosample/estimated/
+Starting GCR Sampling... Steps=200, Zeta=0.3, H_LR=8.06
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Step 106] h_grad_norm: 5.351034 | H_diff_from_init: 0.000000
+[Step 101] h_grad_norm: 15.164846 | H_diff_from_init: 8.060000
+[Step 96] h_grad_norm: 6.370204 | H_diff_from_init: 1.826375
+[Step 91] h_grad_norm: 16.018246 | H_diff_from_init: 7.665699
+[Step 86] h_grad_norm: 6.598222 | H_diff_from_init: 2.276408
+[Step 6] h_grad_norm: 6.559013 | H_diff_from_init: 2.856932
+Saved channel plot to outputs/MIMO_GCR/t=2_r=2/channel_plots/estimated/channel_plot_snr13.png
+Saved images to outputs/MIMO_GCR/t=2_r=2/estimated/
+Saved result for SNR 13
+
+======== SNR = 16 dB ========
+Saved images to outputs/MIMO_GCR/t=2_r=2/nosample/estimated/
+Starting GCR Sampling... Steps=200, Zeta=0.3, H_LR=6.07
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Step 96] h_grad_norm: 9.495496 | H_diff_from_init: 0.000000
+[Step 91] h_grad_norm: 22.617838 | H_diff_from_init: 6.070000
+[Step 86] h_grad_norm: 10.586197 | H_diff_from_init: 1.477212
+[Step 81] h_grad_norm: 23.617441 | H_diff_from_init: 5.801210
+[Step 76] h_grad_norm: 11.029707 | H_diff_from_init: 1.676129
+Saved channel plot to outputs/MIMO_GCR/t=2_r=2/channel_plots/estimated/channel_plot_snr16.png
+Saved images to outputs/MIMO_GCR/t=2_r=2/estimated/
+Saved result for SNR 16
+
+======== SNR = 19 dB ========
+Saved images to outputs/MIMO_GCR/t=2_r=2/nosample/estimated/
+Starting GCR Sampling... Steps=200, Zeta=0.3, H_LR=4.08
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Step 71] h_grad_norm: 10.636002 | H_diff_from_init: 0.000000
+[Step 66] h_grad_norm: 29.928310 | H_diff_from_init: 4.080000
+[Step 61] h_grad_norm: 12.292001 | H_diff_from_init: 1.081940
+[Step 56] h_grad_norm: 31.974974 | H_diff_from_init: 3.928912
+[Step 51] h_grad_norm: 13.363725 | H_diff_from_init: 1.375021
+Saved channel plot to outputs/MIMO_GCR/t=2_r=2/channel_plots/estimated/channel_plot_snr19.png
+Saved images to outputs/MIMO_GCR/t=2_r=2/estimated/
+Saved result for SNR 19
+
+======== SNR = 22 dB ========
+Saved images to outputs/MIMO_GCR/t=2_r=2/nosample/estimated/
+Starting GCR Sampling... Steps=200, Zeta=0.3, H_LR=2.09
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Step 61] h_grad_norm: 18.323664 | H_diff_from_init: 0.000000
+[Step 56] h_grad_norm: 24.608252 | H_diff_from_init: 2.090000
+[Step 51] h_grad_norm: 20.910070 | H_diff_from_init: 0.877510
+[Step 46] h_grad_norm: 26.948336 | H_diff_from_init: 1.980180
+[Step 41] h_grad_norm: 22.454748 | H_diff_from_init: 1.127932
+Saved channel plot to outputs/MIMO_GCR/t=2_r=2/channel_plots/estimated/channel_plot_snr22.png
+Saved images to outputs/MIMO_GCR/t=2_r=2/estimated/
+Saved result for SNR 22
+
+======== SNR = 25 dB ========
+Saved images to outputs/MIMO_GCR/t=2_r=2/nosample/estimated/
+Starting GCR Sampling... Steps=200, Zeta=0.3, H_LR=0.10
+ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
+[Step 31] h_grad_norm: 17.129454 | H_diff_from_init: 0.000000
+[Step 26] h_grad_norm: 13.592446 | H_diff_from_init: 0.100000
+[Step 21] h_grad_norm: 10.206990 | H_diff_from_init: 0.196662
+[Step 16] h_grad_norm: 7.017152 | H_diff_from_init: 0.295250
+[Step 11] h_grad_norm: 4.177644 | H_diff_from_init: 0.393238
+Saved channel plot to outputs/MIMO_GCR/t=2_r=2/channel_plots/estimated/channel_plot_snr25.png
+Saved images to outputs/MIMO_GCR/t=2_r=2/estimated/
+Saved result for SNR 25

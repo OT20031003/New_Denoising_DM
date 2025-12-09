@@ -1870,9 +1870,6 @@ class DDIMSampler(object):
 
 
         return start_timesteps
-    # =========================================================
-    #  [Modified] Proposed DPS Sampling (Formerly Method C)
-    # =========================================================
     @torch.no_grad()
     def proposed_dps_sampling(self,
                S,
@@ -1881,7 +1878,7 @@ class DDIMSampler(object):
                conditioning=None,
                y=None, H_hat=None, Sigma_inv=None, z_init=None, zeta=1.0,
                mapper=None, inv_mapper=None,
-               initial_noise_variance=None, # [Fix 2] 追加: 初期状態のノイズ分散
+               initial_noise_variance=None, # MMSE後の残留ノイズ分散
                eta=0., verbose=True, unconditional_guidance_scale=1., unconditional_conditioning=None,
                **kwargs
                ):
@@ -1902,27 +1899,22 @@ class DDIMSampler(object):
         device = self.model.betas.device
         
         # ----------------------------------------------------------------
-        # [Fix 2] Start Timestep Determination
+        # Start Timestep Determination (Consistent with GCR)
         # ----------------------------------------------------------------
-        # チャネルノイズ(Sigma_inv)ではなく、MMSE後の残留ノイズ分散(initial_noise_variance)
-        # に基づいて開始時刻を決定する。
         if initial_noise_variance is not None:
-            # batch対応: テンソルなら平均をとる
             if torch.is_tensor(initial_noise_variance):
                 est_noise_var = initial_noise_variance.mean().item()
             else:
                 est_noise_var = initial_noise_variance
-            print(f"[Proposed] Using provided initial_noise_variance: {est_noise_var:.6f}")
+            if verbose:
+                print(f"[Proposed] Using provided initial_noise_variance: {est_noise_var:.6f}")
         else:
-            # フォールバック (従来のロジック)
             avg_precision = Sigma_inv.abs().mean().item()
             est_noise_var = 1.0 / (avg_precision + 1e-8)
-            print(f"[Proposed] Estimating noise variance from Sigma_inv (Fallback): {est_noise_var:.6f}")
+            if verbose:
+                print(f"[Proposed] Estimating noise variance from Sigma_inv (Fallback): {est_noise_var:.6f}")
         
-        # アルファバーのスケジュールから逆算
-        # target_alpha = 1 / (1 + noise_var)
         target_alpha = 1.0 / (1.0 + est_noise_var)
-        
         diffs = torch.abs(self.alphas_cumprod.to(device) - target_alpha)
         start_t_ddpm = torch.argmin(diffs).item()
         
@@ -1931,17 +1923,24 @@ class DDIMSampler(object):
         start_index = torch.argmin(abs_diff).item()
         
         actual_start_step = self.ddim_timesteps[start_index]
-        print(f"[Proposed] Start: DDIM Step {start_index}/{S} (t={actual_start_step}) | Target Alpha: {target_alpha:.4f}")
+        if verbose:
+            print(f"[Proposed] Start: DDIM Step {start_index}/{S} (t={actual_start_step})")
 
         # 2. Initialization
         z_init = z_init.to(device)
         img = z_init.clone()
         
-        # Initial Check
-        print(f"[Step Init] img (x_t)  | {get_tensor_stats_str(img)}")
+        # Proposed does NOT update H_hat, but we verify it's a tensor
+        if isinstance(H_hat, torch.Tensor):
+            current_H = H_hat.clone().detach() # No gradients needed for H
+        else:
+             # Wrapper class case (MatrixOperator)
+             current_H = H_hat 
+
+        if verbose and isinstance(current_H, torch.Tensor):
+            print(f"[Step Init] H_hat | {get_tensor_stats_str(current_H)}")
 
         # 3. Sampling Loop
-        # start_index から 0 まで逆順にループ
         timesteps = self.ddim_timesteps[:start_index+1]
         time_range = np.flip(timesteps)
         iterator = tqdm(time_range, desc='Proposed Sampling', total=len(time_range))
@@ -1977,7 +1976,13 @@ class DDIMSampler(object):
 
                 # Physical Mapping & Loss
                 s_hat, _ = mapper(pred_z0) 
-                y_est = H_hat * s_hat 
+                
+                # Check if H_hat is a Tensor or MatrixOperator
+                if isinstance(current_H, torch.Tensor):
+                    y_est = torch.matmul(current_H, s_hat)
+                else:
+                    y_est = current_H * s_hat # Using MatrixOperator's __mul__
+
                 residual = y - y_est
                 
                 weighted_res = residual * Sigma_inv 
@@ -1987,29 +1992,26 @@ class DDIMSampler(object):
                 
                 # Backward
                 guidance_grad = torch.autograd.grad(loss_val, img_in)[0]
-
                 
-                if should_print:
-                     score_norm = torch.linalg.norm(e_t.reshape(batch_size, -1), dim=1).mean().item()
-                     grad_norm = torch.linalg.norm(guidance_grad.reshape(batch_size, -1), dim=1).mean().item()
+                # Logging
+                current_loss = loss_val.item()
+                grad_norm = torch.linalg.norm(guidance_grad.reshape(batch_size, -1), dim=1).mean().item()
+                
+                iterator.set_postfix(Loss=f"{current_loss:.4f}", z_grad=f"{grad_norm:.4f}")
 
-                     img_stats = get_tensor_stats_str(img_in)
-                     
-                     # ログ出力に img_stats を追加
-                     print(f"[Step {step}] Loss: {loss_val.item():.5f} | ScoreNorm: {score_norm:.4f} | GradNorm: {grad_norm:.4f} | {img_stats}")
+                if should_print and verbose:
+                    score_norm = torch.linalg.norm(e_t.reshape(batch_size, -1), dim=1).mean().item()
+                    print(f"[Step {step}] Loss: {current_loss:.5f} | ScoreNorm: {score_norm:.4f} | GradNorm: {grad_norm:.4f}")
 
             # --- B. Scaling ---
+            # Proposed method scaling (zeta decay)
             max_timestep = self.ddim_timesteps[-1]
             decay_factor = step / max_timestep 
             current_zeta = zeta * decay_factor
             
             scaled_grad = guidance_grad * current_zeta
 
-            # ----------------------------------------------------------------
-            # [Fix 3] Gradient Clipping
-            # ----------------------------------------------------------------
-            # 勾配が強すぎて潜在変数が発散するのを防ぐため、grad自体をクリップする
-            # latentのスケールは大体 N(0,1) なので、0.1程度でクリップするのが安全
+            # Gradient Clipping
             clip_val = 0.1 
             scaled_grad = torch.clamp(scaled_grad, min=-clip_val, max=clip_val)
 
@@ -2035,4 +2037,430 @@ class DDIMSampler(object):
                     print(f"!!! NAN DETECTED at Step {step} !!!")
                     break 
 
-        return img
+        # Return tuple to match GCR signature (img, H_final)
+        # For Proposed, H_final is same as initial H_hat
+        return img, current_H
+    
+
+    @torch.no_grad()
+    def gcr_dps_sampling(self,
+               S,
+               batch_size,
+               shape,
+               conditioning=None,
+               y=None, 
+               H_hat=None,          
+               Sigma_inv=None,      
+               z_init=None,         
+               zeta=1.0,            
+               h_lr=0.01,           
+               mapper=None,         
+               inv_mapper=None,     
+               initial_noise_variance=None,
+               eta=0., 
+               verbose=True, 
+               unconditional_guidance_scale=1., 
+               unconditional_conditioning=None,
+               **kwargs
+               ):
+        
+        # --- Helper for Logging ---
+        def get_tensor_stats_str(tensor):
+            with torch.no_grad():
+                if torch.isnan(tensor).any():
+                    return "!!! CONTAINS NaN !!!"
+                mean = tensor.mean().item()
+                std = tensor.std().item()
+                max_val = tensor.abs().max().item()
+                norm = torch.norm(tensor).item()
+                return f"Mean: {mean:.4f} | Std: {std:.4f} | MaxAbs: {max_val:.4f} | Norm: {norm:.4f}"
+        # --------------------------
+
+        self.make_schedule(ddim_num_steps=S, ddim_eta=eta, verbose=verbose)
+        device = self.model.betas.device
+        
+        # --- Start Timestep Determination ---
+        if initial_noise_variance is not None:
+            if torch.is_tensor(initial_noise_variance):
+                est_noise_var = initial_noise_variance.mean().item()
+            else:
+                est_noise_var = initial_noise_variance
+        else:
+            avg_precision = Sigma_inv.abs().mean().item()
+            est_noise_var = 1.0 / (avg_precision + 1e-8)
+        
+        target_alpha = 1.0 / (1.0 + est_noise_var)
+        diffs = torch.abs(self.alphas_cumprod.to(device) - target_alpha)
+        start_t_ddpm = torch.argmin(diffs).item()
+        
+        ddim_timesteps_tensor = torch.from_numpy(self.ddim_timesteps).to(device)
+        abs_diff = torch.abs(ddim_timesteps_tensor - start_t_ddpm)
+        start_index = torch.argmin(abs_diff).item()
+        
+        actual_start_step = self.ddim_timesteps[start_index]
+        if verbose:
+            print(f"[GCR] Start: DDIM Step {start_index}/{S} (t={actual_start_step})")
+
+        # 2. Initialization
+        z_init = z_init.to(device)
+        img = z_init.clone()
+        
+        # [GCR] Initialize trainable Channel Estimate
+        if not torch.is_tensor(H_hat):
+             raise ValueError("H_hat must be a torch.Tensor for GCR.")
+        
+        current_H = H_hat.clone().detach().requires_grad_(True)
+
+        if verbose:
+            print(f"[Step Init] H_hat | {get_tensor_stats_str(current_H)}")
+
+        # 3. Sampling Loop
+        timesteps = self.ddim_timesteps[:start_index+1]
+        time_range = np.flip(timesteps)
+        iterator = tqdm(time_range, desc='GCR Sampling', total=len(time_range))
+
+        for i, step in enumerate(iterator):
+            index = np.where(self.ddim_timesteps == step)[0][0]
+            ts = torch.full((batch_size,), step, device=device, dtype=torch.long)
+
+            should_print = (i == 0) or (i % 10 == 0) or (step % 20 == 0)
+
+            # --- A. Gradient Computation (for z AND H) ---
+            with torch.enable_grad():
+                img_in = img.detach().requires_grad_(True)
+                
+                # UNet Prediction
+                if unconditional_conditioning is None or unconditional_guidance_scale == 1.:
+                    e_t = self.model.apply_model(img_in, ts, conditioning)
+                else:
+                    x_in = torch.cat([img_in] * 2)
+                    t_in = torch.cat([ts] * 2)
+                    c_in = torch.cat([unconditional_conditioning, conditioning])
+                    e_t_uncond, e_t = self.model.apply_model(x_in, t_in, c_in).chunk(2)
+                    e_t = e_t_uncond + unconditional_guidance_scale * (e_t - e_t_uncond)
+
+                # Tweedie Estimation
+                alphas = self.ddim_alphas
+                sqrt_one_minus_alphas = self.ddim_sqrt_one_minus_alphas
+                
+                a_t = torch.full((batch_size, 1, 1, 1), alphas[index], device=device)
+                sqrt_one_minus_at = torch.full((batch_size, 1, 1, 1), sqrt_one_minus_alphas[index], device=device)
+                
+                pred_z0 = (img_in - sqrt_one_minus_at * e_t) / a_t.sqrt()
+
+                # Physical Mapping
+                s_hat, _ = mapper(pred_z0) 
+                
+                # [GCR Core]
+                y_est = torch.matmul(current_H, s_hat)
+                
+                residual = y - y_est
+                weighted_res = residual * Sigma_inv 
+                
+                K = residual.shape[1] * residual.shape[2] 
+                loss_val = 0.5 * torch.sum(torch.conj(residual) * weighted_res).real / K
+                
+                grads = torch.autograd.grad(loss_val, [img_in, current_H])
+                guidance_grad = grads[0]
+                h_grad = grads[1]
+                # --- DEBUG PRINT START ---
+                with torch.no_grad():
+                    # 元のH_hatからの移動量を計測
+                    diff_norm = torch.linalg.norm(current_H - H_hat).item()
+                    h_grad_mag = torch.linalg.norm(h_grad).item()
+                    # 10ステップごとに表示、または最初の数ステップを表示
+                    if i < 5 or i % 20 == 0:
+                        print(f"[Step {step}] h_grad_norm: {h_grad_mag:.6f} | H_diff_from_init: {diff_norm:.6f}")
+                # --- DEBUG PRINT END ---
+                # --- Logging & TQDM Update ---
+                # 値を取得 (オーバーヘッド削減のため1回だけ呼ぶ)
+                current_loss = loss_val.item()
+                grad_norm = torch.linalg.norm(guidance_grad.reshape(batch_size, -1), dim=1).mean().item()
+                h_grad_norm = torch.linalg.norm(h_grad.reshape(batch_size, -1), dim=1).mean().item()
+
+                # TQDMのバーにLossと各勾配ノルムを表示
+                iterator.set_postfix(Loss=f"{current_loss:.4f}", z_grad=f"{grad_norm:.4f}", h_grad=f"{h_grad_norm:.4f}")
+
+                # 従来のデバッグプリント（残す）
+                if should_print and verbose:
+                     print(f"[Step {step}] Loss: {current_loss:.5f} | z_Grad: {grad_norm:.4f} | H_Grad: {h_grad_norm:.4f}")
+
+            # --- B. Update H (Channel Refinement) ---
+            # [Fix] Gradient Normalization for Stability
+            # 勾配の大きさ(Norm)で割ることで、SNRに依存しない一定の更新ステップを確保する
+            with torch.no_grad():
+                # 再計算を避けるため上で計算した h_grad_norm を使う手もあるが、
+                # バッチ平均ではなく全体のノルムで正規化したい場合があるのでここでは個別に計算
+                h_grad_norm_tensor = torch.linalg.norm(h_grad)
+                if h_grad_norm_tensor > 1e-8:
+                    # 正規化した勾配を使用 (方向だけ使う)
+                    norm_h_grad = h_grad / h_grad_norm_tensor
+                else:
+                    norm_h_grad = torch.zeros_like(h_grad)
+                
+                # 更新: Hはチャネル行列のスケール(約30)に対して、h_lrずつ動く
+                # h_lr=0.5 なら 毎回 0.5 ずつ修正される
+                current_H = current_H - h_lr * norm_h_grad
+                #current_H = current_H - h_lr * h_grad
+                #print(f"delta H = {h_lr * norm_h_grad} ")
+                current_H = current_H.detach().requires_grad_(True)
+
+            # --- C. Scaling & Clipping (for z) ---
+            max_timestep = self.ddim_timesteps[-1]
+            
+            current_zeta = zeta  # 固定値を使用
+
+            scaled_grad = guidance_grad * current_zeta
+            # Gradient Clipping for z
+            clip_val = 1.0
+            scaled_grad = torch.clamp(scaled_grad, min=-clip_val, max=clip_val)
+
+            # --- D. DDIM Update Step (for z) ---
+            with torch.no_grad():
+                alphas_prev = self.ddim_alphas_prev
+                sigmas = self.ddim_sigmas
+                a_prev = torch.full((batch_size, 1, 1, 1), alphas_prev[index], device=device)
+                sigma_t = torch.full((batch_size, 1, 1, 1), sigmas[index], device=device)
+                
+                dir_xt = (1. - a_prev - sigma_t**2).sqrt() * e_t
+                noise = sigma_t * noise_like(img.shape, device, False) * eta
+                img_prev_ddim = a_prev.sqrt() * pred_z0 + dir_xt + noise
+                
+                img = img_prev_ddim - scaled_grad
+                #print(f"scaled_grad of img = {scaled_grad}")
+                img = torch.clamp(img, min=-3.0, max=3.0)
+
+                if torch.isnan(img).any():
+                    print(f"!!! NAN DETECTED at Step {step} !!!")
+                    break 
+        return img, current_H
+    
+
+   
+    @torch.no_grad()
+    def gcr_dps_anchor_sampling(self,
+               S,
+               batch_size,
+               shape,
+               conditioning=None,
+               y=None, 
+               H_hat=None,          
+               Sigma_inv=None,      
+               z_init=None,         
+               zeta=1.0,            
+               h_lr=0.01,           
+               mapper=None,         
+               inv_mapper=None,     
+               initial_noise_variance=None,
+               eta=0., 
+               verbose=True, 
+               unconditional_guidance_scale=1., 
+               unconditional_conditioning=None,
+               scale_dc=1.0,      
+               scale_anchor=0.5,  
+               calib_ratio=0.3,   
+               # ▼▼▼ 評価・デバッグ用 ▼▼▼
+               H_true=None,       
+               z_gt=None,         
+               # ▲▲▲
+               **kwargs
+               ):
+        
+        # --- Helper: Logging ---
+        def get_tensor_stats_str(tensor):
+            with torch.no_grad():
+                if torch.isnan(tensor).any(): return "!!! CONTAINS NaN !!!"
+                return f"Mean: {tensor.mean().item():.4f} | Norm: {torch.norm(tensor).item():.4f}"
+
+        # --- Helper: MMSE Solver ---
+        def compute_mmse_anchor(y_batch, H_batch, noise_power_est):
+            B_local, r, t = H_batch.shape
+            H_herm = H_batch.mH
+            Gram = torch.matmul(H_herm, H_batch)
+            Reg = noise_power_est * torch.eye(t, device=H_batch.device).unsqueeze(0)
+            inv_mat = torch.inverse(Gram + Reg)
+            W_mmse = torch.matmul(inv_mat, H_herm)
+            return torch.matmul(W_mmse, y_batch)
+
+        # 1. Setup & Schedule
+        self.make_schedule(ddim_num_steps=S, ddim_eta=eta, verbose=False)
+        device = self.model.betas.device
+        
+        # 2. Noise Variance Est
+        if initial_noise_variance is not None:
+            if torch.is_tensor(initial_noise_variance):
+                est_noise_var = initial_noise_variance.mean().item()
+            else:
+                est_noise_var = initial_noise_variance
+        else:
+            avg_precision = Sigma_inv.abs().mean().item()
+            est_noise_var = 1.0 / (avg_precision + 1e-8)
+        
+        # 3. Initialization
+        z_init = z_init.to(device)
+        latent_shape = z_init.shape
+        B, C, H, W = z_init.shape
+        
+        # H_hat
+        if not torch.is_tensor(H_hat):
+             raise ValueError("H_hat must be a torch.Tensor for GCR.")
+        current_H = H_hat.clone().detach().requires_grad_(True)
+        img = z_init.clone()
+
+        # 履歴保存用リスト
+        H_history = []
+        H_history.append(current_H.detach().cpu().clone())
+
+        # Two-Stage Setup
+        s_calib = int(S * calib_ratio)
+        s_gen = S - s_calib
+        
+        phases = []
+        if s_calib > 0:
+            phases.append((s_calib, "Phase 1: Calib", True))
+        phases.append((s_gen, "Phase 2: Gen", False))
+
+        if verbose:
+            print(f"[Two-Stage GCR] Total={S} (Calib={s_calib}, Gen={s_gen})")
+            if H_true is not None:
+                err = torch.norm(current_H - H_true).item()
+                print(f"  > Initial H Error: {err:.4f}")
+
+        # Execution Loop
+        for phase_steps, phase_name, do_reset in phases:
+            if phase_steps <= 0: continue
+            
+            # 【重要】Phase 2 (do_reset=False) では H を更新しない (Freeze)
+            if do_reset:
+                # Phase 1: チャネル推定を積極的に行う
+                current_h_lr = h_lr
+                desc_str = f"{phase_name} (Train H)"
+            else:
+                # Phase 2: チャネルを固定して画像生成に専念
+                current_h_lr = 0.000001 
+                desc_str = f"{phase_name} (Freeze H)"
+
+            self.make_schedule(ddim_num_steps=phase_steps, ddim_eta=eta, verbose=False)
+            
+            target_alpha = 1.0 / (1.0 + est_noise_var)
+            diffs = torch.abs(self.alphas_cumprod.to(device) - target_alpha)
+            start_t_ddpm = torch.argmin(diffs).item()
+            ddim_timesteps_tensor = torch.from_numpy(self.ddim_timesteps).to(device)
+            abs_diff = torch.abs(ddim_timesteps_tensor - start_t_ddpm)
+            start_index = torch.argmin(abs_diff).item()
+            
+            subset_timesteps = self.ddim_timesteps[:start_index+1]
+            time_range = np.flip(subset_timesteps)
+            
+            iterator = tqdm(time_range, desc=desc_str, leave=True)
+            
+            for i, step in enumerate(iterator):
+                index = np.where(self.ddim_timesteps == step)[0][0]
+                ts = torch.full((batch_size,), step, device=device, dtype=torch.long)
+
+                # --- 1. U-Net Forward ---
+                with torch.enable_grad():
+                    img_in = img.detach().requires_grad_(True)
+                    if unconditional_conditioning is None or unconditional_guidance_scale == 1.:
+                        e_t = self.model.apply_model(img_in, ts, conditioning)
+                    else:
+                        x_in = torch.cat([img_in] * 2)
+                        t_in = torch.cat([ts] * 2)
+                        c_in = torch.cat([unconditional_conditioning, conditioning])
+                        e_t_uncond, e_t = self.model.apply_model(x_in, t_in, c_in).chunk(2)
+                        e_t = e_t_uncond + unconditional_guidance_scale * (e_t - e_t_uncond)
+
+                    alphas = self.ddim_alphas
+                    sqrt_one_minus_alphas = self.ddim_sqrt_one_minus_alphas
+                    a_t = torch.full((batch_size, 1, 1, 1), alphas[index], device=device)
+                    sqrt_one_minus_at = torch.full((batch_size, 1, 1, 1), sqrt_one_minus_alphas[index], device=device)
+                    pred_z0 = (img_in - sqrt_one_minus_at * e_t) / a_t.sqrt()
+                    s_hat, _ = mapper(pred_z0) 
+
+                # --- 2. Update H (GCR) ---
+                # Phase 2 (lr=0.0) のときは計算をスキップして劣化防止
+                if current_h_lr > 0.0:
+                    with torch.enable_grad():
+                        y_est = torch.matmul(current_H, s_hat.detach()) 
+                        residual = y - y_est
+                        weighted_res = residual * Sigma_inv 
+                        K = residual.shape[1] * residual.shape[2] 
+                        loss_h = 0.5 * torch.sum(torch.conj(residual) * weighted_res).real / K
+                        h_grad = torch.autograd.grad(loss_h, current_H)[0]
+
+                    with torch.no_grad():
+                        h_grad_norm_tensor = torch.linalg.norm(h_grad)
+                        if h_grad_norm_tensor > 1e-8:
+                            norm_h_grad = h_grad / h_grad_norm_tensor
+                        else:
+                            norm_h_grad = torch.zeros_like(h_grad)
+                        current_H = current_H - current_h_lr * norm_h_grad
+                        current_H = current_H.detach().requires_grad_(True)
+                
+                # 履歴保存 (少し間引いても良いが、詳細分析のため全て保存)
+                H_history.append(current_H.detach().cpu().clone())
+
+                # --- 3. Update z (Gradient Descent) ---
+                with torch.enable_grad():
+                    y_est_new = torch.matmul(current_H, s_hat) 
+                    residual_new = y - y_est_new
+                    weighted_res_new = residual_new * Sigma_inv
+                    K = residual_new.shape[1] * residual_new.shape[2]
+                    loss_dc = 0.5 * torch.sum(torch.conj(residual_new) * weighted_res_new).real / K
+
+                    s_anchor = compute_mmse_anchor(y, current_H.detach(), est_noise_var)
+                    z_anchor = inv_mapper(s_anchor, latent_shape).detach()
+                    loss_anchor = 0.5 * torch.nn.functional.mse_loss(pred_z0, z_anchor, reduction='sum') / (B * C * H * W)
+
+                    total_loss = (loss_dc * scale_dc) + (loss_anchor * scale_anchor)
+                    final_grad = torch.autograd.grad(total_loss, img_in)[0]
+
+                # --- 4. DDIM Step ---
+                scaled_grad = final_grad * zeta
+                scaled_grad = torch.clamp(scaled_grad, min=-1.0, max=1.0)
+
+                with torch.no_grad():
+                    alphas_prev = self.ddim_alphas_prev
+                    sigmas = self.ddim_sigmas
+                    a_prev = torch.full((batch_size, 1, 1, 1), alphas_prev[index], device=device)
+                    sigma_t = torch.full((batch_size, 1, 1, 1), sigmas[index], device=device)
+                    
+                    dir_xt = (1. - a_prev - sigma_t**2).sqrt() * e_t
+                    noise = sigma_t * noise_like(img.shape, device, False) * eta
+                    img_prev_ddim = a_prev.sqrt() * pred_z0 + dir_xt + noise
+                    
+                    img = img_prev_ddim - scaled_grad
+                    img = torch.clamp(img, min=-3.0, max=3.0)
+
+                    # --- Logging (tqdm update) ---
+                    if verbose and (i % 1 == 0 or i == len(time_range)-1):
+                        logs = {}
+                        logs["L_dc"] = f"{loss_dc.item():.2f}"
+                        if H_true is not None:
+                            h_err = torch.norm(current_H - H_true).item()
+                            logs["H_err"] = f"{h_err:.3f}"
+                        if z_gt is not None:
+                            mse_latent = torch.mean((pred_z0[0] - z_gt[0])**2).item()
+                            if mse_latent > 1e-10:
+                                psnr_latent = -10 * np.log10(mse_latent)
+                                logs["PSNR"] = f"{psnr_latent:.1f}"
+                            else:
+                                logs["PSNR"] = "Inf"
+                        iterator.set_postfix(logs)
+
+            # === End of Phase Processing ===
+            if do_reset:
+                if verbose: 
+                    tqdm.write(f"--> [Smart Reset] Re-calculating MMSE...")
+                with torch.no_grad():
+                    s_refined = compute_mmse_anchor(y, current_H.detach(), est_noise_var)
+                    z_refined = inv_mapper(s_refined, latent_shape)
+                    z_refined_mean = z_refined.mean()
+                    z_refined_std = z_refined.std()
+                    z_init_mean = z_init.mean()
+                    z_init_std = z_init.std()
+                    img = (z_refined - z_refined_mean) / (z_refined_std + 1e-8) * z_init_std + z_init_mean
+                    img = img.to(device)
+
+        return img, current_H, H_history
+    

@@ -435,7 +435,7 @@ class Encoder(nn.Module):
     def forward(self, x):
         # timestep embedding
         temb = None
-        print(f"Encoder, forward@@@@@@@@@@@@@@@")
+        #print(f"Encoder, forward@@@@@@@@@@@@@@@")
         # downsampling
         hs = [self.conv_in(x)]
         for i_level in range(self.num_resolutions):

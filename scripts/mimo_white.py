@@ -13,7 +13,6 @@ from ldm.models.diffusion.ddim import DDIMSampler
 from ldm.models.diffusion.plms import PLMSSampler
 from torchvision import utils as vutil
 import lpips
-import matplotlib.pyplot as plt
 
 # ==========================================
 #  Helper Classes & Functions
@@ -25,43 +24,6 @@ class MatrixOperator:
 
     def __mul__(self, other):
         return torch.matmul(self.tensor, other)
-
-def plot_channel_evolution(H_true, H_init, H_final, save_path):
-    """
-    チャネル推定の可視化。
-    Proposed(Standard DPS)では H_init と H_final は完全に一致しますが、
-    GCRとの比較用ベースラインとして保存します。
-    """
-    # バッチの先頭[0]を取得し、CPUへ移動・平坦化
-    h_gt = H_true[0].detach().cpu().numpy().flatten()
-    h_ls = H_init[0].detach().cpu().numpy().flatten()
-    h_final = H_final[0].detach().cpu().numpy().flatten()
-
-    plt.figure(figsize=(6, 6))
-    
-    # 1. Ground Truth (x, Red)
-    plt.scatter(h_gt.real, h_gt.imag, c='red', marker='x', s=120, linewidths=2, label='Ground Truth')
-    
-    # 2. Initial LS Estimate (^, Blue)
-    plt.scatter(h_ls.real, h_ls.imag, c='blue', marker='^', s=100, label='Initial LS')
-    
-    # 3. Final Estimate (o, Green) - ProposedではLSと同じ場所に重なる
-    plt.scatter(h_final.real, h_final.imag, c='none', edgecolors='green', marker='o', s=120, linewidths=2, label='Final Estimate')
-
-    # レイアウト調整
-    plt.axhline(0, color='black', linewidth=0.5, alpha=0.5)
-    plt.axvline(0, color='black', linewidth=0.5, alpha=0.5)
-    plt.grid(True, linestyle='--', alpha=0.7)
-    plt.legend()
-    plt.title("Channel Estimation (Proposed: Fixed)")
-    plt.xlabel("Real Part")
-    plt.ylabel("Imaginary Part")
-    
-    # 保存
-    plt.tight_layout()
-    plt.savefig(save_path, dpi=300)
-    plt.close()
-    print(f"Saved channel plot to {save_path}")
 
 def seed_everything(seed):
     torch.manual_seed(seed)
@@ -169,9 +131,9 @@ if __name__ == "__main__":
     
     P_power = 1.0 
     Perfect_Estimate = False
-    
-    # Use consistent naming for symmetric experiments
-    base_experiment_name = f"MIMO_Proposed_LS/t={t_mimo}_r={r_mimo}"
+    # python -m scripts.mimo_white > output_dps_whitened.txt
+    # Rename Experiment to "Proposed_Whitened"
+    base_experiment_name = f"MIMO_Proposed_Whitened/t={t_mimo}_r={r_mimo}"
     
     parser.add_argument("--input_path", type=str, default="input_img")
     parser.add_argument("--outdir", type=str, default=f"outputs/{base_experiment_name}")
@@ -180,7 +142,7 @@ if __name__ == "__main__":
     
     parser.add_argument("--ddim_steps", type=int, default=200)
     parser.add_argument("--scale", type=float, default=5.0)
-    parser.add_argument("--dps_scale", type=float, default=0.3)
+    parser.add_argument("--dps_scale", type=float, default=0.1)
     parser.add_argument("--seed", type=int, default=42, help="random seed for reproducibility")
     
     opt = parser.parse_args()
@@ -190,22 +152,13 @@ if __name__ == "__main__":
 
     # Directory Setup
     suffix = "perfect" if Perfect_Estimate else "estimated"
-    base_out_path = f"outputs/{base_experiment_name}"
-
-    # Image output
     opt.outdir = os.path.join(opt.outdir, suffix)
     opt.nosample_outdir = os.path.join(opt.nosample_outdir, suffix)
-    
-    # Channel Plot output (Matched to GCR structure)
-    channel_outdir = os.path.join(base_out_path, "channel_plots", suffix)
 
     os.makedirs(opt.outdir, exist_ok=True)
     os.makedirs(opt.sentimgdir, exist_ok=True)
     os.makedirs(opt.nosample_outdir, exist_ok=True)
-    os.makedirs(channel_outdir, exist_ok=True)
-    
     remove_png(opt.outdir)
-    remove_png(channel_outdir)
 
     # Load Model
     config = OmegaConf.load("configs/latent-diffusion/txt2img-1p4B-eval.yaml")
@@ -282,7 +235,7 @@ if __name__ == "__main__":
         
         Y = torch.matmul(H, s_0) + W
         
-        # D. MMSE Initialization
+        # D. MMSE Initialization & Pre-whitening
         eff_noise = sigma_e2 + noise_variance
         
         H_hat_H = H_hat.mH
@@ -295,28 +248,46 @@ if __name__ == "__main__":
         # Equalization
         s_mmse = torch.matmul(W_mmse, Y) # (B, t, L)
         
-        # Save MMSE Result
-        z_init_real = mimo_streams_to_latent(s_mmse, latent_shape)
+        # --- [NEW] Pre-whitening / Decorrelation Step ---
+        # 1. Calculate Error Covariance: R_post = sigma_eff^2 * (W_mmse @ W_mmse^H)
+        R_post = eff_noise * torch.matmul(W_mmse, W_mmse.mH) # (B, t, t)
+        
+        # 2. Eigendecomposition to find Whitening Matrix
+        # R = V @ Lambda @ V^H
+        # We use U = V^H as the decorrelation matrix.
+        L_eig, V_eig = torch.linalg.eigh(R_post) # L: eigenvalues (real), V: eigenvectors
+        
+        # Whitening Matrix (Decorrelation only to preserve signal power for Diffusion)
+        # Q_white = V^H
+        Q_white = V_eig.mH 
+        
+        # 3. Apply Whitening to MMSE output
+        s_mmse_whitened = torch.matmul(Q_white, s_mmse)
+        
+        # 4. Save Whitened MMSE for visualization (Optional, mapped back blindly)
+        z_init_real = mimo_streams_to_latent(s_mmse_whitened, latent_shape)
         z_init_mmse = z_init_real * np.sqrt(2.0)
         
         z_nosample = z_init_mmse * (torch.sqrt(z_var) + eps) + z_mean
         rec_nosample = model.decode_first_stage(z_nosample)
-        save_img_individually(rec_nosample, f"{opt.nosample_outdir}/mmse_snr{snr}.png")
+        save_img_individually(rec_nosample, f"{opt.nosample_outdir}/mmse_white_snr{snr}.png")
         
-        # E. Prepare for Proposed Method (DPS)
+        # E. Prepare for Proposed Method (DPS) with Whitening
         
-        # [Match GCR] Calculate Post-MMSE Noise Variance for timestep
-        W_W_H = torch.matmul(W_mmse, W_mmse.mH) # (B, t, t)
-        noise_power_factor = W_W_H.diagonal(dim1=-2, dim2=-1).real.mean()
-        post_mmse_noise_var = eff_noise * noise_power_factor
+        # Calculate Post-MMSE Noise Variance in the WHITENED domain
+        # In whitened domain, covariance is diagonal matrix Lambda (L_eig).
+        # We take the mean of eigenvalues as the effective scalar noise level.
+        post_mmse_noise_var = L_eig.mean().item()
         
-        # [Match GCR] Guidance Variance
+        # Update Effective Channel for Guidance
+        # Y = H s + n = H (V s_white) + n
+        # So effective channel H' = H @ V
+        # Using H_hat for guidance
+        H_prime = torch.matmul(H_hat, V_eig)
+        H_prime_wrapper = MatrixOperator(H_prime)
+        
         eff_var_scalar = noise_variance + sigma_e2
         Sigma_inv = 1.0 / eff_var_scalar
-        
-        # H_hat for Proposed (Fixed)
-        # Note: In proposed, we usually pass H_hat directly or wrapped. 
-        # Here we pass it as a tensor to match the updated method signature.
         
         def forward_mapper(z):
             return latent_to_mimo_streams(z / np.sqrt(2.0), t_mimo)
@@ -331,24 +302,21 @@ if __name__ == "__main__":
         
         cond = model.get_learned_conditioning(batch_size * [""])
 
-        # [Match GCR] Adaptive Guidance Scale
+        # Adaptive Guidance Scale
         current_zeta = opt.dps_scale
         if snr < 5:
             current_zeta *= 0.1
-            print(f"[Info] Low SNR ({snr}dB): Reducing Zeta to {current_zeta:.4f}")
-        
-        print(f"Starting Proposed Sampling... Steps={opt.ddim_steps}, Zeta={current_zeta}")
-        
+            
         # Call Proposed Sampling
-        # Returns tuple (img, H_final) to be symmetric with GCR
-        samples, H_final_est = sampler.proposed_dps_sampling(
+        # Note: The sampler operates in the "Whitened Latent Space"
+        samples = sampler.proposed_dps_sampling(
             S=opt.ddim_steps,
             batch_size=batch_size,
             shape=z.shape[1:4], 
             conditioning=cond,
             
             y=Y,                 
-            H_hat=H_hat, 
+            H_hat=H_prime_wrapper, # [Update] Use H' = H*V
             Sigma_inv=torch.tensor(Sigma_inv, device=device),
             z_init=z_init_normalized, 
             zeta=current_zeta,
@@ -356,22 +324,30 @@ if __name__ == "__main__":
             mapper=forward_mapper,
             inv_mapper=backward_mapper,
             
-            initial_noise_variance=post_mmse_noise_var,
+            initial_noise_variance=post_mmse_noise_var, # [Update] Use decorrelated variance
             
             eta=0.0,
             verbose=False
         )
         
-        # --- [Match GCR] Plot Channel Evolution ---
-        # Proposed法ではチャネル更新を行わないため、H_hat(Initial)とH_final_estは同じ値になりますが、
-        # GCRの結果と比較するための「ベースライン（初期推定値）」の可視化として保存します。
-        plot_path = os.path.join(channel_outdir, f"channel_plot_snr{snr}.png")
-        plot_channel_evolution(H, H_hat, H_final_est, plot_path)
-        # ------------------------------------
+        # --- [NEW] Inverse Whitening Step ---
+        # The output 'samples' is in the whitened domain z'.
+        # We need to map z' -> s', apply V, then s -> z.
+        
+        # 1. Map to Whitened Streams
+        s_restored_whitened = latent_to_mimo_streams(samples / np.sqrt(2.0), t_mimo)[0]
+        
+        # 2. Apply Inverse Whitening (V)
+        # s = V @ s'
+        s_restored = torch.matmul(V_eig, s_restored_whitened)
+        
+        # 3. Map back to Latent
+        z_restored_real = mimo_streams_to_latent(s_restored, latent_shape)
+        z_restored = z_restored_real * np.sqrt(2.0)
         
         # Denormalize & Decode
-        z_restored = samples * (torch.sqrt(z_var) + eps) + z_mean
-        rec_proposed = model.decode_first_stage(z_restored)
+        z_final = z_restored * (torch.sqrt(z_var) + eps) + z_mean
+        rec_proposed = model.decode_first_stage(z_final)
         
         save_img_individually(rec_proposed, f"{opt.outdir}/proposed_snr{snr}.png")
         print(f"Saved result for SNR {snr}")

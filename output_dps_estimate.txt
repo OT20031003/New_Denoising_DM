@@ -13,149 +13,96 @@ making attention of type 'vanilla' with 512 in_channels
 ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
 ldm/modules/diffusionmodules/model.py, Resnet in_channels != out_channels
 Saved images to ./sentimg/
-Encoder, forward@@@@@@@@@@@@@@@
-autoencoder.py, h = torch.Size([20, 8, 32, 32])
-autoencoder.py , moments = torch.Size([20, 8, 32, 32])
 MIMO Streams: 2x1024 complex symbols
 
 ======== SNR = -5 dB ========
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/estimated/
-[Info] Low SNR (-5dB): Reducing Zeta to 0.0100
-Starting Proposed Sampling... Steps=200, Zeta=0.010000000000000002
+[Info] Low SNR (-5dB): Reducing Zeta to 0.0300
+Starting Proposed Sampling... Steps=200, Zeta=0.03
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.183984
-[Proposed] Start: DDIM Step 27/200 (t=136) | Target Alpha: 0.8446
-[Step Init] img (x_t)  | Mean: 0.0143 | Std: 1.0107 | MaxAbs: 6.8951 | Norm: 289.3042
-[Step 136] Loss: 3.20530 | ScoreNorm: 52.3740 | GradNorm: 0.0101 | Mean: 0.0143 | Std: 1.0107 | MaxAbs: 6.8951 | Norm: 289.3042
-[Step 86] Loss: 3.53488 | ScoreNorm: 44.9598 | GradNorm: 0.0105 | Mean: 0.0142 | Std: 0.9744 | MaxAbs: 3.0000 | Norm: 278.9101
-[Step 36] Loss: 3.91137 | ScoreNorm: 33.8995 | GradNorm: 0.0114 | Mean: 0.0141 | Std: 0.9447 | MaxAbs: 3.0000 | Norm: 270.4100
+Saved channel plot to outputs/MIMO_Proposed_LS/t=2_r=2/channel_plots/estimated/channel_plot_snr-5.png
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/estimated/
 Saved result for SNR -5
 
 ======== SNR = -2 dB ========
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/estimated/
-[Info] Low SNR (-2dB): Reducing Zeta to 0.0100
-Starting Proposed Sampling... Steps=200, Zeta=0.010000000000000002
+[Info] Low SNR (-2dB): Reducing Zeta to 0.0300
+Starting Proposed Sampling... Steps=200, Zeta=0.03
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.160964
-[Proposed] Start: DDIM Step 25/200 (t=126) | Target Alpha: 0.8614
-[Step Init] img (x_t)  | Mean: -0.0144 | Std: 1.0112 | MaxAbs: 9.7022 | Norm: 289.4467
-[Step 126] Loss: 5.32692 | ScoreNorm: 50.6352 | GradNorm: 0.0153 | Mean: -0.0144 | Std: 1.0112 | MaxAbs: 9.7022 | Norm: 289.4467
-[Step 76] Loss: 5.74406 | ScoreNorm: 42.5707 | GradNorm: 0.0158 | Mean: -0.0147 | Std: 0.9756 | MaxAbs: 3.0000 | Norm: 279.2674
-[Step 26] Loss: 6.22970 | ScoreNorm: 29.8141 | GradNorm: 0.0171 | Mean: -0.0152 | Std: 0.9484 | MaxAbs: 3.0000 | Norm: 271.4954
+Saved channel plot to outputs/MIMO_Proposed_LS/t=2_r=2/channel_plots/estimated/channel_plot_snr-2.png
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/estimated/
 Saved result for SNR -2
 
 ======== SNR = 1 dB ========
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/estimated/
-[Info] Low SNR (1dB): Reducing Zeta to 0.0100
-Starting Proposed Sampling... Steps=200, Zeta=0.010000000000000002
+[Info] Low SNR (1dB): Reducing Zeta to 0.0300
+Starting Proposed Sampling... Steps=200, Zeta=0.03
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.183258
-[Proposed] Start: DDIM Step 27/200 (t=136) | Target Alpha: 0.8451
-[Step Init] img (x_t)  | Mean: 0.0420 | Std: 1.0128 | MaxAbs: 8.5031 | Norm: 290.1314
-[Step 136] Loss: 4.48139 | ScoreNorm: 51.0060 | GradNorm: 0.0175 | Mean: 0.0420 | Std: 1.0128 | MaxAbs: 8.5031 | Norm: 290.1314
-[Step 86] Loss: 4.65872 | ScoreNorm: 43.2881 | GradNorm: 0.0174 | Mean: 0.0422 | Std: 0.9783 | MaxAbs: 3.0000 | Norm: 280.2548
-[Step 36] Loss: 4.97134 | ScoreNorm: 32.7134 | GradNorm: 0.0180 | Mean: 0.0432 | Std: 0.9563 | MaxAbs: 3.0000 | Norm: 273.9979
+Saved channel plot to outputs/MIMO_Proposed_LS/t=2_r=2/channel_plots/estimated/channel_plot_snr1.png
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/estimated/
 Saved result for SNR 1
 
 ======== SNR = 4 dB ========
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/estimated/
-[Info] Low SNR (4dB): Reducing Zeta to 0.0100
-Starting Proposed Sampling... Steps=200, Zeta=0.010000000000000002
+[Info] Low SNR (4dB): Reducing Zeta to 0.0300
+Starting Proposed Sampling... Steps=200, Zeta=0.03
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.177957
-[Proposed] Start: DDIM Step 27/200 (t=136) | Target Alpha: 0.8489
-[Step Init] img (x_t)  | Mean: 0.0230 | Std: 1.0248 | MaxAbs: 10.8784 | Norm: 293.3949
-[Step 136] Loss: 5.05143 | ScoreNorm: 50.6873 | GradNorm: 0.0186 | Mean: 0.0230 | Std: 1.0248 | MaxAbs: 10.8784 | Norm: 293.3949
-[Step 86] Loss: 5.06438 | ScoreNorm: 43.9104 | GradNorm: 0.0179 | Mean: 0.0231 | Std: 0.9932 | MaxAbs: 3.0000 | Norm: 284.3339
-[Step 36] Loss: 5.19820 | ScoreNorm: 34.4564 | GradNorm: 0.0178 | Mean: 0.0239 | Std: 0.9783 | MaxAbs: 3.0000 | Norm: 280.0788
+Saved channel plot to outputs/MIMO_Proposed_LS/t=2_r=2/channel_plots/estimated/channel_plot_snr4.png
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/estimated/
 Saved result for SNR 4
 
 ======== SNR = 7 dB ========
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/estimated/
-Starting Proposed Sampling... Steps=200, Zeta=0.1
+Starting Proposed Sampling... Steps=200, Zeta=0.3
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.181046
-[Proposed] Start: DDIM Step 27/200 (t=136) | Target Alpha: 0.8467
-[Step Init] img (x_t)  | Mean: 0.0470 | Std: 1.0205 | MaxAbs: 10.8640 | Norm: 292.3874
-[Step 136] Loss: 5.07333 | ScoreNorm: 52.2524 | GradNorm: 0.0209 | Mean: 0.0470 | Std: 1.0205 | MaxAbs: 10.8640 | Norm: 292.3874
-[Step 86] Loss: 5.05071 | ScoreNorm: 46.0031 | GradNorm: 0.0198 | Mean: 0.0478 | Std: 0.9888 | MaxAbs: 3.0000 | Norm: 283.3271
-[Step 36] Loss: 4.97203 | ScoreNorm: 37.4087 | GradNorm: 0.0192 | Mean: 0.0487 | Std: 0.9750 | MaxAbs: 3.0000 | Norm: 279.4127
+Saved channel plot to outputs/MIMO_Proposed_LS/t=2_r=2/channel_plots/estimated/channel_plot_snr7.png
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/estimated/
 Saved result for SNR 7
 
 ======== SNR = 10 dB ========
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/estimated/
-Starting Proposed Sampling... Steps=200, Zeta=0.1
+Starting Proposed Sampling... Steps=200, Zeta=0.3
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.154334
-[Proposed] Start: DDIM Step 24/200 (t=121) | Target Alpha: 0.8663
-[Step Init] img (x_t)  | Mean: -0.0330 | Std: 1.0154 | MaxAbs: 16.4765 | Norm: 290.7788
-[Step 121] Loss: 8.08359 | ScoreNorm: 52.3124 | GradNorm: 0.0326 | Mean: -0.0330 | Std: 1.0154 | MaxAbs: 16.4765 | Norm: 290.7788
-[Step 71] Loss: 8.21716 | ScoreNorm: 45.2713 | GradNorm: 0.0319 | Mean: -0.0338 | Std: 0.9742 | MaxAbs: 3.0000 | Norm: 279.0060
-[Step 21] Loss: 8.26175 | ScoreNorm: 34.1031 | GradNorm: 0.0322 | Mean: -0.0346 | Std: 0.9584 | MaxAbs: 3.0000 | Norm: 274.4788
+Saved channel plot to outputs/MIMO_Proposed_LS/t=2_r=2/channel_plots/estimated/channel_plot_snr10.png
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/estimated/
 Saved result for SNR 10
 
 ======== SNR = 13 dB ========
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/estimated/
-Starting Proposed Sampling... Steps=200, Zeta=0.1
+Starting Proposed Sampling... Steps=200, Zeta=0.3
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.131326
-[Proposed] Start: DDIM Step 21/200 (t=106) | Target Alpha: 0.8839
-[Step Init] img (x_t)  | Mean: 0.0335 | Std: 1.0074 | MaxAbs: 10.7292 | Norm: 288.4853
-[Step 106] Loss: 9.27420 | ScoreNorm: 51.3488 | GradNorm: 0.0420 | Mean: 0.0335 | Std: 1.0074 | MaxAbs: 10.7292 | Norm: 288.4853
-[Step 56] Loss: 9.40156 | ScoreNorm: 44.9218 | GradNorm: 0.0417 | Mean: 0.0325 | Std: 0.9793 | MaxAbs: 3.0000 | Norm: 280.4454
-[Step 6] Loss: 9.18586 | ScoreNorm: 27.6590 | GradNorm: 0.0424 | Mean: 0.0328 | Std: 0.9633 | MaxAbs: 3.0000 | Norm: 275.8717
+Saved channel plot to outputs/MIMO_Proposed_LS/t=2_r=2/channel_plots/estimated/channel_plot_snr13.png
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/estimated/
 Saved result for SNR 13
 
 ======== SNR = 16 dB ========
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/estimated/
-Starting Proposed Sampling... Steps=200, Zeta=0.1
+Starting Proposed Sampling... Steps=200, Zeta=0.3
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.111946
-[Proposed] Start: DDIM Step 19/200 (t=96) | Target Alpha: 0.8993
-[Step Init] img (x_t)  | Mean: 0.0532 | Std: 1.0110 | MaxAbs: 14.8884 | Norm: 289.7568
-[Step 96] Loss: 14.52209 | ScoreNorm: 48.5824 | GradNorm: 0.0853 | Mean: 0.0532 | Std: 1.0110 | MaxAbs: 14.8884 | Norm: 289.7568
-[Step 46] Loss: 14.81615 | ScoreNorm: 41.8462 | GradNorm: 0.0875 | Mean: 0.0509 | Std: 0.9802 | MaxAbs: 3.0000 | Norm: 280.9310
+Saved channel plot to outputs/MIMO_Proposed_LS/t=2_r=2/channel_plots/estimated/channel_plot_snr16.png
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/estimated/
 Saved result for SNR 16
 
 ======== SNR = 19 dB ========
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/estimated/
-Starting Proposed Sampling... Steps=200, Zeta=0.1
+Starting Proposed Sampling... Steps=200, Zeta=0.3
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.079296
-[Proposed] Start: DDIM Step 14/200 (t=71) | Target Alpha: 0.9265
-[Step Init] img (x_t)  | Mean: 0.0383 | Std: 1.0036 | MaxAbs: 9.3677 | Norm: 287.4667
-[Step 71] Loss: 13.57953 | ScoreNorm: 45.5356 | GradNorm: 0.0868 | Mean: 0.0383 | Std: 1.0036 | MaxAbs: 9.3677 | Norm: 287.4667
-[Step 21] Loss: 13.64631 | ScoreNorm: 36.3501 | GradNorm: 0.0929 | Mean: 0.0365 | Std: 0.9761 | MaxAbs: 3.0000 | Norm: 279.5755
+Saved channel plot to outputs/MIMO_Proposed_LS/t=2_r=2/channel_plots/estimated/channel_plot_snr19.png
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/estimated/
 Saved result for SNR 19
 
 ======== SNR = 22 dB ========
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/estimated/
-Starting Proposed Sampling... Steps=200, Zeta=0.1
+Starting Proposed Sampling... Steps=200, Zeta=0.3
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.066896
-[Proposed] Start: DDIM Step 12/200 (t=61) | Target Alpha: 0.9373
-[Step Init] img (x_t)  | Mean: 0.0360 | Std: 1.0061 | MaxAbs: 14.2030 | Norm: 288.1477
-[Step 61] Loss: 18.09213 | ScoreNorm: 44.9201 | GradNorm: 0.1649 | Mean: 0.0360 | Std: 1.0061 | MaxAbs: 14.2030 | Norm: 288.1477
-[Step 11] Loss: 19.36645 | ScoreNorm: 31.8087 | GradNorm: 0.1809 | Mean: 0.0363 | Std: 0.9735 | MaxAbs: 3.0000 | Norm: 278.8358
+Saved channel plot to outputs/MIMO_Proposed_LS/t=2_r=2/channel_plots/estimated/channel_plot_snr22.png
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/estimated/
 Saved result for SNR 22
 
 ======== SNR = 25 dB ========
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/nosample/estimated/
-Starting Proposed Sampling... Steps=200, Zeta=0.1
+Starting Proposed Sampling... Steps=200, Zeta=0.3
 ldm/modules/diffusionmodules/util.py, make_ddim_timsteps ddim_discr_method = uniform
-[Proposed] Using provided initial_noise_variance: 0.029473
-[Proposed] Start: DDIM Step 6/200 (t=31) | Target Alpha: 0.9714
-[Step Init] img (x_t)  | Mean: -0.0114 | Std: 1.0019 | MaxAbs: 9.8362 | Norm: 286.7765
-[Step 31] Loss: 14.91593 | ScoreNorm: 39.9404 | GradNorm: 0.2056 | Mean: -0.0114 | Std: 1.0019 | MaxAbs: 9.8362 | Norm: 286.7765
+Saved channel plot to outputs/MIMO_Proposed_LS/t=2_r=2/channel_plots/estimated/channel_plot_snr25.png
 Saved images to outputs/MIMO_Proposed_LS/t=2_r=2/estimated/
 Saved result for SNR 25

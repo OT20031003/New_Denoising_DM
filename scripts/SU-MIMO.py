@@ -259,6 +259,7 @@ if __name__ == "__main__":
         default=1,
         help="intermediate path"
     )
+    
     opt = parser.parse_args()
     if opt.intermediate_path != None:
         os.makedirs(opt.intermediate_path, exist_ok=True)
